@@ -35,5 +35,5 @@ The skateboard is based on an implementation for the equity markets and principa
 
 # Stack
 - React Client
-- Rails API
+- Rails API (https://github.com/kylewstewart/IOI-Match-API)
 - Websockets
