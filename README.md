@@ -2,8 +2,8 @@
 
 IOI Match is a simple matching engine that makes it safer for principals to reveal preferences to an agent.
 
-The matching engine accomplishes this with two main design features:
-- Anonymous pre-match
+The matching engine has two main design features:
+- Anonymous pre-matching
 - Reputation Incentives
 
 The steps are:
@@ -20,3 +20,13 @@ Incentives
 - Agents are incentivized to sponsor principals who are willing to transact or risk not be selected as a preferred broker.
 - Principals are incentivized to only enter IOIs where they are willing to transact or risk not be sponsored.
 - Satisfaction rankings reward agents for acting in the best interest of principals in situations where that might mean not transacting.
+
+# Skateboard
+
+The skateboard will focus on building out the functional features, while many administrative feature will be added to later versions.
+
+The skateboard is based on an implementation for the equity markets and principals will be referred to as Investment Advisors and agents will be Broker Dealers.
+
+Mockups
+
+(http://ibb.co/f69WA5)
