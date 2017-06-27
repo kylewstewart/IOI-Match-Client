@@ -27,6 +27,8 @@ The skateboard will focus on building out the functional features, while many ad
 
 The skateboard is based on an implementation for the equity markets and principals will be referred to as Investment Advisors and agents will be Broker Dealers.
 
-Mockups
+# Mockups
 
 ![alt text](http://preview.ibb.co/hmT2Hk/Login_Page.png)
+![alt text](http://preview.ibb.co/fQjOq5/Broker_s_Page.png)
+![alt text](http://preview.ibb.co/mdLeV5/Investment_Advisors_Page.png)
