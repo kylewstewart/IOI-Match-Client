@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
+import { Container, Grid } from 'semantic-ui-react'
+
 import './App.css'
 import PrincipalsPage from './containers/PrincipalsPage'
+import Logo from './Logo'
+
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <PrincipalsPage />
-      </div>
-    );
+      <Container>
+        <Grid >
+          <Grid.Row></Grid.Row>
+          <Grid.Row>
+            <Logo />
+          </Grid.Row>
+          <Grid.Row>
+            <PrincipalsPage />
+          </Grid.Row>
+        </Grid>
+      </Container>
+    )
   }
 }
 

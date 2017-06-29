@@ -1,38 +1,42 @@
 import React, { Component } from 'react'
 import { Adaptors } from '../Adaptors/index'
 import IOIList from '../IOIList'
+import SponsorsList from '../SponsorsList'
 
 class PrincipalsPage extends Component {
   constructor(){
     super()
     this.state = {
       IOIs: [],
+      sponsors: [],
       principal_id: 1
     }
   }
 
   componentDidMount(){
     this.getIOIs(this.state.principal_id)
+    this.getSponsors(this.state.principal_id)
   }
 
-  getIOIs(id) {
-    Adaptors.IOIs(id).then( IOIs =>
-      this.setState({ IOIs: IOIs}))
+  getIOIs(principal_id) {
+    Adaptors.IOIs(principal_id)
+    .then(IOIs =>this.setState({IOIs}))
+  }
 
+  getSponsors(principal_id) {
+    Adaptors.Sponsors(principal_id)
+      .then(sponsors => this.setState({sponsors}))
   }
 
   render() {
-    const IOIs = this.state.IOIs
-
     return (
       <div>
-        <IOIList IOIs={IOIs} />
-      </div>
+       <IOIList IOIs={this.state.IOIs} />
+       <SponsorsList sponsors={this.state.sponsors} />
 
+      </div>
     )
   }
 
-
 }
-
 export default PrincipalsPage
