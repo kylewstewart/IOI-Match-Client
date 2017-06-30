@@ -1,25 +1,20 @@
 
 import React, { Component } from 'react'
-import { Header, Segment, List, Dropdown, Table } from 'semantic-ui-react'
+import { Header, Segment, List, Dropdown, Table, Flag } from 'semantic-ui-react'
 
 class IOIList extends Component {
   constructor(){
     super()
     this.state = {
       side: 'All',
-      active: 'All'
+      status: 'All',
+      country: 'All'
     }
-    this.handleSideChange = this.handleSideChange.bind(this)
-    this.handleActiveChange = this.handleActiveChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSideChange(e, obj){
-    this.setState({side: obj.value})
-    console.log(obj)
-  }
-
-  handleActiveChange(e, obj){
-    this.setState({active: obj.value})
+  handleChange(e, {name, value}){
+    this.setState({[name]: value})
   }
 
   filterBySide(IOIs){
@@ -30,16 +25,16 @@ class IOIList extends Component {
     }
   }
 
-  filterByActive(IOIs){
-    if(this.state.active !=='All'){
-      return IOIs.filter(IOI => this.state.active === IOI.active)
+  filterByStatus(IOIs){
+    if(this.state.status !=='All'){
+      return IOIs.filter(IOI => this.state.status === IOI.active)
     } else {
       return IOIs
     }
   }
 
   getIOIs(){
-    return this.filterByActive(this.filterBySide(this.props.IOIs))
+    return this.filterByStatus(this.filterBySide(this.props.IOIs))
   }
 
   getIOINames(){
@@ -49,34 +44,48 @@ class IOIList extends Component {
 
   render() {
     const side = this.state.side
-    const active = this.state.active
-    const IOIs = this.getIOINames()
+    const status = this.state.status
+    const IOIs = this.getIOIs()
     const sideOptions = [
       {key: 'Buy', value: 'Buy', text: 'Buy'},
       {key: 'Sell', value: 'Sell', text: 'Sell'},
       {key: 'All', value: 'All', text: 'All'},
     ]
-    const activeOptions = [
+    const statusOptions = [
       {key: 'Active', value: 'Active', text: 'Active'},
       {key: 'Expired', value: 'Expired', text: 'Expired'},
       {key: 'All', value: 'All', text: 'All'},
     ]
+    const countryOptions = [
+      { key: 'US', value: 'US', flag: 'us', text: 'US'}
+    ]
 
     return (
-    <Segment.Group>
+    <Segment.Group compact>
       <Segment>
         <Header textAlign='centered'>
-          Your IOIs
+          IOIs
         </Header>
       </Segment>
-      <Segment textAlign='centered'>
-        <Dropdown icon='filter' labeled floating button className='icon'
-          options={sideOptions} placeholder='Side' onChange={this.handleSideChange} />
-        <Dropdown icon='filter' labeled floating button className='icon'
-          options={activeOptions} placeholder='Status' onChange={this.handleActiveChange} />
+      <Segment>
+        <Dropdown icon='filter' compact labeled floating button className='icon'
+          options={countryOptions} placeholder='Dom' name="country"  onChange={this.handleChange} />
+        <Dropdown icon='filter' compact labeled floating button className='icon'
+          options={sideOptions} placeholder='Side' name='side' onChange={this.handleChange} />
+        <Dropdown icon='filter' compact labeled floating button className='icon'
+          options={statusOptions} placeholder='Status' name='status' onChange={this.handleChange} />
       </Segment>
       <Segment>
-        <List items={IOIs} textAlign='left' as='h3' />
+        <Table compact>
+          {IOIs.map(IOI => (
+            <Table.Row>
+              <Table.Cell> <Flag name='us'/>  </Table.Cell>
+              <Table.Cell> {IOI.side} </Table.Cell>
+              <Table.Cell> {IOI.stock.name} </Table.Cell>
+              <Table.Cell> {IOI.active} </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table>
       </Segment>
 
 
@@ -88,6 +97,8 @@ class IOIList extends Component {
 }
 
 export default IOIList
+
+// <List items={IOIs} textAlign />
 
 // <Form>
 // </Form>

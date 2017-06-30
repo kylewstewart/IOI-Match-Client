@@ -7,7 +7,7 @@ const Logo = () => (
   <Grid>
     <Grid.Row columns={1}>
       <Grid.Column width={16}>
-        <Header as='H2'>
+        <Header textAlign='centered' as='H2'>
           IOI Match
         </Header>
       </Grid.Column>

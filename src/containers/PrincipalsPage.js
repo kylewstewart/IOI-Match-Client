@@ -1,7 +1,9 @@
+
 import React, { Component } from 'react'
 import { Adaptors } from '../Adaptors/index'
 import IOIList from '../IOIList'
 import SponsorsList from '../SponsorsList'
+import IOIForm from '../IOIForm'
 
 class PrincipalsPage extends Component {
   constructor(){
@@ -9,6 +11,7 @@ class PrincipalsPage extends Component {
     this.state = {
       IOIs: [],
       sponsors: [],
+      stocks: [],
       principal_id: 1
     }
   }
@@ -16,6 +19,7 @@ class PrincipalsPage extends Component {
   componentDidMount(){
     this.getIOIs(this.state.principal_id)
     this.getSponsors(this.state.principal_id)
+    this.getStocks()
   }
 
   getIOIs(principal_id) {
@@ -28,11 +32,17 @@ class PrincipalsPage extends Component {
       .then(sponsors => this.setState({sponsors}))
   }
 
+  getStocks() {
+    Adaptors.Stocks()
+      .then(stocks => this.setState({stocks}))
+  }
+
   render() {
     return (
       <div>
-       <IOIList IOIs={this.state.IOIs} />
-       <SponsorsList sponsors={this.state.sponsors} />
+        <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors}/>
+        <IOIList IOIs={this.state.IOIs} />
+        <SponsorsList sponsors={this.state.sponsors} />
 
       </div>
     )
