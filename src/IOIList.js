@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { List, Form, Radio } from 'semantic-ui-react'
+import { Header, Segment, List, Dropdown, Table } from 'semantic-ui-react'
 
 class IOIList extends Component {
   constructor(){
@@ -13,12 +13,13 @@ class IOIList extends Component {
     this.handleActiveChange = this.handleActiveChange.bind(this)
   }
 
-  handleSideChange(e,{side}){
-    this.setState({side})
+  handleSideChange(e, obj){
+    this.setState({side: obj.value})
+    console.log(obj)
   }
 
-  handleActiveChange(e,{active}){
-    this.setState({active})
+  handleActiveChange(e, obj){
+    this.setState({active: obj.value})
   }
 
   filterBySide(IOIs){
@@ -50,27 +51,36 @@ class IOIList extends Component {
     const side = this.state.side
     const active = this.state.active
     const IOIs = this.getIOINames()
+    const sideOptions = [
+      {key: 'Buy', value: 'Buy', text: 'Buy'},
+      {key: 'Sell', value: 'Sell', text: 'Sell'},
+      {key: 'All', value: 'All', text: 'All'},
+    ]
+    const activeOptions = [
+      {key: 'Active', value: 'Active', text: 'Active'},
+      {key: 'Expired', value: 'Expired', text: 'Expired'},
+      {key: 'All', value: 'All', text: 'All'},
+    ]
 
     return (
-    <div>
-      <Form>
-        <Form.Group inline>
-          <Form.Field control={Radio} label='Buy' side='Buy' checked={side === 'Buy'} onChange={this.handleSideChange} />
-          <Form.Field control={Radio} label='Sell' side='Sell' checked={side === 'Sell'} onChange={this.handleSideChange} />
-          <Form.Field control={Radio} label='All' side='All' checked={side === 'All'} onChange={this.handleSideChange} />
-        </Form.Group>
-      </Form>
+    <Segment.Group>
+      <Segment>
+        <Header textAlign='centered'>
+          Your IOIs
+        </Header>
+      </Segment>
+      <Segment textAlign='centered'>
+        <Dropdown icon='filter' labeled floating button className='icon'
+          options={sideOptions} placeholder='Side' onChange={this.handleSideChange} />
+        <Dropdown icon='filter' labeled floating button className='icon'
+          options={activeOptions} placeholder='Status' onChange={this.handleActiveChange} />
+      </Segment>
+      <Segment>
+        <List items={IOIs} textAlign='left' as='h3' />
+      </Segment>
 
-      <Form>
-        <Form.Group inline>
-          <Form.Field control={Radio} label='Active' active='Active' checked={active === 'Active'} onChange={this.handleActiveChange} />
-          <Form.Field control={Radio} label='Expired' active='Expired' checked={active === 'Expired'} onChange={this.handleActiveChange} />
-          <Form.Field control={Radio} label='All' active='All' checked={active === 'All'} onChange={this.handleActiveChange} />
-        </Form.Group>
-      </Form>
 
-      <List items={IOIs} textAlign='left' />
-    </div>
+    </Segment.Group>
 
 
     )
@@ -78,3 +88,14 @@ class IOIList extends Component {
 }
 
 export default IOIList
+
+// <Form>
+// </Form>
+// <Form.Field control={Radio} label='Active' active='Active' checked={active === 'Active'} onChange={this.handleActiveChange} />
+// <Form.Field control={Radio} label='Expired' active='Expired' checked={active === 'Expired'} onChange={this.handleActiveChange} />
+// <Form.Field control={Radio} label='All' active='All' checked={active === 'All'} onChange={this.handleActiveChange} />
+// <Form.Group inline>
+//   <Form.Field control={Radio} label='Buy' side='Buy' checked={side === 'Buy'} onChange={this.handleSideChange} />
+//   <Form.Field control={Radio} label='Sell' side='Sell' checked={side === 'Sell'} onChange={this.handleSideChange} />
+//   <Form.Field control={Radio} label='All' side='All' checked={side === 'All'} onChange={this.handleSideChange} />
+// </Form.Group>
