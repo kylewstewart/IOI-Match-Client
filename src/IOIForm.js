@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Dropdown, Segment, Header, Form } from 'semantic-ui-react'
+import { Container, Dropdown, Button, Segment, Header, Form } from 'semantic-ui-react'
 
 class IOIForm extends Component {
   constructor(){
     super()
     this.state ={
-      side: '',
+      side: 'Buy',
       stock: '',
       sponsors: []
 
@@ -56,17 +56,19 @@ class IOIForm extends Component {
         <Header> IOI Detail </Header>
       </Segment>
       <Segment>
-        <Form compact>
-          <Form.Group innline>
+        <Form>
+          <Form.Dropdown placeholder='Ranked Brokers' name='sponsor'
+          multiple selection options={this.sponsorOptions()} onChange={this.handleChange}/>
+          <Form.Group inline>
             <Form.Select  placeholder='Side' name='side'
               options={sideOptions} onChange={this.handleChange}/>
-            <Dropdown placeholder='Stock' name='stock'
+            <Form.Dropdown placeholder='Stock' name='stock'
               search selection options={this.stockOptions()} onChange={this.handleChange}/>
+            <Form.Button content="Submit" />
           </Form.Group>
-          <Dropdown placeholder='Brokers' name='sponsor' fluid
-            multiple selection options={this.sponsorOptions()} onChange={this.handleChange}/>
         </Form>
-      </Segment>
+
+    </Segment>
     </Segment.Group>
     )
   }

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Header, Segment, List, Dropdown, Table, Flag } from 'semantic-ui-react'
+import { Header, Button, Segment, List, Dropdown, Table, Flag } from 'semantic-ui-react'
 
 class IOIList extends Component {
   constructor(){
@@ -15,6 +15,11 @@ class IOIList extends Component {
 
   handleChange(e, {name, value}){
     this.setState({[name]: value})
+  }
+
+  handleEdit(e, {value}){
+    debugger
+    this.props.editIOI(value)
   }
 
   filterBySide(IOIs){
@@ -76,13 +81,17 @@ class IOIList extends Component {
           options={statusOptions} placeholder='Status' name='status' onChange={this.handleChange} />
       </Segment>
       <Segment>
-        <Table compact>
+        <Table compact textAlign='center'>
           {IOIs.map(IOI => (
             <Table.Row>
-              <Table.Cell> <Flag name='us'/>  </Table.Cell>
+              <Table.Cell > <Flag name='us'/>  </Table.Cell>
               <Table.Cell> {IOI.side} </Table.Cell>
               <Table.Cell> {IOI.stock.name} </Table.Cell>
               <Table.Cell> {IOI.active} </Table.Cell>
+              <Table.Cell>
+                <Button icon='edit' attached='left' value={IOI.id} onClick={this.handleEdit}/>
+                <Button icon='delete' attached='right'/>
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table>

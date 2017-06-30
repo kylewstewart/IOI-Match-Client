@@ -14,6 +14,7 @@ class PrincipalsPage extends Component {
       stocks: [],
       principal_id: 1
     }
+    this.editIOI = this.editIOI.bind(this)
   }
 
   componentDidMount(){
@@ -37,11 +38,16 @@ class PrincipalsPage extends Component {
       .then(stocks => this.setState({stocks}))
   }
 
+  editIOI(IOI_id){
+    const IOI = this.state.IOIs.find(IOI => IOI.id === IOI_id)
+    console.log( IOI )
+  }
+
   render() {
     return (
       <div>
-        <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors}/>
-        <IOIList IOIs={this.state.IOIs} />
+        <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors} />
+        <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI}/>
         <SponsorsList sponsors={this.state.sponsors} />
 
       </div>
