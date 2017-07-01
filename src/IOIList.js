@@ -17,6 +17,8 @@ class IOIList extends Component {
 
   handleEdit = (e, {value}) => this.props.editIOI(value)
 
+  handleDestroy = (e, {value}) => this.props.destroyIOI(value)
+
   filterBySide = (IOIs) => this.state.side !== 'All' ?
     IOIs.filter(IOI => this.state.side === IOI.side) : IOIs
 
@@ -62,14 +64,23 @@ class IOIList extends Component {
           <Table compact textAlign='center'>
             <Table.Header></Table.Header>
             {IOIs.map(IOI => (
-              <Table.Row>
+              <Table.Row key={IOI.id}>
                 <Table.Cell > <Flag name='us'/>  </Table.Cell>
                 <Table.Cell> {IOI.stock} </Table.Cell>
                 <Table.Cell> {IOI.side} </Table.Cell>
                 <Table.Cell>
-                  <Button icon='edit' attached='left' value={IOI.id}
-                    onClick={this.handleEdit}/>
-                  <Button icon='delete' attached='right'/>
+                  <Button
+                    icon='edit'
+                    attached='left'
+                    value={IOI.id}
+                    onClick={this.handleEdit}
+                  />
+                  <Button
+                    icon='delete'
+                    attached='right'
+                    value={IOI.id}
+                    onClick={this.handleDestroy}
+                  />
                 </Table.Cell>
               </Table.Row>
             ))}

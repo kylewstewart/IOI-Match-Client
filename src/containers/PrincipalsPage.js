@@ -17,6 +17,7 @@ class PrincipalsPage extends Component {
       principal_id: props.id
     }
     this.editIOI = this.editIOI.bind(this)
+    this.destroyIOI = this.destroyIOI.bind(this)
     this.resetIOIProp = this.resetIOIProp.bind(this)
     this.submitIOIForm = this.submitIOIForm.bind(this)
   }
@@ -45,10 +46,20 @@ class PrincipalsPage extends Component {
   submitIOIForm(IOI){
     if(IOI.id){
       Adaptors.UpdateIOI(IOI)
-      .then( console.log )
+      .then(IOI => this.setState((prevState) => {
+        return {
+          IOIs: prevState.IOIs.map(prevIOI => prevIOI.id === IOI.id ? IOI : prevIOI)
+        }
+      }
+      ))
     } else {
       Adaptors.CreateIOI(IOI, this.state.principal_id)
-      .then( console.log )
+        .then(IOI => this.setState((prevState) => {
+          return {
+            IOIs: [...prevState.IOIs, IOI]
+          }
+        })
+      )
     }
     this.setState({IOI: false})
   }
@@ -56,6 +67,11 @@ class PrincipalsPage extends Component {
   editIOI(IOI_id){
     const IOI = this.state.IOIs.find(IOI => IOI.id === IOI_id)
     this.setState({ IOI })
+  }
+
+  destroyIOI(IOI_id){
+    Adaptors.DestroyIOI(IOI_id)
+    .then( console.log )
   }
 
   resetIOIProp = () => this.setState({IOI: false})
@@ -67,6 +83,7 @@ class PrincipalsPage extends Component {
         <IOIList
           IOIs={this.state.IOIs}
           editIOI={this.editIOI}
+          destroyIOI={this.destroyIOI}
           />
       </Grid.Column>
       <Grid.Column>
@@ -89,6 +106,3 @@ class PrincipalsPage extends Component {
 
 }
 export default PrincipalsPage
-
-// this.state.rankedAgents.map(agent => this.props.sponsors
-//   .find(sp => sp.name === agent)).map(sp => [sp.principal_id, sp.name])

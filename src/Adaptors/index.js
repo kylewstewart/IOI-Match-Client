@@ -31,6 +31,13 @@ export class Adaptors {
     }).then(res => res.json())
   }
 
+  static DestroyIOI(IOI_id){
+    return fetch(url + `/api/v1/iois/${IOI_id}`, {
+      method: 'DELETE',
+      headers: headers
+    }).then(res => res.json() )
+  }
+
   static Sponsors(principal_id){
     return fetch(url + `/api/v1/principals/${principal_id}/sponsors`)
       .then(res => res.json())
