@@ -17,6 +17,8 @@ class PrincipalsPage extends Component {
       principal_id: props.id
     }
     this.editIOI = this.editIOI.bind(this)
+    this.resetIOIProp = this.resetIOIProp.bind(this)
+    this.submitIOIForm = this.submitIOIForm.bind(this)
   }
 
   componentDidMount(){
@@ -24,8 +26,6 @@ class PrincipalsPage extends Component {
     this.getSponsors(this.state.principal_id)
     this.getStocks()
   }
-
-  // componentWillUpdate()
 
   getIOIs(principal_id) {
     Adaptors.IOIs(principal_id)
@@ -42,10 +42,23 @@ class PrincipalsPage extends Component {
       .then(stocks => this.setState({stocks}))
   }
 
+  submitIOIForm(IOI){
+    if(IOI.id){
+      Adaptors.UpdateIOI(IOI)
+      .then( console.log )
+    } else {
+      Adaptors.CreateIOI(IOI, this.state.principal_id)
+      .then( console.log )
+    }
+    this.setState({IOI: false})
+  }
+
   editIOI(IOI_id){
     const IOI = this.state.IOIs.find(IOI => IOI.id === IOI_id)
     this.setState({ IOI })
   }
+
+  resetIOIProp = () => this.setState({IOI: false})
 
   render() {
     return (
@@ -61,6 +74,8 @@ class PrincipalsPage extends Component {
           stocks={this.state.stocks}
           sponsors={this.state.sponsors}
           IOI={this.state.IOI}
+          resetIOIProp={this.resetIOIProp}
+          submitIOIForm={this.submitIOIForm}
           />
         <Divider hidden/>
         <SponsorsList
@@ -74,3 +89,6 @@ class PrincipalsPage extends Component {
 
 }
 export default PrincipalsPage
+
+// this.state.rankedAgents.map(agent => this.props.sponsors
+//   .find(sp => sp.name === agent)).map(sp => [sp.principal_id, sp.name])

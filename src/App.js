@@ -18,17 +18,17 @@ class App extends Component {
   render() {
     return (
     <Container>
-    <Grid >
-    <Grid.Row></Grid.Row>
-    <Grid.Row>
+      <Grid >
+      <Grid.Row></Grid.Row>
+      <Grid.Row>
 
-    <Logo />
+      <Logo />
 
-    </Grid.Row>
+      </Grid.Row>
 
-    { this.state.principal ? <PrincipalsPage id={this.state.id}/> : <AgentsPage id={this.state.id} /> }
+      { this.state.principal ? <PrincipalsPage id={this.state.id}/> : <AgentsPage id={this.state.id} /> }
 
-    </Grid>
+      </Grid>
     </Container>
     )
   }

@@ -1,50 +1,72 @@
 
 import React, { Component } from 'react'
-import { Dropdown, Button, Segment, Header, Form } from 'semantic-ui-react'
+import { Button, Segment, Header, Form } from 'semantic-ui-react'
 
 class IOIForm extends Component {
   constructor(){
     super()
     this.state = {
-      sponsors: [],
+      rankedAgents: [],
       title: 'New IOI',
       side: '',
-      stock: ''
+      stock: '',
+      disableButton: true
     }
     this.handleChange = this.handleChange.bind(this)
+    this.onClearBrokersButton = this.onClearBrokersButton.bind(this)
+    this.onSubmitButton = this.onSubmitButton.bind(this)
+    this.onNewButton = this.onNewButton.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
     if (nextProps.IOI) {
-      this.setState({title: "Edit IOI"})
-      this.setState({sponsors: nextProps.IOI.ranked_agents.map(agent => agent.name)})
-      this.setState({side: nextProps.IOI.side})
-      this.setState({stock: nextProps.IOI.stock.name})
+      this.setState({
+        title: "Edit IOI",
+        rankedAgents: nextProps.IOI.ranked_agents,
+        side: nextProps.IOI.side,
+        stock: nextProps.IOI.stock,
+        disableButton: false
+      })
     } else {
-      this.setState({IOIFormTitle: "New IOI"})
-      this.setState({sponsors: []})
-      this.setState({side: ''})
-      this.setState({stock: ''})
+      this.setState({
+        title: "New IOI",
+        rankedAgents: [],
+        side: '',
+        stock: '',
+        disableButton: true
+      })
     }
   }
 
-  handleChange = (e, {name, value}) => {
-    this.setState({[name]: value})
-    console.log (name, value)
-  }
+  handleChange = (e, {name, value}) => this.setState({[name]: value})
+
+  onSubmitButton = () => this.props.submitIOIForm(this.setIOI())
+
+  onClearBrokersButton = () => this.setState({rankedAgents: []})
+
+  onNewButton = () => this.props.resetIOIProp()
+
+  setIOI = () => {
+    const IOI = {
+      id: this.state.disableButton ? 0 : this.props.IOI.id,
+      stock: this.state.stock,
+      side: this.state.side,
+      rankedAgents: this.state.rankedAgents
+      }
+      return IOI
+    }
 
   stocks = () => (
      this.props.stocks.map(s => {
-        let obj = {key:`${s.exch_code}`, value:`${s.exch_code}`, text:`${s.exch_code}`}
+        const obj = {key:`${s.exch_code}`, value:`${s.exch_code}`, text:`${s.exch_code}`}
         return obj
     }))
 
   sponsors = () => (
     this.props.sponsors.map(sp => {
-      let obj = {key:`${sp.name}`, value:`${sp.name}`, text:`${sp.name}`}
+      const obj = {key:`${sp.name}`, value:`${sp.name}`, text:`${sp.name}`}
       return obj
     }))
-
 
   sortAlpha = (array) => array.sort((a, b) => a.text.localeCompare(b.text))
 
@@ -78,13 +100,31 @@ class IOIForm extends Component {
             onChange={this.handleChange}
           />
           <Form.Dropdown multiple selection
-            value={this.state.sponsors}
+            value={this.state.rankedAgents}
             placeholder='Ranked Brokers'
-            name='sponsors'
+            name='rankedAgents'
             options={sponsorsOptions}
             onChange={this.handleChange}
           />
-            <Form.Button content="Submit" />
+        <Button.Group>
+          <Button
+            name='submit'
+            content="Submit"
+            value={this.state.disableButton}
+            onClick={this.onSubmitButton}
+          />
+          <Button
+            content='Clear Brokers'
+            onClick={this.onClearBrokersButton}
+          />
+          <Button
+            name='newIOI'
+            disabled={this.state.disableButton}
+            content="New IOI"
+            onClick={this.onNewButton}
+          />
+
+        </Button.Group>
         </Form>
 
     </Segment>

@@ -1,12 +1,34 @@
 
 const url = "http://localhost:3000"
 
+const headers = {
+    'content-type': 'application/json',
+    'accept': 'application/json',
+    // 'Authorization': localStorage.getItem('jwt')
+  }
+
 
 export class Adaptors {
 
   static IOIs(id){
     return fetch(url + `/api/v1/principals/${id}/iois`)
       .then(res => res.json())
+  }
+
+  static UpdateIOI(IOI){
+    return fetch(url + `/api/v1/iois/${IOI.id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: JSON.stringify({IOI})
+    }).then(res => res.json())
+  }
+
+  static CreateIOI(IOI, principal_id){
+    return fetch(url + `/api/v1/principals/${principal_id}/iois`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({IOI})
+    }).then(res => res.json())
   }
 
   static Sponsors(principal_id){
@@ -19,13 +41,4 @@ export class Adaptors {
       .then(res => res.json())
   }
 
-  static AgentPctTraded(agent_id){
-    return fetch(url + `/api/v1/agents/${agent_id}/pct_traded`)
-      .then(res => res.json)
-  }
-
-  static AgentSatisfaction(agent_id){
-    return fetch(url + `/api/v1/agents/${agent_id}/satisfaction`)
-      .then(res => res.json)
-  }
 }
