@@ -12,7 +12,8 @@ class PrincipalsPage extends Component {
       IOIs: [],
       sponsors: [],
       stocks: [],
-      principal_id: 1
+      IOI: '',
+      principal_id: 3
     }
     this.editIOI = this.editIOI.bind(this)
   }
@@ -22,6 +23,8 @@ class PrincipalsPage extends Component {
     this.getSponsors(this.state.principal_id)
     this.getStocks()
   }
+
+  // componentWillUpdate()
 
   getIOIs(principal_id) {
     Adaptors.IOIs(principal_id)
@@ -40,13 +43,14 @@ class PrincipalsPage extends Component {
 
   editIOI(IOI_id){
     const IOI = this.state.IOIs.find(IOI => IOI.id === IOI_id)
-    console.log( IOI )
+    this.setState({ IOI })
   }
 
   render() {
     return (
       <div>
-        <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors} />
+        <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors}
+          IOI={this.state.IOI}/>
         <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI}/>
         <SponsorsList sponsors={this.state.sponsors} />
 

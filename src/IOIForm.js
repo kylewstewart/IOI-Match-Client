@@ -29,7 +29,7 @@ class IOIForm extends Component {
      return stocks
     }
 
-    sponsorOptions(){
+    sponsorOptions() {
       const sponsors = this.props.sponsors.map(sp => sp.name).sort()
       return sponsors.map(sp => {
         const el = {}
@@ -47,6 +47,7 @@ class IOIForm extends Component {
       {key: 'Buy', value: 'Buy', text: 'Buy'},
       {key: 'Sell', value: 'Sell', text: 'Sell'}
       ]
+    // const rankedBrokers = this.props.IOI.ranked_agents.map(agent => agent.name)
 
 
 
@@ -57,13 +58,13 @@ class IOIForm extends Component {
       </Segment>
       <Segment>
         <Form>
-          <Form.Dropdown placeholder='Ranked Brokers' name='sponsor'
-          multiple selection options={this.sponsorOptions()} onChange={this.handleChange}/>
+          <Form.Dropdown placeholder='Ranked Brokers' name='sponsor' multiple selection
+            options={this.sponsorOptions()} onChange={this.handleChange}/>
           <Form.Group inline>
-            <Form.Select  placeholder='Side' name='side'
+            <Form.Select placeholder='Side' name='side'
               options={sideOptions} onChange={this.handleChange}/>
-            <Form.Dropdown placeholder='Stock' name='stock'
-              search selection options={this.stockOptions()} onChange={this.handleChange}/>
+            <Form.Dropdown placeholder='Stock' name='stock' search selection
+              options={this.stockOptions()} onChange={this.handleChange}/>
             <Form.Button content="Submit" />
           </Form.Group>
         </Form>

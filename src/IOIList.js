@@ -11,45 +11,28 @@ class IOIList extends Component {
       country: 'All'
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
   }
 
-  handleChange(e, {name, value}){
-    this.setState({[name]: value})
-  }
+  handleChange = (e, {name, value}) => this.setState({[name]: value})
 
-  handleEdit(e, {value}){
-    debugger
-    this.props.editIOI(value)
-  }
+  handleEdit = (e, {value}) => this.props.editIOI(value)
 
-  filterBySide(IOIs){
-    if(this.state.side !== 'All') {
-      return IOIs.filter(IOI => this.state.side === IOI.side)
-    } else {
-      return IOIs
-    }
-  }
 
-  filterByStatus(IOIs){
-    if(this.state.status !=='All'){
-      return IOIs.filter(IOI => this.state.status === IOI.active)
-    } else {
-      return IOIs
-    }
-  }
+  filterBySide = (IOIs) => (
+    this.state.side !== 'All' ? IOIs.filter(IOI=>this.state.side===IOI.side) : IOIs
+  )
 
-  getIOIs(){
-    return this.filterByStatus(this.filterBySide(this.props.IOIs))
-  }
+  filterByStatus = (IOIs) => (
+    this.state.status !=='All' ? IOIs.filter(IOI => this.state.status === IOI.active) : IOIs
+  )
 
-  getIOINames(){
-    const IOIs = this.getIOIs()
-    return IOIs.map(IOI => IOI.stock.name).sort()
-  }
+  getIOIs = () => (
+    this.filterByStatus(this.filterBySide(this.props.IOIs))
+      .sort((a, b) => a.stock.name.localeCompare(b.stock.name))
+  )
 
   render() {
-    const side = this.state.side
-    const status = this.state.status
     const IOIs = this.getIOIs()
     const sideOptions = [
       {key: 'Buy', value: 'Buy', text: 'Buy'},
@@ -85,8 +68,8 @@ class IOIList extends Component {
           {IOIs.map(IOI => (
             <Table.Row>
               <Table.Cell > <Flag name='us'/>  </Table.Cell>
-              <Table.Cell> {IOI.side} </Table.Cell>
               <Table.Cell> {IOI.stock.name} </Table.Cell>
+              <Table.Cell> {IOI.side} </Table.Cell>
               <Table.Cell> {IOI.active} </Table.Cell>
               <Table.Cell>
                 <Button icon='edit' attached='left' value={IOI.id} onClick={this.handleEdit}/>
