@@ -1,19 +1,20 @@
 
 import React, { Component } from 'react'
+import { Grid, Divider } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 import IOIList from '../IOIList'
 import SponsorsList from '../SponsorsList'
 import IOIForm from '../IOIForm'
 
 class PrincipalsPage extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       IOIs: [],
       sponsors: [],
       stocks: [],
-      IOI: '',
-      principal_id: 3
+      IOI: false,
+      principal_id: props.id
     }
     this.editIOI = this.editIOI.bind(this)
   }
@@ -48,13 +49,26 @@ class PrincipalsPage extends Component {
 
   render() {
     return (
-      <div>
-        <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors}
-          IOI={this.state.IOI}/>
-        <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI}/>
-        <SponsorsList sponsors={this.state.sponsors} />
-
-      </div>
+    <Grid.Row columns={3}>
+      <Grid.Column>
+        <IOIList
+          IOIs={this.state.IOIs}
+          editIOI={this.editIOI}
+          />
+      </Grid.Column>
+      <Grid.Column>
+        <IOIForm
+          stocks={this.state.stocks}
+          sponsors={this.state.sponsors}
+          IOI={this.state.IOI}
+          />
+        <Divider hidden/>
+        <SponsorsList
+          sponsors={this.state.sponsors}
+          />
+      </Grid.Column>
+      <Grid.Column></Grid.Column>
+    </Grid.Row>
     )
   }
 

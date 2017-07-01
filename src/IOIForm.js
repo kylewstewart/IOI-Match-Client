@@ -1,72 +1,90 @@
+
 import React, { Component } from 'react'
-import { Container, Dropdown, Button, Segment, Header, Form } from 'semantic-ui-react'
+import { Dropdown, Button, Segment, Header, Form } from 'semantic-ui-react'
 
 class IOIForm extends Component {
   constructor(){
     super()
-    this.state ={
-      side: 'Buy',
-      stock: '',
-      sponsors: []
-
+    this.state = {
+      sponsors: [],
+      title: 'New IOI',
+      side: '',
+      stock: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(e, {name, value}) {
-    this.setState({[name]: value})
+  componentWillReceiveProps(nextProps){
+    if (nextProps.IOI) {
+      this.setState({title: "Edit IOI"})
+      this.setState({sponsors: nextProps.IOI.ranked_agents.map(agent => agent.name)})
+      this.setState({side: nextProps.IOI.side})
+      this.setState({stock: nextProps.IOI.stock.name})
+    } else {
+      this.setState({IOIFormTitle: "New IOI"})
+      this.setState({sponsors: []})
+      this.setState({side: ''})
+      this.setState({stock: ''})
+    }
   }
 
-  stockOptions() {
-    const stocks = this.props.stocks.map(s => s.exch_code).sort()
-    return stocks.map(s => {
-      const el = {}
-      el.key = `${s}`
-      el.value = `${s}`
-      el.text = `${s}`
-      return el
-     })
-     return stocks
-    }
+  handleChange = (e, {name, value}) => {
+    this.setState({[name]: value})
+    console.log (name, value)
+  }
 
-    sponsorOptions() {
-      const sponsors = this.props.sponsors.map(sp => sp.name).sort()
-      return sponsors.map(sp => {
-        const el = {}
-        el.key = `${sp}`
-        el.value = `${sp}`
-        el.text = `${sp}`
-        return el
-      })
-      return sponsors
-    }
+  stocks = () => (
+     this.props.stocks.map(s => {
+        let obj = {key:`${s.exch_code}`, value:`${s.exch_code}`, text:`${s.exch_code}`}
+        return obj
+    }))
 
+  sponsors = () => (
+    this.props.sponsors.map(sp => {
+      let obj = {key:`${sp.name}`, value:`${sp.name}`, text:`${sp.name}`}
+      return obj
+    }))
+
+
+  sortAlpha = (array) => array.sort((a, b) => a.text.localeCompare(b.text))
 
   render(){
     const sideOptions = [
       {key: 'Buy', value: 'Buy', text: 'Buy'},
       {key: 'Sell', value: 'Sell', text: 'Sell'}
       ]
-    // const rankedBrokers = this.props.IOI.ranked_agents.map(agent => agent.name)
-
-
+    const stockOptions = this.sortAlpha(this.stocks())
+    const sponsorsOptions =this.sortAlpha(this.sponsors())
 
     return (
     <Segment.Group>
       <Segment>
-        <Header> IOI Detail </Header>
+        <Header> {this.state.title} </Header>
       </Segment>
       <Segment>
         <Form>
-          <Form.Dropdown placeholder='Ranked Brokers' name='sponsor' multiple selection
-            options={this.sponsorOptions()} onChange={this.handleChange}/>
-          <Form.Group inline>
-            <Form.Select placeholder='Side' name='side'
-              options={sideOptions} onChange={this.handleChange}/>
-            <Form.Dropdown placeholder='Stock' name='stock' search selection
-              options={this.stockOptions()} onChange={this.handleChange}/>
+          <Form.Select
+            value={this.state.side}
+            placeholder='Side'
+            name='side'
+            options={sideOptions}
+            onChange={this.handleChange}
+          />
+          <Form.Dropdown search selection
+            value={this.state.stock}
+            placeholder='Stock'
+            name='stock'
+            options={stockOptions}
+            onChange={this.handleChange}
+          />
+          <Form.Dropdown multiple selection
+            value={this.state.sponsors}
+            placeholder='Ranked Brokers'
+            name='sponsors'
+            options={sponsorsOptions}
+            onChange={this.handleChange}
+          />
             <Form.Button content="Submit" />
-          </Form.Group>
         </Form>
 
     </Segment>

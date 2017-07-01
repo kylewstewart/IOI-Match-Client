@@ -5,11 +5,7 @@ import { Header, Button, Segment, List, Dropdown, Table, Flag } from 'semantic-u
 class IOIList extends Component {
   constructor(){
     super()
-    this.state = {
-      side: 'All',
-      status: 'All',
-      country: 'All'
-    }
+    this.state = {side: 'All', status: 'All', country: 'All'}
     this.handleChange = this.handleChange.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
   }
@@ -18,19 +14,14 @@ class IOIList extends Component {
 
   handleEdit = (e, {value}) => this.props.editIOI(value)
 
+  filterBySide = (IOIs) => this.state.side !== 'All' ?
+    IOIs.filter(IOI => this.state.side === IOI.side) : IOIs
 
-  filterBySide = (IOIs) => (
-    this.state.side !== 'All' ? IOIs.filter(IOI=>this.state.side===IOI.side) : IOIs
-  )
+  filterByStatus = (IOIs) => this.state.status !=='All' ?
+    IOIs.filter(IOI => this.state.status === IOI.active) : IOIs
 
-  filterByStatus = (IOIs) => (
-    this.state.status !=='All' ? IOIs.filter(IOI => this.state.status === IOI.active) : IOIs
-  )
-
-  getIOIs = () => (
-    this.filterByStatus(this.filterBySide(this.props.IOIs))
-      .sort((a, b) => a.stock.name.localeCompare(b.stock.name))
-  )
+  getIOIs = () => this.filterByStatus(this.filterBySide(this.props.IOIs))
+    .sort((a, b) => a.stock.name.localeCompare(b.stock.name))
 
   render() {
     const IOIs = this.getIOIs()
@@ -49,41 +40,53 @@ class IOIList extends Component {
     ]
 
     return (
-    <Segment.Group compact>
-      <Segment>
-        <Header textAlign='centered'>
-          IOIs
-        </Header>
-      </Segment>
-      <Segment>
-        <Dropdown icon='filter' compact labeled floating button className='icon'
-          options={countryOptions} placeholder='Dom' name="country"  onChange={this.handleChange} />
-        <Dropdown icon='filter' compact labeled floating button className='icon'
-          options={sideOptions} placeholder='Side' name='side' onChange={this.handleChange} />
-        <Dropdown icon='filter' compact labeled floating button className='icon'
-          options={statusOptions} placeholder='Status' name='status' onChange={this.handleChange} />
-      </Segment>
-      <Segment>
-        <Table compact textAlign='center'>
-          {IOIs.map(IOI => (
-            <Table.Row>
-              <Table.Cell > <Flag name='us'/>  </Table.Cell>
-              <Table.Cell> {IOI.stock.name} </Table.Cell>
-              <Table.Cell> {IOI.side} </Table.Cell>
-              <Table.Cell> {IOI.active} </Table.Cell>
-              <Table.Cell>
-                <Button icon='edit' attached='left' value={IOI.id} onClick={this.handleEdit}/>
-                <Button icon='delete' attached='right'/>
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table>
-      </Segment>
-
-
-    </Segment.Group>
-
-
+      <Segment.Group>
+        <Segment>
+          <Header textAlign='left'>
+            IOIs
+          </Header>
+        </Segment>
+        <Segment>
+          <Button.Group>
+            <Dropdown compact labeled button
+              className='icon'
+              options={countryOptions}
+              placeholder={this.state.country}
+              name="country"
+              onChange={this.handleChange} />
+            <Dropdown compact labeled button
+              className='icon'
+              options={sideOptions}
+              placeholder={this.state.side}
+              name='side'
+              onChange={this.handleChange} />
+            <Dropdown compact labeled button
+              className='icon'
+              options={statusOptions}
+              placeholder={this.state.status}
+              name='status'
+              onChange={this.handleChange} />
+          </Button.Group>
+        </Segment>
+        <Segment>
+          <Table compact textAlign='center'>
+            <Table.Header></Table.Header>
+            {IOIs.map(IOI => (
+              <Table.Row>
+                <Table.Cell > <Flag name='us'/>  </Table.Cell>
+                <Table.Cell> {IOI.stock.name} </Table.Cell>
+                <Table.Cell> {IOI.side} </Table.Cell>
+                <Table.Cell> {IOI.active} </Table.Cell>
+                <Table.Cell>
+                  <Button icon='edit' attached='left' value={IOI.id}
+                    onClick={this.handleEdit}/>
+                  <Button icon='delete' attached='right'/>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Segment>
+      </Segment.Group>
     )
   }
 }
