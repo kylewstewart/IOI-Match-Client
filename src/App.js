@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Container, Grid } from 'semantic-ui-react'
+import { Divider, Container, Grid } from 'semantic-ui-react'
 
 import './App.css'
-import Logo from './Logo'
 import PrincipalsPage from './containers/PrincipalsPage'
 import AgentsPage from './containers/AgentsPage'
 
@@ -19,11 +18,8 @@ class App extends Component {
     return (
     <Container>
       <Grid >
-      <Grid.Row></Grid.Row>
       <Grid.Row>
-
-      <Logo />
-
+        <Divider />
       </Grid.Row>
 
       { this.state.principal ? <PrincipalsPage id={this.state.id}/> : <AgentsPage id={this.state.id} /> }

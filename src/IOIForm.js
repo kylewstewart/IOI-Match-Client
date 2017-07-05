@@ -16,6 +16,7 @@ class IOIForm extends Component {
     this.onClearBrokersButton = this.onClearBrokersButton.bind(this)
     this.onSubmitButton = this.onSubmitButton.bind(this)
     this.onNewButton = this.onNewButton.bind(this)
+    this.handleLabelClick = this.handleLabelClick.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -40,7 +41,12 @@ class IOIForm extends Component {
 
   handleChange = (e, {name, value}) => this.setState({[name]: value})
 
-  onSubmitButton = () => this.props.submitIOIForm(this.setIOI())
+  handleLabelClick = (e, {value}) => {
+    console.log(this.state.rankedAgents.findIndex(agent => agent === value))
+  }
+
+  onSubmitButton = () => this.state.disableButton ?
+    this.props.createIOI(this.setIOI()) : this.props.updateIOI(this.setIOI())
 
   onClearBrokersButton = () => this.setState({rankedAgents: []})
 
@@ -76,7 +82,7 @@ class IOIForm extends Component {
       {key: 'Sell', value: 'Sell', text: 'Sell'}
       ]
     const stockOptions = this.sortAlpha(this.stocks())
-    const sponsorsOptions =this.sortAlpha(this.sponsors())
+    const sponsorsOptions = this.sortAlpha(this.sponsors())
 
     return (
     <Segment.Group>
@@ -104,27 +110,29 @@ class IOIForm extends Component {
             placeholder='Ranked Brokers'
             name='rankedAgents'
             options={sponsorsOptions}
+            onLabelClick={this.handleLabelClick}
             onChange={this.handleChange}
           />
-        <Button.Group>
+        <Button.Group fluid>
           <Button
             name='submit'
             content="Submit"
             value={this.state.disableButton}
             onClick={this.onSubmitButton}
-          />
+            />
           <Button
             content='Clear Brokers'
             onClick={this.onClearBrokersButton}
-          />
+            />
           <Button
             name='newIOI'
             disabled={this.state.disableButton}
             content="New IOI"
             onClick={this.onNewButton}
-          />
-
+            />
         </Button.Group>
+
+
         </Form>
 
     </Segment>

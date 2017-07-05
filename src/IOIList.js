@@ -63,6 +63,7 @@ class IOIList extends Component {
         <Segment>
           <Table compact textAlign='center'>
             <Table.Header></Table.Header>
+            <Table.Body>
             {IOIs.map(IOI => (
               <Table.Row key={IOI.id}>
                 <Table.Cell > <Flag name='us'/>  </Table.Cell>
@@ -84,6 +85,7 @@ class IOIList extends Component {
                 </Table.Cell>
               </Table.Row>
             ))}
+            </Table.Body>
           </Table>
         </Segment>
       </Segment.Group>

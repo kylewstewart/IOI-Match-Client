@@ -18,9 +18,9 @@ const SponsorsList = (props) => (
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {props.sponsors.map(sponsor =>
-          <Table.Row>
-            <Table.Cell>
+        {props.sponsors.map((sponsor, index) =>
+          <Table.Row key={index}>
+            <Table.Cell >
               {sponsor.name}
             </Table.Cell>
             <Table.Cell>

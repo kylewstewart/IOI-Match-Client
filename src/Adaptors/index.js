@@ -48,4 +48,14 @@ export class Adaptors {
       .then(res => res.json())
   }
 
+  static PrincipalNegotiations(principal_id){
+    return fetch(url + `/api/v1/principals/${principal_id}/negotations`)
+      .then(res => res.json())
+  }
+
+  static Principals(){
+    return fetch(url + '/api/v1/principals')
+      .then(res => res.json())
+  }
+
 }
