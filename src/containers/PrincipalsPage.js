@@ -26,8 +26,6 @@ class PrincipalsPage extends Component {
     this.updateIOI = this.updateIOI.bind(this)
     this.createIOI = this.createIOI.bind(this)
     this.resetIOIProp = this.resetIOIProp.bind(this)
-    this.getExchCode = this.getExchCode.bind(this)
-    this.getAgentName = this.getAgentName.bind(this)
     this.principalSubmit = this.principalSubmit.bind(this)
   }
 
@@ -97,13 +95,6 @@ class PrincipalsPage extends Component {
       .then(negotiations => this.setState({negotiations}))
   }
 
-  getExchCode = (stock_id) => !this.state.stocks.length ? 'n/a' : this.state.stocks.filter(stock => stock.id === stock_id)[0].exch_code
-
-  getAgentName = (agent_id) => this.state.sponsors.filter(sponsor => sponsor.agent_id === agent_id)[0]
-
-
-
-
   resetIOIProp = () => this.setState({IOI: false})
 
   render() {
@@ -111,36 +102,19 @@ class PrincipalsPage extends Component {
     return (
       <Grid>
       <PrincipalsHeader principalSubmit={this.principalSubmit} principals={this.state.principals}/>
-
       <Grid.Row columns={3}>
         <Grid.Column width='5'>
-          <IOIList
-            IOIs={this.state.IOIs}
-            editIOI={this.editIOI}
-            destroyIOI={this.destroyIOI}
-            />
+          <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI} destroyIOI={this.destroyIOI}/>
         </Grid.Column>
         <Grid.Column width='6'>
-          <IOIForm
-            stocks={this.state.stocks}
-            sponsors={this.state.sponsors}
-            IOI={this.state.IOI}
-            resetIOIProp={this.resetIOIProp}
-            updateIOI={this.updateIOI}
-            createIOI={this.createIOI}
-            destroyIOI={this.destroyIOI}
-            />
+          <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors} IOI={this.state.IOI}
+            resetIOIProp={this.resetIOIProp} updateIOI={this.updateIOI} createIOI={this.createIOI}
+            destroyIOI={this.destroyIOI}/>
           <Divider hidden/>
-          <SponsorsList
-            sponsors={this.state.sponsors}
-            />
+          <SponsorsList  sponsors={this.state.sponsors} />
         </Grid.Column>
         <Grid.Column width='5'>
-          <PrincipalsNegotiations
-            negotiations={this.state.negotiations}
-            getExchCode={this.getExchCode}
-            getAgentName={this.getAgentName}
-            />
+          <PrincipalsNegotiations negotiations={this.state.negotiations} />
         </Grid.Column>
       </Grid.Row>
     </Grid>

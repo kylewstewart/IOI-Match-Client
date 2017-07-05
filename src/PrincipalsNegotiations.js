@@ -4,11 +4,15 @@ import { Segment, Table, Header } from 'semantic-ui-react'
 
 class PrincipalsNegotiations extends Component {
 
-
+  negotiations = (status) => {
+    const blank = [{id: 1, exch_code: '-', agent_name: '-', active: '-'}]
+    if (!this.props.negotiations || !this.props.negotiations.length) return blank
+    const negotiations = this.props.negotiations.filter(neg => neg.active === status)
+    if (!negotiations.length) return blank
+    return negotiations
+  }
 
   render() {
-
-    const { negotiations } = this.props
 
     return (
       <Segment.Group>
@@ -18,14 +22,28 @@ class PrincipalsNegotiations extends Component {
           </Header>
         </Segment>
         <Segment>
+          <Table compact >
+            <Table.Header></Table.Header>
+            <Table.Body>
+            {this.negotiations('Active').map(negotiation => (
+              <Table.Row key={negotiation.id}>
+                <Table.Cell textAlign='left'> {negotiation.exch_code} </Table.Cell>
+                <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
+                <Table.Cell textAlign='right'> {negotiation.active} </Table.Cell>
+              </Table.Row>
+            ))}
+            </Table.Body>
+          </Table>
+        </Segment>
+        <Segment>
           <Table compact textAlign='center'>
             <Table.Header></Table.Header>
             <Table.Body>
-            {negotiations.map(negotiation => (
+            {this.negotiations('Completed').map(negotiation => (
               <Table.Row key={negotiation.id}>
-                <Table.Cell> {this.props.getExchCode(negotiation.stock_id)} </Table.Cell>
-                <Table.Cell> {this.props.getAgentName(negotiation.agent_id)} </Table.Cell>
-                <Table.Cell> {!!negotiation.active ? "Active" : "Completed"} </Table.Cell>
+                <Table.Cell textAlign='left'> {negotiation.exch_code} </Table.Cell>
+                <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
+                <Table.Cell textAlign='right'> {negotiation.active} </Table.Cell>
               </Table.Row>
             ))}
             </Table.Body>
