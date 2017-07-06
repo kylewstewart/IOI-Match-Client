@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Segment, Table, Header } from 'semantic-ui-react'
+import { Segment, Table, Header, Button } from 'semantic-ui-react'
 
 
 class PrincipalsNegotiations extends Component {
+
+  handleClick = () => this.props.getNegotiations(this.props.principal)
 
   negotiations = (status) => {
     const blank = [{
@@ -19,16 +21,16 @@ class PrincipalsNegotiations extends Component {
     return sorted_negotiations
   }
 
-  sortAlpha = (array) => array.sort((a, b) => a.exch_code.localeCompare(b.exch_code))
-
   render() {
 
     return (
       <Segment.Group>
-        <Segment>
-          <Header textAlign='left'>
-            Negotiations
-          </Header>
+        <Segment clearing>
+          <Header floated='left'> Negotiations </Header>
+          <Button basic
+            disabled={!this.props.principal}
+            floated='right' icon='refresh'
+            onClick={this.handleClick} />
         </Segment>
         <Segment>
           <Header textAlign='left' as='h5'>

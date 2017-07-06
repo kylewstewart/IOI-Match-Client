@@ -27,6 +27,8 @@ class PrincipalsPage extends Component {
     this.createIOI = this.createIOI.bind(this)
     this.resetIOIProp = this.resetIOIProp.bind(this)
     this.principalSubmit = this.principalSubmit.bind(this)
+    this.getNegotiations = this.getNegotiations.bind(this)
+
   }
 
   componentDidMount(){
@@ -101,7 +103,7 @@ class PrincipalsPage extends Component {
 
     return (
       <Grid>
-      <PrincipalsHeader principalSubmit={this.principalSubmit} principals={this.state.principals}/>
+      <PrincipalsHeader principalSubmit={this.principalSubmit} principals={this.state.principals} />
       <Grid.Row columns={3}>
         <Grid.Column width='5'>
           <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI} destroyIOI={this.destroyIOI}/>
@@ -114,7 +116,8 @@ class PrincipalsPage extends Component {
           <SponsorsList  sponsors={this.state.sponsors} />
         </Grid.Column>
         <Grid.Column width='5'>
-          <PrincipalsNegotiations negotiations={this.state.negotiations} />
+          <PrincipalsNegotiations negotiations={this.state.negotiations} principal={this.state.principal_id}
+            getNegotiations={this.getNegotiations}/>
         </Grid.Column>
       </Grid.Row>
     </Grid>
