@@ -62,4 +62,9 @@ export class Adaptors {
     return fetch(url + '/api/v1/agents')
       .then(res => res.json())
   }
+
+  static Sponsorships(agent_id){
+    return fetch(url + `/api/v1/agents/${agent_id}/sponsorships`)
+      .then(res => res.json())
+  }
 }

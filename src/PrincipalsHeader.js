@@ -34,7 +34,7 @@ class PrincipalsHeader extends Component {
           </Button>
         </Grid.Column >
         <Grid.Column>
-        <Header textAlign='center'> IOI Match - Investor's Page Demo</Header>
+        <Header textAlign='center'> IOI Match - Investor's Page Demo </Header>
         </Grid.Column>
 
         <Grid.Column textAlign='right'>

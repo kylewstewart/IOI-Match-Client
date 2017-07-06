@@ -28,7 +28,6 @@ class PrincipalsPage extends Component {
     this.resetIOIProp = this.resetIOIProp.bind(this)
     this.principalSubmit = this.principalSubmit.bind(this)
     this.getNegotiations = this.getNegotiations.bind(this)
-
   }
 
   componentDidMount(){
@@ -51,7 +50,7 @@ class PrincipalsPage extends Component {
 
   getSponsors(principal_id){
     Adaptors.Sponsors(principal_id)
-      .then(sponsors => this.setState({sponsors}))
+    .then(sponsors => this.setState({sponsors}))
   }
 
   getStocks(){

@@ -5,12 +5,11 @@ class SponsorsList extends Component {
 
   sponsors = () => {
     const blank = [{
-      sponsorship_id: 1,
-      name: '-',
+      id: 1,
+      agent_name: '-',
       pct_traded: '-',
       satisfaction: '-'
     }]
-
     if (!this.props.sponsors || !this.props.sponsors.length) return blank
     return this.props.sponsors
   }
@@ -27,16 +26,16 @@ class SponsorsList extends Component {
         <Table >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell></Table.HeaderCell>
+              <Table.HeaderCell> Broker </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>Conversion</Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>Satisfaction</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {this.sponsors().map((sponsor) =>
-              <Table.Row key={sponsor.sponsorship_id}>
+              <Table.Row key={sponsor.id}>
                 <Table.Cell textAlign='center'>
-                  {sponsor.name}
+                  {sponsor.agent_name}
                 </Table.Cell>
                 <Table.Cell textAlign='center'>
                   {sponsor.pct_traded}
