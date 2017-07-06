@@ -4,46 +4,41 @@ import { Segment, Dropdown, Container, Grid, Header, Button } from 'semantic-ui-
 import { Link } from 'react-router-dom'
 
 
-class PrincipalsHeader extends Component {
+class AgentsHeader extends Component {
 
-  handleChange = (e, {value}) => this.props.principalSubmit(value)
+  handleChange = (e, {value}) => this.props.agentSubmit(value)
 
 
-  principals = () => (
-    this.props.principals.map(principal => {
-      const obj = {key:`${principal.id}`, value:`${principal.name}`, text:`${principal.name}`}
+  agents = () => (
+    this.props.agents.map(agent => {
+      const obj = {key:`${agent.id}`, value:`${agent.name}`, text:`${agent.name}`}
       return obj
     }).sort((a, b) => a.text.localeCompare(b.text))
   )
 
   render(){
 
-    const pages = [
-      {key: 1, value: 'principal', text: 'Investor Page'},
-      {key: 2, value: 'agent', text: 'Broker Page'}
-    ]
-
-    return(
+    return (
       <Grid>
         <Grid.Row columns={3} >
         <Grid.Column textAlign='left'>
           <Button basic
             floated="left"
             content="Swith to Broker's Page">
-          <Link to='/agent'> Swith to Broker's Page </Link>
+          <Link to='/principal'> Swith to Investor's Page </Link>
           </Button>
         </Grid.Column >
         <Grid.Column>
-        <Header textAlign='center'> IOI Match - Investor's Page Demo</Header>
+        <Header textAlign='center'> IOI Match - Brokers's Page Demo</Header>
         </Grid.Column>
 
         <Grid.Column textAlign='right'>
         <Container>
         <Dropdown selection
           floated='left'
-          placeholder='Investor'
-          name='principal'
-          options={this.principals()}
+          placeholder='Broker'
+          name='agent'
+          options={this.agents()}
           onChange={this.handleChange}
           />
         </Container>
@@ -55,7 +50,7 @@ class PrincipalsHeader extends Component {
   }
 }
 
-export default PrincipalsHeader
+export default AgentsHeader
 
 // this.setState({ principal: value })
 

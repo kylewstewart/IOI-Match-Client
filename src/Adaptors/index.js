@@ -58,4 +58,8 @@ export class Adaptors {
       .then(res => res.json())
   }
 
+  static Agents(){
+    return fetch(url + '/api/v1/agents')
+      .then(res => res.json())
+  }
 }
