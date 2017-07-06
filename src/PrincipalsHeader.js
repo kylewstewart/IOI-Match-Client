@@ -1,6 +1,6 @@
 
 import React, { Component }  from 'react'
-import { Form, Container, Grid, Header, Button } from 'semantic-ui-react'
+import { Dropdown, Container, Grid, Header, Button } from 'semantic-ui-react'
 
 
 
@@ -20,9 +20,8 @@ class PrincipalsHeader extends Component {
     this.props.principals.map(principal => {
       const obj = {key:`${principal.id}`, value:`${principal.name}`, text:`${principal.name}`}
       return obj
-    }))
-
-
+    }).sort((a, b) => a.text.localeCompare(b.text))
+  )
 
   render(){
 
@@ -30,31 +29,29 @@ class PrincipalsHeader extends Component {
       <Container>
         <Grid>
           <Grid.Row columns={3} >
-            <Grid.Column textAlign='left' width={5} >
+            <Grid.Column textAlign='left'>
               <Button basic as='H4'>
                 Investor Page: Demo Mode
               </Button>
             </Grid.Column >
 
-            <Grid.Column width={6}>
+            <Grid.Column>
               <Header textAlign='center' as='H2'>
                 IOI Match
               </Header>
             </Grid.Column>
-            <Grid.Column textAlign='right' width={5}>
-            <Form.Group inline>
-              <Form.Dropdown search selection
+            <Grid.Column textAlign='right'>
+              <Dropdown search selection
                 value={this.state.stock}
                 placeholder='Investor'
                 name='principal'
                 options={this.principals()}
                 onChange={this.handleChange}
                 />
-              <Form.Button compact
+              <Button compact
                 content="submit"
                 onClick={this.handleClick}
                 />
-            </Form.Group>
 
 
             </Grid.Column>

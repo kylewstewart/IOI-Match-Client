@@ -16,7 +16,6 @@ class IOIForm extends Component {
     this.onClearBrokersButton = this.onClearBrokersButton.bind(this)
     this.onSubmitButton = this.onSubmitButton.bind(this)
     this.onNewButton = this.onNewButton.bind(this)
-    this.handleLabelClick = this.handleLabelClick.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -40,10 +39,6 @@ class IOIForm extends Component {
   }
 
   handleChange = (e, {name, value}) => this.setState({[name]: value})
-
-  handleLabelClick = (e, {value}) => {
-    console.log(this.state.rankedAgents.findIndex(agent => agent === value))
-  }
 
   onSubmitButton = () => this.state.disableButton ?
     this.props.createIOI(this.setIOI()) : this.props.updateIOI(this.setIOI())
@@ -110,7 +105,6 @@ class IOIForm extends Component {
             placeholder='Ranked Brokers'
             name='rankedAgents'
             options={sponsorsOptions}
-            onLabelClick={this.handleLabelClick}
             onChange={this.handleChange}
           />
         <Button.Group fluid>
