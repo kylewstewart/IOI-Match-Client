@@ -72,4 +72,9 @@ export class Adaptors {
     return fetch(url + `/api/v1/agents/${agent_id}/sponsorships`)
       .then(res => res.json())
   }
+
+  static NegotiationPrincipals(neg_id){
+    return fetch(url + `/api/v1/negotiations/${neg_id}/principals`)
+      .then(res => res.json())
+  }
 }

@@ -26,7 +26,7 @@ class SponsorshipList extends Component {
         <Table >
           <Table.Header>
             <Table.Row>
-
+              <Table.HeaderCell textAlign='left'>Investor</Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>Conversion</Table.HeaderCell>
             </Table.Row>
           </Table.Header>

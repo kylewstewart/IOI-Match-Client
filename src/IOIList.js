@@ -82,12 +82,14 @@ class IOIList extends Component {
                 icon='edit'
                 attached='left'
                 value={IOI.id}
+                disabled={!this.props.principal}
                 onClick={this.handleEdit}
               />
               <Button
                 icon='delete'
                 attached='right'
                 value={IOI.id}
+                disabled={!this.props.principal}
                 onClick={this.handleDestroy}
               />
             </Table.Cell>

@@ -5,6 +5,7 @@ import { Adaptors } from '../Adaptors/index'
 import AgentsHeader from '../AgentsHeader'
 import SponsorshipList from '../SponsorshipList'
 import AgentsNegotiations from '../AgentsNegotiations'
+import AgentNegotiationDetail from '../AgentNegotiationDetail'
 
 class AgentsPage extends Component {
   constructor(){
@@ -12,7 +13,6 @@ class AgentsPage extends Component {
     this.state = {
       agents: [],
       agent_id: '',
-      sponsorships: []
     }
   }
 
@@ -42,14 +42,30 @@ class AgentsPage extends Component {
       .then(negotiations => this.setState({negotiations}))
   }
 
+  negotiationDetail = (neg_id) => {
+    const negotiation = this.state.negotiations.find(neg => neg.id === neg_id)
+    Adaptors.NegotiationPrincipals(neg_id)
+      .then(negotiationPrincipals => this.setState({ negotiationPrincipals }))
+    this.setState({ negotiation })
+  }
+
+
   render() {
     return (
-      <Grid>
-        <AgentsHeader agentSubmit={this.agentSubmit} agents={this.state.agents} />
-        <SponsorshipList sponsorships={this.state.sponsorships} />
-        <AgentsNegotiations negotiations={this.state.negotiations} agent={this.state.agent_id}
-          getNegotiations={this.getNegotiations} />
-      </Grid>
+    <Grid>
+      <AgentsHeader agentSubmit={this.agentSubmit} agents={this.state.agents} />
+      <Grid.Row columns={2}>
+        <Grid.Column width='8'>
+          <AgentNegotiationDetail />
+          <Divider hidden />
+          <AgentsNegotiations negotiations={this.state.negotiations} agent={this.state.agent_id}
+            getNegotiations={this.getNegotiations} negotiationDetail={this.negotiationDetail} />
+        </Grid.Column>
+        <Grid.Column width='8'>
+          <SponsorshipList sponsorships={this.state.sponsorships} />
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
     )
   }
 }

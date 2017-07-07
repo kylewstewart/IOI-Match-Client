@@ -19,50 +19,65 @@ class AgentsNegotiations extends Component {
     return sorted_negotiations
   }
 
+  handleEdit = (e, {value}) => this.props.negotiationDetail(value)
+
+
   render() {
 
     return (
-      <Segment.Group>
-        <Segment clearing>
-          <Header floated='left'> Negotiations </Header>
-          <Button basic
-            disabled={!this.props.agent}
-            floated='right' icon='refresh'
-            onClick={this.handleClick} />
-        </Segment>
-        <Segment>
-          <Header textAlign='left' as='h5'>
-            Active
-          </Header>
-          <Table compact >
-            <Table.Header></Table.Header>
-            <Table.Body>
-            {this.negotiations('Active').map(negotiation => (
-              <Table.Row key={negotiation.id}>
-                <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
-                <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
-              </Table.Row>
-            ))}
-            </Table.Body>
-          </Table>
-        </Segment>
-        <Segment>
-          <Header textAlign='left' as='h5'>
-            Completed
-          </Header>
-          <Table compact textAlign='center'>
-            <Table.Header></Table.Header>
-            <Table.Body>
-            {this.negotiations('Completed').map(negotiation => (
-              <Table.Row key={negotiation.id}>
-                <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
-                <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
-              </Table.Row>
-            ))}
-            </Table.Body>
-          </Table>
-        </Segment>
-      </Segment.Group>
+    <Segment.Group>
+      <Segment clearing>
+        <Header floated='left'> Negotiations </Header>
+        <Button basic
+          disabled={!this.props.agent}
+          floated='right' icon='refresh'
+          onClick={this.handleClick}
+          />
+      </Segment>
+      <Segment>
+        <Header textAlign='left' as='h5'> Active </Header>
+      <Table compact >
+        <Table.Header>
+          <Table.HeaderCell textAlign='center'>Stock</Table.HeaderCell>
+          <Table.HeaderCell textAlign='center'>Status</Table.HeaderCell>
+          <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
+        </Table.Header>
+        <Table.Body>
+          {this.negotiations('Active').map(negotiation => (
+            <Table.Row key={negotiation.id}>
+              <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
+              <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
+              <Table.Cell textAlign='center'>
+                <Button
+                  icon='external'
+                  disabled={!this.props.agent}
+                  value={negotiation.id}
+                  onClick={this.handleEdit}
+                  />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+      </Segment>
+      <Segment>
+        <Header textAlign='left' as='h5'>Completed</Header>
+      <Table compact textAlign='center'>
+        <Table.Header>
+          <Table.HeaderCell textAlign='center'>Stock</Table.HeaderCell>
+          <Table.HeaderCell textAlign='center'>Status</Table.HeaderCell>
+        </Table.Header>
+        <Table.Body>
+          {this.negotiations('Completed').map(negotiation => (
+            <Table.Row key={negotiation.id}>
+            <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
+            <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
+          </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+      </Segment>
+    </Segment.Group>
     )
   }
 

@@ -59,7 +59,11 @@ class PrincipalsNegotiations extends Component {
           Completed
         </Header>
         <Table compact textAlign='center'>
-          <Table.Header></Table.Header>
+          <Table.Header>
+            <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Status </Table.HeaderCell>
+          </Table.Header>
           <Table.Body>
           {this.negotiations('Completed').map(negotiation => (
             <Table.Row key={negotiation.id}>
@@ -78,29 +82,3 @@ class PrincipalsNegotiations extends Component {
 }
 
 export default PrincipalsNegotiations
-
-
-
-// <Button.Group>
-//   <Dropdown compact labeled button
-//     className='icon'
-//     options={countryOptions}
-//     placeholder={this.state.country}
-//     name="country"
-//     onChange={this.handleChange} />
-// </Button.Group>
-
-// <Table.Cell>
-//   <Button
-//     icon='edit'
-//     attached='left'
-//     value={IOI.id}
-//     onClick={this.handleEdit}
-//     />
-//   <Button
-//     icon='delete'
-//     attached='right'
-//     value={IOI.id}
-//     onClick={this.handleDestroy}
-//     />
-// </Table.Cell>
