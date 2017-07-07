@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { Segment, Table, Header, Button } from 'semantic-ui-react'
 
-class AgentsNegotiations extends Compnent {
+class AgentsNegotiations extends Component {
 
   handleClick = () => this.props.getNegotiations(this.props.agent)
 
   negotiations = (status) => {
-    const blank = {[
+    const blank = [{
       id: 1,
       exch_code: '-',
       active: '-'
-    ]}
+      }]
 
     if (!this.props.negotiations || !this.props.negotiations.length) return blank
     const negotiations = this.props.negotiations.filter(neg => neg.active === status)
@@ -26,7 +26,7 @@ class AgentsNegotiations extends Compnent {
         <Segment clearing>
           <Header floated='left'> Negotiations </Header>
           <Button basic
-            disabled={!this.props.principal}
+            disabled={!this.props.agent}
             floated='right' icon='refresh'
             onClick={this.handleClick} />
         </Segment>

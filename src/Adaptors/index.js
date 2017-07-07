@@ -53,6 +53,11 @@ export class Adaptors {
       .then(res => res.json())
   }
 
+  static AgentNegotiations(agent_id){
+    return fetch(url + `/api/v1/agents/${agent_id}/negotations`)
+      .then(res => res.json())
+  }
+
   static Principals(){
     return fetch(url + '/api/v1/principals')
       .then(res => res.json())

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Button, Segment, Header, Form } from 'semantic-ui-react'
+import { Container, Button, Segment, Header, Form } from 'semantic-ui-react'
 
 class IOIForm extends Component {
   constructor(){
@@ -65,7 +65,7 @@ class IOIForm extends Component {
 
   sponsors = () => (
     this.props.sponsors.map(sp => {
-      const obj = {key:`${sp.name}`, value:`${sp.name}`, text:`${sp.name}`}
+      const obj = {key:`${sp.id}`, value:`${sp.agent_name}`, text:`${sp.agent_name}`}
       return obj
     }))
 
@@ -80,57 +80,55 @@ class IOIForm extends Component {
     const sponsorsOptions = this.sortAlpha(this.sponsors())
 
     return (
-    <Segment.Group>
-      <Segment>
+      <Container>
+        <Segment.Group>
+          <Segment>
         <Header> {this.state.title} </Header>
-      </Segment>
-      <Segment>
+        </Segment>
+        <Segment>
         <Form>
           <Form.Select
-            value={this.state.side}
-            placeholder='Side'
-            name='side'
-            options={sideOptions}
-            onChange={this.handleChange}
+          value={this.state.side}
+          placeholder='Side'
+          name='side'
+          options={sideOptions}
+          onChange={this.handleChange}
           />
           <Form.Dropdown search selection
-            value={this.state.stock}
-            placeholder='Stock'
-            name='stock'
-            options={stockOptions}
-            onChange={this.handleChange}
+          value={this.state.stock}
+          placeholder='Stock'
+          name='stock'
+          options={stockOptions}
+          onChange={this.handleChange}
           />
           <Form.Dropdown multiple selection
-            value={this.state.rankedAgents}
-            placeholder='Ranked Brokers'
-            name='rankedAgents'
-            options={sponsorsOptions}
-            onChange={this.handleChange}
+          value={this.state.rankedAgents}
+          placeholder='Ranked Brokers'
+          name='rankedAgents'
+          options={sponsorsOptions}
+          onChange={this.handleChange}
           />
-        <Button.Group fluid>
           <Button
-            name='submit'
-            content="Submit"
-            value={this.state.disableButton}
-            onClick={this.onSubmitButton}
-            />
+          name='submit'
+          content="Submit"
+          value={this.state.disableButton}
+          onClick={this.onSubmitButton}
+          />
           <Button
-            content='Clear Brokers'
-            onClick={this.onClearBrokersButton}
-            />
+          content='Clear Brokers'
+          onClick={this.onClearBrokersButton}
+          />
           <Button
-            name='newIOI'
-            disabled={this.state.disableButton}
-            content="New IOI"
-            onClick={this.onNewButton}
-            />
-        </Button.Group>
-
-
+          name='newIOI'
+          disabled={this.state.disableButton}
+          content="New IOI"
+          onClick={this.onNewButton}
+          />
         </Form>
+        </Segment>
+        </Segment.Group>
+      </Container>
 
-    </Segment>
-    </Segment.Group>
     )
   }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Table, Header, Button } from 'semantic-ui-react'
+import { Segment, Container, Table, Header, Button } from 'semantic-ui-react'
 
 
 class PrincipalsNegotiations extends Component {
@@ -24,49 +24,55 @@ class PrincipalsNegotiations extends Component {
   render() {
 
     return (
-      <Segment.Group>
-        <Segment clearing>
-          <Header floated='left'> Negotiations </Header>
-          <Button basic
-            disabled={!this.props.principal}
-            floated='right' icon='refresh'
-            onClick={this.handleClick} />
+      <Container>
+        <Segment.Group>
+          <Segment clearing>
+        <Header floated='left'> Negotiations </Header>
+        <Button basic
+          disabled={!this.props.principal}
+          floated='right' icon='refresh'
+          onClick={this.handleClick} />
         </Segment>
         <Segment>
-          <Header textAlign='left' as='h5'>
-            Active
-          </Header>
-          <Table compact >
-            <Table.Header></Table.Header>
-            <Table.Body>
-            {this.negotiations('Active').map(negotiation => (
-              <Table.Row key={negotiation.id}>
-                <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
-                <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
-                <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
-              </Table.Row>
-            ))}
-            </Table.Body>
-          </Table>
+        <Header textAlign='left' as='h5'>
+          Active
+        </Header>
+        <Table compact >
+          <Table.Header>
+            <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Status </Table.HeaderCell>
+          </Table.Header>
+          <Table.Body>
+          {this.negotiations('Active').map(negotiation => (
+            <Table.Row key={negotiation.id}>
+              <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
+              <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
+              <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
+            </Table.Row>
+          ))}
+          </Table.Body>
+        </Table>
         </Segment>
         <Segment>
-          <Header textAlign='left' as='h5'>
-            Completed
-          </Header>
-          <Table compact textAlign='center'>
-            <Table.Header></Table.Header>
-            <Table.Body>
-            {this.negotiations('Completed').map(negotiation => (
-              <Table.Row key={negotiation.id}>
-                <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
-                <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
-                <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
-              </Table.Row>
-            ))}
-            </Table.Body>
-          </Table>
+        <Header textAlign='left' as='h5'>
+          Completed
+        </Header>
+        <Table compact textAlign='center'>
+          <Table.Header></Table.Header>
+          <Table.Body>
+          {this.negotiations('Completed').map(negotiation => (
+            <Table.Row key={negotiation.id}>
+              <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
+              <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
+              <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
+            </Table.Row>
+          ))}
+          </Table.Body>
+        </Table>
         </Segment>
-      </Segment.Group>
+        </Segment.Group>
+      </Container>
     )
   }
 }

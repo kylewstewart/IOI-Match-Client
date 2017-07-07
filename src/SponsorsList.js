@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Header, Table } from 'semantic-ui-react'
+import { Container, Segment, Header, Table } from 'semantic-ui-react'
 
 class SponsorsList extends Component {
 
@@ -16,24 +16,23 @@ class SponsorsList extends Component {
 
   render(){
     return (
-      <Segment.Group>
-        <Segment>
-          <Header textAlign='left'>
-            Sponsors
-          </Header>
-        </Segment>
-        <Segment>
-        <Table >
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell> Broker </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'>Conversion</Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'>Satisfaction</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {this.sponsors().map((sponsor) =>
-              <Table.Row key={sponsor.id}>
+      <Container>
+        <Segment.Group>
+          <Segment>
+            <Header textAlign='left'>Sponsors</Header>
+          </Segment>
+          <Segment>
+            <Table >
+              <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell textAlign='center'> Broker </Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'>Conversion</Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'>Satisfaction</Table.HeaderCell>
+              </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {this.sponsors().map((sponsor) =>
+                <Table.Row key={sponsor.id}>
                 <Table.Cell textAlign='center'>
                   {sponsor.agent_name}
                 </Table.Cell>
@@ -43,12 +42,13 @@ class SponsorsList extends Component {
                 <Table.Cell textAlign='center'>
                   {sponsor.satisfaction}
                 </Table.Cell>
-              </Table.Row>
-            )}
-          </Table.Body>
-        </Table>
-        </Segment>
-      </Segment.Group>
+                </Table.Row>
+                )}
+              </Table.Body>
+            </Table>
+          </Segment>
+        </Segment.Group>
+      </Container>
     )
   }
 }

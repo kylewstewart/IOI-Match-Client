@@ -37,7 +37,7 @@ class AgentsPage extends Component {
       .then(sponsorships => this.setState({ sponsorships }))
   }
 
-  getNegotiations(agent_id){
+  getNegotiations = (agent_id) => {
     Adaptors.AgentNegotiations(agent_id)
       .then(negotiations => this.setState({negotiations}))
   }

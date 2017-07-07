@@ -27,7 +27,6 @@ class PrincipalsPage extends Component {
     this.createIOI = this.createIOI.bind(this)
     this.resetIOIProp = this.resetIOIProp.bind(this)
     this.principalSubmit = this.principalSubmit.bind(this)
-    this.getNegotiations = this.getNegotiations.bind(this)
   }
 
   componentDidMount(){
@@ -43,27 +42,27 @@ class PrincipalsPage extends Component {
     this.getNegotiations(principal_id)
   }
 
-  getIOIs(principal_id){
+  getIOIs = (principal_id) => {
     Adaptors.IOIs(principal_id)
     .then(IOIs =>this.setState({IOIs}))
   }
 
-  getSponsors(principal_id){
+  getSponsors = (principal_id) => {
     Adaptors.Sponsors(principal_id)
     .then(sponsors => this.setState({sponsors}))
   }
 
-  getStocks(){
+  getStocks = () => {
     Adaptors.Stocks()
       .then(stocks => this.setState({stocks}))
   }
 
-  getPrincipals(){
+  getPrincipals = () => {
     Adaptors.Principals()
       .then(principals => this.setState({ principals}))
   }
 
-  createIOI(IOI){
+  createIOI = (IOI) => {
     Adaptors.CreateIOI(IOI, this.state.principal_id)
       .then(IOI => this.setState((prevState) => {
         return { IOIs: [...prevState.IOIs, IOI] }
@@ -71,7 +70,7 @@ class PrincipalsPage extends Component {
     this.setState({IOI: false})
   }
 
-  updateIOI(IOI){
+  updateIOI = (IOI) =>{
     Adaptors.UpdateIOI(IOI)
       .then(IOI => this.setState((prevState) => {
         return {IOIs: prevState.IOIs.map(prevIOI => prevIOI.id === IOI.id ? IOI : prevIOI)}
@@ -79,19 +78,19 @@ class PrincipalsPage extends Component {
     this.setState({IOI: false})
   }
 
-  editIOI(IOI_id){
+  editIOI = (IOI_id) => {
     const IOI = this.state.IOIs.find(IOI => IOI.id === IOI_id)
     this.setState({ IOI })
   }
 
-  destroyIOI(IOI_id){
+  destroyIOI = (IOI_id) => {
     Adaptors.DestroyIOI(IOI_id)
     .then(IOI => this.setState((prevState) => {
       return {IOIs: prevState.IOIs.filter(prevIOI => prevIOI.id !== IOI_id)}
     }))
   }
 
-  getNegotiations(principal_id){
+  getNegotiations = (principal_id) => {
     Adaptors.PrincipalNegotiations(principal_id)
       .then(negotiations => this.setState({negotiations}))
   }
@@ -103,18 +102,17 @@ class PrincipalsPage extends Component {
     return (
       <Grid>
       <PrincipalsHeader principalSubmit={this.principalSubmit} principals={this.state.principals} />
-      <Grid.Row columns={3}>
-        <Grid.Column width='5'>
-          <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI} destroyIOI={this.destroyIOI}/>
-        </Grid.Column>
-        <Grid.Column width='6'>
+      <Grid.Row columns={2}>
+        <Grid.Column width='8'>
           <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors} IOI={this.state.IOI}
             resetIOIProp={this.resetIOIProp} updateIOI={this.updateIOI} createIOI={this.createIOI}
             destroyIOI={this.destroyIOI}/>
           <Divider hidden/>
-          <SponsorsList  sponsors={this.state.sponsors} />
+          <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI} destroyIOI={this.destroyIOI}/>
         </Grid.Column>
-        <Grid.Column width='5'>
+        <Grid.Column width='8'>
+          <SponsorsList  sponsors={this.state.sponsors} />
+          <Divider hidden/>
           <PrincipalsNegotiations negotiations={this.state.negotiations} principal={this.state.principal_id}
             getNegotiations={this.getNegotiations}/>
         </Grid.Column>

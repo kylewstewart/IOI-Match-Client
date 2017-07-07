@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Header, Button, Segment, Dropdown, Table, Flag } from 'semantic-ui-react'
+import { Container, Header, Button, Segment, Dropdown, Table, Flag } from 'semantic-ui-react'
 
 class IOIList extends Component {
   constructor(){
@@ -22,11 +22,16 @@ class IOIList extends Component {
   filterBySide = (IOIs) => this.state.side !== 'All' ?
     IOIs.filter(IOI => this.state.side === IOI.side) : IOIs
 
-  getIOIs = () => this.filterBySide(this.props.IOIs)
-    .sort((a, b) => a.stock.localeCompare(b.stock))
+  IOIs = () => {
+    const blank = [
+      { id: 1, stock: '-', flag: 'flag outline', side: '-' }
+    ]
+
+    if (!this.props.IOIs || !this.props.IOIs.length) return blank
+    return this.filterBySide(this.props.IOIs).sort((a, b) => a.stock.localeCompare(b.stock))
+  }
 
   render() {
-    const IOIs = this.getIOIs()
     const sideOptions = [
       {key: 'Buy', value: 'Buy', text: 'Buy'},
       {key: 'Sell', value: 'Sell', text: 'Sell'},
@@ -38,57 +43,61 @@ class IOIList extends Component {
     ]
 
     return (
-      <Segment.Group>
-        <Segment>
-          <Header textAlign='left'>
-            IOIs
-          </Header>
-        </Segment>
-        <Segment>
-          <Button.Group>
+      <Container>
+        <Segment.Group>
+          <Segment>
+            <Header textAlign='left'> IOIs </Header>
+          </Segment>
+          <Segment>
             <Dropdown compact labeled button
               className='icon'
               options={countryOptions}
               placeholder={this.state.country}
               name="country"
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+            />
             <Dropdown compact labeled button
               className='icon'
               options={sideOptions}
               placeholder={this.state.side}
               name='side'
-              onChange={this.handleChange} />
-          </Button.Group>
+              onChange={this.handleChange}
+            />
+        <Table compact textAlign='center'>
+          <Table.Header>
+            <Table.HeaderCell textAlign='center'> Country </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Edit/Del </Table.HeaderCell>
+
+          </Table.Header>
+          <Table.Body>
+          {this.IOIs().map(IOI => (
+          <Table.Row key={IOI.id}>
+            <Table.Cell > <Flag name='us'/>  </Table.Cell>
+            <Table.Cell> {IOI.stock} </Table.Cell>
+            <Table.Cell> {IOI.side} </Table.Cell>
+            <Table.Cell>
+              <Button
+                icon='edit'
+                attached='left'
+                value={IOI.id}
+                onClick={this.handleEdit}
+              />
+              <Button
+                icon='delete'
+                attached='right'
+                value={IOI.id}
+                onClick={this.handleDestroy}
+              />
+            </Table.Cell>
+          </Table.Row>
+          ))}
+          </Table.Body>
+        </Table>
         </Segment>
-        <Segment>
-          <Table compact textAlign='center'>
-            <Table.Header></Table.Header>
-            <Table.Body>
-            {IOIs.map(IOI => (
-              <Table.Row key={IOI.id}>
-                <Table.Cell > <Flag name='us'/>  </Table.Cell>
-                <Table.Cell> {IOI.stock} </Table.Cell>
-                <Table.Cell> {IOI.side} </Table.Cell>
-                <Table.Cell>
-                  <Button
-                    icon='edit'
-                    attached='left'
-                    value={IOI.id}
-                    onClick={this.handleEdit}
-                  />
-                  <Button
-                    icon='delete'
-                    attached='right'
-                    value={IOI.id}
-                    onClick={this.handleDestroy}
-                  />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-            </Table.Body>
-          </Table>
-        </Segment>
-      </Segment.Group>
+        </Segment.Group>
+      </Container>
     )
   }
 }
