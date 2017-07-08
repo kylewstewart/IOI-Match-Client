@@ -13,7 +13,11 @@ class AgentsPage extends Component {
     this.state = {
       agents: [],
       agent_id: '',
+      negotiation: '',
+      negotiationPrincipals: []
     }
+    this.updateNegotiationPrincipal = this.updateNegotiationPrincipal.bind(this)
+    this.updateNegotiation = this.updateNegotiation.bind(this)
   }
 
   componentDidMount = () => {
@@ -42,9 +46,21 @@ class AgentsPage extends Component {
       .then(negotiations => this.setState({negotiations}))
   }
 
-  updateNegotiationPrincipals = (id, key, value) => {
-    Adaptors.updateNegotiationPrincipals(id, key, value)
-      .then(negPrin => console.log(negPrin))
+  updateNegotiationPrincipal = (id, key, value) => {
+    Adaptors.UpdateNegotiationPrincipal(id, key, value)
+      .then(negPrin => this.setState((prevState) => {
+        return {
+          negotiationPrincipals: prevState.negotiationPrincipals.map(np => {
+            if (np.id === negPrin) return negPrin
+            return np
+          })
+        }
+      }))
+  }
+
+  updateNegotiation = (id, traded) => {
+    Adaptors.UpdateNegotiation(id, traded)
+      .then(negotiation => this.setState({ negotiation }))
   }
 
   negotiationDetail = (neg_id) => {
@@ -67,6 +83,8 @@ class AgentsPage extends Component {
           <AgentNegotiationDetail
             negotiation={this.state.negotiation}
             negotiationPrincipals={this.state.negotiationPrincipals}
+            updateNegPrin={this.updateNegotiationPrincipal}
+            updateNeg={this.updateNegotiation}
             />
           <Divider hidden />
           <AgentsNegotiations

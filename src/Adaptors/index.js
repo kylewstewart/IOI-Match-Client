@@ -49,12 +49,12 @@ export class Adaptors {
   }
 
   static PrincipalNegotiations(principal_id){
-    return fetch(url + `/api/v1/principals/${principal_id}/negotations`)
+    return fetch(url + `/api/v1/principals/${principal_id}/negotiations`)
       .then(res => res.json())
   }
 
   static AgentNegotiations(agent_id){
-    return fetch(url + `/api/v1/agents/${agent_id}/negotations`)
+    return fetch(url + `/api/v1/agents/${agent_id}/negotiations`)
       .then(res => res.json())
   }
 
@@ -78,13 +78,24 @@ export class Adaptors {
       .then(res => res.json())
   }
 
-  static UpdateNegotiationPrincipals(id, key, value){
+  static UpdateNegotiationPrincipal(id, key, value){
     return fetch(url + `/api/v1/negotiation_principals/${id}`, {
       method: 'PATCH',
       headers: headers,
       body: JSON.stringify({
         key: key,
         value: value
+      })
+    }).then(res => res.json())
+  }
+
+  static UpdateNegotiation(id, traded){
+    return fetch(url + `/api/v1/negotiations/${id}`, {
+      method: 'PATCH',
+      headers: headers,
+      body: JSON.stringify({
+        active: false,
+        traded: `${traded}`
       })
     }).then(res => res.json())
   }
