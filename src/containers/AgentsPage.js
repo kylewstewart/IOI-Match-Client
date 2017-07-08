@@ -42,6 +42,11 @@ class AgentsPage extends Component {
       .then(negotiations => this.setState({negotiations}))
   }
 
+  updateNegotiationPrincipals = (id, key, value) => {
+    Adaptors.updateNegotiationPrincipals(id, key, value)
+      .then(negPrin => console.log(negPrin))
+  }
+
   negotiationDetail = (neg_id) => {
     const negotiation = this.state.negotiations.find(neg => neg.id === neg_id)
     Adaptors.NegotiationPrincipals(neg_id)

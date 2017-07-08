@@ -15,6 +15,8 @@ class AgentNegotiationDetail extends Component {
     this.setState({ negotiationPrincipals: nextProps.negotiationPrincipals })
   }
 
+  handleClick = (e, obj) => console.log(obj)
+
   negotiation = () => {
     const blank = { active: '-', exch_code: '-', traded: '-' }
     if (!this.state.negotiation) return blank
@@ -25,6 +27,12 @@ class AgentNegotiationDetail extends Component {
     const blank = [{id: 1, name: '-', side: '-', traded: false}]
     if (!this.state.negotiationPrincipals) return blank
     return this.state.negotiationPrincipals.filter(np => np.side === side)
+  }
+
+  traded = (id) => {
+    const negPrin = this.state.negotiationPrincipals(negPrin => negPrin.id === id)
+    if (negPrin.traded === undefined) return intermediate
+    return negPrin.traded
   }
 
   render(){
@@ -55,6 +63,7 @@ class AgentNegotiationDetail extends Component {
             <Table.Body></Table.Body>
           </Table>
         </Segment>
+
         <Segment>
           <Header as='h5' > Buyers </Header>
         <Table fixed>
@@ -69,12 +78,11 @@ class AgentNegotiationDetail extends Component {
               <Table.Row key={principal.id}>
                 <Table.Cell textAlign='left'>{principal.name}</Table.Cell>
                 <Table.Cell textAlign='center'>
-                  <Checkbox onClick checked={principal.traded} />
+                  <Checkbox value={principal.id} onClick={this.handleClick}
+                    checked={'intermediate'} />
                 </Table.Cell>
-
               </Table.Row>
             ))}
-
           </Table.Body>
         </Table>
 
