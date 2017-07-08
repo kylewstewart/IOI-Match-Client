@@ -53,16 +53,28 @@ class AgentsPage extends Component {
   render() {
     return (
     <Grid>
-      <AgentsHeader agentSubmit={this.agentSubmit} agents={this.state.agents} />
+      <AgentsHeader
+        agentSubmit={this.agentSubmit}
+        agents={this.state.agents}
+        />
       <Grid.Row columns={2}>
         <Grid.Column width='8'>
-          <AgentNegotiationDetail />
+          <AgentNegotiationDetail
+            negotiation={this.state.negotiation}
+            negotiationPrincipals={this.state.negotiationPrincipals}
+            />
           <Divider hidden />
-          <AgentsNegotiations negotiations={this.state.negotiations} agent={this.state.agent_id}
-            getNegotiations={this.getNegotiations} negotiationDetail={this.negotiationDetail} />
+          <AgentsNegotiations
+            negotiations={this.state.negotiations}
+            agent={this.state.agent_id}
+            getNegotiations={this.getNegotiations}
+            negotiationDetail={this.negotiationDetail}
+            />
         </Grid.Column>
         <Grid.Column width='8'>
-          <SponsorshipList sponsorships={this.state.sponsorships} />
+          <SponsorshipList
+            sponsorships={this.state.sponsorships}
+            />
         </Grid.Column>
       </Grid.Row>
     </Grid>

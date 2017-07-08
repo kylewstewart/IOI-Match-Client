@@ -101,7 +101,7 @@ class IOIForm extends Component {
           options={stockOptions}
           onChange={this.handleChange}
           />
-          <Form.Dropdown multiple selection
+        <Form.Dropdown multiple search selection
           value={this.state.rankedAgents}
           placeholder='Ranked Brokers'
           name='rankedAgents'

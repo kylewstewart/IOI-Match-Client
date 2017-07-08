@@ -1,6 +1,6 @@
 
 import React, { Component }  from 'react'
-import { Segment, Dropdown, Container, Grid, Header, Button } from 'semantic-ui-react'
+import { Dropdown, Container, Grid, Header, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 
@@ -17,11 +17,6 @@ class PrincipalsHeader extends Component {
   )
 
   render(){
-
-    const pages = [
-      {key: 1, value: 'principal', text: 'Investor Page'},
-      {key: 2, value: 'agent', text: 'Broker Page'}
-    ]
 
     return(
       <Grid>
@@ -56,21 +51,3 @@ class PrincipalsHeader extends Component {
 }
 
 export default PrincipalsHeader
-
-// this.setState({ principal: value })
-
-// handleClick = () => this.props.principalSubmit(this.state.principal)
-//
-// constructor(){
-//   super()
-//   this.state = {
-//     principal: ""
-//   }
-// }
-// value={this.state.stock}
-
-// <Button compact
-//   floated='right'
-//   content="submit"
-//   onClick={this.handleClick}
-//   />

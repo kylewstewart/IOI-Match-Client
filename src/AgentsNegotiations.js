@@ -36,12 +36,15 @@ class AgentsNegotiations extends Component {
       </Segment>
       <Segment>
         <Header textAlign='left' as='h5'> Active </Header>
-      <Table compact >
+      <Table fixed>
         <Table.Header>
-          <Table.HeaderCell textAlign='center'>Stock</Table.HeaderCell>
-          <Table.HeaderCell textAlign='center'>Status</Table.HeaderCell>
-          <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
+          <Table.Row>
+            <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Status </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
+          </Table.Row>
         </Table.Header>
+
         <Table.Body>
           {this.negotiations('Active').map(negotiation => (
             <Table.Row key={negotiation.id}>
@@ -62,10 +65,12 @@ class AgentsNegotiations extends Component {
       </Segment>
       <Segment>
         <Header textAlign='left' as='h5'>Completed</Header>
-      <Table compact textAlign='center'>
+      <Table fixed>
         <Table.Header>
-          <Table.HeaderCell textAlign='center'>Stock</Table.HeaderCell>
-          <Table.HeaderCell textAlign='center'>Status</Table.HeaderCell>
+          <Table.Row>
+            <Table.HeaderCell textAlign='center'>Stock</Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'>Status</Table.HeaderCell>
+          </Table.Row>
         </Table.Header>
         <Table.Body>
           {this.negotiations('Completed').map(negotiation => (

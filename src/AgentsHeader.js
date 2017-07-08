@@ -1,6 +1,6 @@
 
 import React, { Component }  from 'react'
-import { Segment, Dropdown, Container, Grid, Header, Button } from 'semantic-ui-react'
+import { Dropdown, Container, Grid, Header, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 
@@ -23,8 +23,7 @@ class AgentsHeader extends Component {
         <Grid.Row columns={3} >
         <Grid.Column textAlign='left'>
           <Button basic
-            floated="left"
-            content="Swith to Broker's Page">
+            floated="left" >
           <Link to='/principal'> Swith to Investor's Page </Link>
           </Button>
         </Grid.Column >
@@ -35,7 +34,6 @@ class AgentsHeader extends Component {
         <Grid.Column textAlign='right'>
         <Container>
         <Dropdown selection
-          floated='left'
           placeholder='Broker'
           name='agent'
           options={this.agents()}
