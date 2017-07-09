@@ -14,7 +14,9 @@ class AgentsPage extends Component {
       agents: [],
       agent_id: '',
       negotiation: '',
+      negotiations: [],
       negotiationPrincipals: []
+
     }
     this.updateNegotiationPrincipal = this.updateNegotiationPrincipal.bind(this)
     this.updateNegotiation = this.updateNegotiation.bind(this)
@@ -55,12 +57,23 @@ class AgentsPage extends Component {
             return np
           })
         }
-      }))
+      })
+    )
   }
 
   updateNegotiation = (id, traded) => {
     Adaptors.UpdateNegotiation(id, traded)
-      .then(negotiation => this.setState({ negotiation }))
+    .then(negotiation => {
+      this.setState({ negotiation })
+      this.setState((prevState) => {
+        return {
+          negotiations: prevState.negotiations.map(neg => {
+            if (neg.id === negotiation.id) return negotiation
+            return neg
+          })
+        }
+      })
+    })
   }
 
   negotiationDetail = (neg_id) => {

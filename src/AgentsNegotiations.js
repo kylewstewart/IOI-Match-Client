@@ -21,7 +21,6 @@ class AgentsNegotiations extends Component {
 
   handleEdit = (e, {value}) => this.props.negotiationDetail(value)
 
-
   render() {
 
     return (
