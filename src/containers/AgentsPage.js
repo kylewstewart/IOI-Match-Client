@@ -11,7 +11,7 @@ class AgentsPage extends Component {
   constructor(){
     super()
     this.state = { agents: [], id: '', negotiation: '', negotiations: [], negPrincipals: [] }
-    this.updateNegPrincipal = this.updateNegPrincipal.bind(this)
+    this.UpdateNegPrincipalTraded = this.UpdateNegPrincipalTraded.bind(this)
     this.updateNegotiation = this.updateNegotiation.bind(this)
   }
 
@@ -31,7 +31,7 @@ class AgentsPage extends Component {
   getNegotiations = (id) => Adaptors.AgentNegotiations(id)
     .then(negotiations => this.setState({ negotiations }))
 
-  updateNegPrincipal = (id, key, value) => Adaptors.UpdateNegPrincipal(id, key, value)
+  UpdateNegPrincipalTraded = (id, traded) => Adaptors.UpdateNegPrincipalTraded(id, traded)
     .then(negPrin => this.setState((prevState) => {
         return { negPrincipals: prevState.negPrincipals.map(np => np.id === negPrin ? negPrin : np) }
       })
@@ -59,7 +59,7 @@ class AgentsPage extends Component {
         <Grid.Row columns={2}>
           <Grid.Column width='8'>
             <AgentNegotiationDetail
-              updateNegPrincipal={this.updateNegPrincipal}
+              updateTraded={this.UpdateNegPrincipalTraded}
               updateNegotiation={this.updateNegotiation}
               negotiation={this.state.negotiation}
               negPrincipals={this.state.negPrincipals}

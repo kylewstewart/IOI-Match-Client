@@ -23,7 +23,7 @@ class AgentNegotiationDetail extends Component {
 
   updateNegotiation = () => {
     this.state.negPrincipals.forEach(np =>
-      this.props.updateNegPrincipal(np.id, 'traded', np.traded))
+      this.props.updateTraded(np.id, np.traded))
 
     const traded = this.state.negPrincipals.map(np => np.traded).includes(true)
     this.props.updateNegotiation(this.state.negotiation.id, traded)
@@ -47,7 +47,7 @@ class AgentNegotiationDetail extends Component {
   }
 
   render(){
-    
+
     return(
       <Segment.Group>
         <Segment> <Header> Negotiation </Header> </Segment>

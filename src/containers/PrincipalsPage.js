@@ -12,15 +12,8 @@ import PrincipalsHeader from '../PrincipalsHeader'
 class PrincipalsPage extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      IOIs: [],
-      sponsors: [],
-      stocks: [],
-      IOI: false,
-      principal_id: '',
-      negotiations: [],
-      principals: []
-    }
+    this.state = {IOIs: [], sponsors: [], stocks: [], IOI: false, principal_id: '',
+      negotiations: [], principals: [], ratings: []}
     this.editIOI = this.editIOI.bind(this)
     this.destroyIOI = this.destroyIOI.bind(this)
     this.updateIOI = this.updateIOI.bind(this)
@@ -28,6 +21,7 @@ class PrincipalsPage extends Component {
     this.resetIOIProp = this.resetIOIProp.bind(this)
     this.principalSubmit = this.principalSubmit.bind(this)
     this.updateRating = this.updateRating.bind(this)
+    this.getRating = this.getRating.bind(this)
   }
 
   componentDidMount(){
@@ -91,13 +85,29 @@ class PrincipalsPage extends Component {
     }))
   }
 
-  getNegotiations = (principal_id) => {
-    Adaptors.PrincipalNegotiations(principal_id)
-      .then(negotiations => this.setState({negotiations}))
+  getNegotiations = (id) => {
+    Adaptors.PrincipalNegotiations(id)
+      .then(negotiations => {
+        this.setState({ ratings: [] })
+        this.setState({ negotiations })
+        negotiations.forEach(neg => this.getRating(neg.id, id))
+      })
   }
 
-  updateRating = (id, rating) => Adaptors.UpdateNegPrincipal(id, 'satisfaction', rating).then(this.getNegotiations(id))
+  getRating = (neg_id, prin_id) =>
+    Adaptors.GetRating(neg_id, prin_id)
+      .then(rating => this.setState((prevState) => {
+        return {ratings: [...prevState.ratings, rating]}
+      }))
 
+  updateRating = (neg_id, prin_id, rating) =>
+    Adaptors.UpdateNegPrincipalRating(neg_id, prin_id, rating)
+    .then(negPrincipal => this.setState((prevState) => {
+      return { ratings: prevState.ratings.map(prevRating => {
+        if (prevRating.neg_id === negPrincipal.negotiation_id) prevRating.rating = negPrincipal.rating
+        return prevRating
+      })}
+    }))
 
   resetIOIProp = () => this.setState({IOI: false})
 
@@ -136,6 +146,7 @@ class PrincipalsPage extends Component {
               principal={this.state.principal_id}
               getNegotiations={this.getNegotiations}
               updateRating={this.updateRating}
+              ratings={this.state.ratings}
             />
           </Grid.Column>
         </Grid.Row>

@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Rating } from 'semantic-ui-react'
 
 class NegotiationRating extends Component {
-  constructor(){
-    super()
-    this.state = {rating: 0}
+  constructor(props){
+    super(props)
+    this.state = {
+      rating: props.rating}
   }
 
   componentWillReceiveProps(nextProps){
@@ -13,7 +14,7 @@ class NegotiationRating extends Component {
 
   handleRate = (e, { rating }) => {
     this.setState({ rating })
-    this.props.updateRating(this.props.id, rating)
+    this.props.updateRating(this.props.negID, this.props.prinID, rating)
   }
 
   render = () =>

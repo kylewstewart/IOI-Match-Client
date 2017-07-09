@@ -78,14 +78,19 @@ export class Adaptors {
       .then(res => res.json())
   }
 
-  static UpdateNegPrincipal(id, key, value){
+  static UpdateNegPrincipalTraded(id, traded){
     return fetch(url + `/api/v1/negotiation_principals/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: JSON.stringify({
-        key: key,
-        value: value
-      })
+      body: JSON.stringify({traded: traded})
+    }).then(res => res.json())
+  }
+
+  static UpdateNegPrincipalRating(neg_id, prin_id, rating){
+    return fetch(url + `/api/v1/negotiations/${neg_id}/principals/${prin_id}/negotiation_principals`, {
+      method: 'PATCH',
+      headers: headers,
+      body: JSON.stringify({rating: rating})
     }).then(res => res.json())
   }
 
@@ -98,5 +103,10 @@ export class Adaptors {
         traded: `${traded}`
       })
     }).then(res => res.json())
+  }
+
+  static GetRating(neg_id, prin_id){
+    return fetch(url + `/api/v1/negotiations/${neg_id}/principals/${prin_id}/negotiation_principals`)
+      .then(res => res.json())
   }
 }

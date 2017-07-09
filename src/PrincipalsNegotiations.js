@@ -15,6 +15,11 @@ class PrincipalsNegotiations extends Component {
     return negotiations.sort((a, b) => a.exch_code.localeCompare(b.exch_code))
   }
 
+  rating = (negID) => {
+    if (!this.props || !this.props.ratings[0]) return 0
+    return this.props.ratings.filter(rating => rating.neg_id === negID)[0].rating
+  }
+
   render() {
 
     return (
@@ -72,9 +77,10 @@ class PrincipalsNegotiations extends Component {
               <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
               <Table.Cell textAlign='center'>
                 <NegotiationRating
-                  rating={negotiation.rating}
                   updateRating={this.props.updateRating}
-                  id={this.props.principal}
+                  prinID={this.props.principal}
+                  negID={negotiation.id}
+                  rating={this.rating(negotiation.id)}
                   />
               </Table.Cell>
             </Table.Row>
