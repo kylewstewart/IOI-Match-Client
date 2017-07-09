@@ -10,110 +10,75 @@ import AgentNegotiationDetail from '../AgentNegotiationDetail'
 class AgentsPage extends Component {
   constructor(){
     super()
-    this.state = {
-      agents: [],
-      agent_id: '',
-      negotiation: '',
-      negotiations: [],
-      negotiationPrincipals: []
-
-    }
-    this.updateNegotiationPrincipal = this.updateNegotiationPrincipal.bind(this)
+    this.state = { agents: [], id: '', negotiation: '', negotiations: [], negPrincipals: [] }
+    this.updateNegPrincipal = this.updateNegPrincipal.bind(this)
     this.updateNegotiation = this.updateNegotiation.bind(this)
   }
 
-  componentDidMount = () => {
-    this.getAgents()
+  componentDidMount = () => this.getAgents()
+
+  agentSubmit = (id) => {
+    this.setState({ id })
+    this.getSponsorships(id)
+    this.getNegotiations(id)
   }
 
-  getAgents = () => {
-    Adaptors.Agents()
-      .then(agents => this.setState({ agents }))
-  }
+  getAgents = () => Adaptors.Agents().then(agents => this.setState({ agents }))
 
-  agentSubmit = (name) => {
-    const agent_id = this.state.agents.filter(agent => agent.name === name)[0].id
-    this.setState({ agent_id })
-    this.getSponsorships(agent_id)
-    this.getNegotiations(agent_id)
-  }
+  getSponsorships = (id) => Adaptors.Sponsorships(id)
+    .then(sponsorships => this.setState({ sponsorships }))
 
-  getSponsorships = (agent_id) => {
-    Adaptors.Sponsorships(agent_id)
-      .then(sponsorships => this.setState({ sponsorships }))
-  }
+  getNegotiations = (id) => Adaptors.AgentNegotiations(id)
+    .then(negotiations => this.setState({ negotiations }))
 
-  getNegotiations = (agent_id) => {
-    Adaptors.AgentNegotiations(agent_id)
-      .then(negotiations => this.setState({negotiations}))
-  }
-
-  updateNegotiationPrincipal = (id, key, value) => {
-    Adaptors.UpdateNegotiationPrincipal(id, key, value)
-      .then(negPrin => this.setState((prevState) => {
-        return {
-          negotiationPrincipals: prevState.negotiationPrincipals.map(np => {
-            if (np.id === negPrin) return negPrin
-            return np
-          })
-        }
+  updateNegPrincipal = (id, key, value) => Adaptors.UpdateNegPrincipal(id, key, value)
+    .then(negPrin => this.setState((prevState) => {
+        return { negPrincipals: prevState.negPrincipals.map(np => np.id === negPrin ? negPrin : np) }
       })
     )
-  }
 
-  updateNegotiation = (id, traded) => {
-    Adaptors.UpdateNegotiation(id, traded)
+  updateNegotiation = (id, traded) => Adaptors.UpdateNegotiation(id, traded)
     .then(negotiation => {
       this.setState({ negotiation })
       this.setState((prevState) => {
-        return {
-          negotiations: prevState.negotiations.map(neg => {
-            if (neg.id === negotiation.id) return negotiation
-            return neg
-          })
-        }
+        return { negotiations: prevState.negotiations.map(neg => neg.id === negotiation.id ? negotiation : neg) }
       })
     })
-  }
 
   negotiationDetail = (neg_id) => {
-    const negotiation = this.state.negotiations.find(neg => neg.id === neg_id)
-    Adaptors.NegotiationPrincipals(neg_id)
-      .then(negotiationPrincipals => this.setState({ negotiationPrincipals }))
-    this.setState({ negotiation })
+    Adaptors.NegPrincipals(neg_id)
+      .then(negPrincipals => this.setState({ negPrincipals }))
+    this.setState({ negotiation: this.state.negotiations.find(neg => neg.id === neg_id) })
   }
 
 
   render() {
     return (
-    <Grid>
-      <AgentsHeader
-        agentSubmit={this.agentSubmit}
-        agents={this.state.agents}
-        />
-      <Grid.Row columns={2}>
-        <Grid.Column width='8'>
-          <AgentNegotiationDetail
-            negotiation={this.state.negotiation}
-            negotiationPrincipals={this.state.negotiationPrincipals}
-            updateNegPrin={this.updateNegotiationPrincipal}
-            updateNeg={this.updateNegotiation}
-            />
-          <Divider hidden />
-          <AgentsNegotiations
-            negotiations={this.state.negotiations}
-            agent={this.state.agent_id}
-            getNegotiations={this.getNegotiations}
-            negotiationDetail={this.negotiationDetail}
-            />
-        </Grid.Column>
-        <Grid.Column width='8'>
-          <SponsorshipList
-            sponsorships={this.state.sponsorships}
-            />
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+      <Grid>
+        <AgentsHeader agentSubmit={this.agentSubmit} agents={this.state.agents} />
+        <Grid.Row columns={2}>
+          <Grid.Column width='8'>
+            <AgentNegotiationDetail
+              updateNegPrincipal={this.updateNegPrincipal}
+              updateNegotiation={this.updateNegotiation}
+              negotiation={this.state.negotiation}
+              negPrincipals={this.state.negPrincipals}
+              />
+            <Divider hidden />
+            <AgentsNegotiations
+              negotiations={this.state.negotiations}
+              agent={this.state.id}
+              getNegotiations={this.getNegotiations}
+              negotiationDetail={this.negotiationDetail}
+              />
+          </Grid.Column>
+          <Grid.Column width='8'>
+            <SponsorshipList
+              sponsorships={this.state.sponsorships}
+              />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     )
   }
 }

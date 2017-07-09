@@ -27,6 +27,7 @@ class PrincipalsPage extends Component {
     this.createIOI = this.createIOI.bind(this)
     this.resetIOIProp = this.resetIOIProp.bind(this)
     this.principalSubmit = this.principalSubmit.bind(this)
+    this.updateRating = this.updateRating.bind(this)
   }
 
   componentDidMount(){
@@ -95,29 +96,49 @@ class PrincipalsPage extends Component {
       .then(negotiations => this.setState({negotiations}))
   }
 
+  updateRating = (id, rating) => Adaptors.UpdateNegPrincipal(id, 'satisfaction', rating).then(this.getNegotiations(id))
+
+
   resetIOIProp = () => this.setState({IOI: false})
 
   render() {
 
     return (
       <Grid>
-      <PrincipalsHeader principalSubmit={this.principalSubmit} principals={this.state.principals} />
-      <Grid.Row columns={2}>
-        <Grid.Column width='8'>
-          <IOIForm stocks={this.state.stocks} sponsors={this.state.sponsors} IOI={this.state.IOI}
-            resetIOIProp={this.resetIOIProp} updateIOI={this.updateIOI} createIOI={this.createIOI}
-            destroyIOI={this.destroyIOI}/>
-          <Divider hidden/>
-          <IOIList IOIs={this.state.IOIs} editIOI={this.editIOI} destroyIOI={this.destroyIOI}
-            principal={this.state.principal_id}/>
-        </Grid.Column>
-        <Grid.Column width='8'>
-          <SponsorsList  sponsors={this.state.sponsors} />
-          <Divider hidden/>
-          <PrincipalsNegotiations negotiations={this.state.negotiations} principal={this.state.principal_id}
-            getNegotiations={this.getNegotiations}/>
-        </Grid.Column>
-      </Grid.Row>
+        <Grid.Row>
+          <PrincipalsHeader principalSubmit={this.principalSubmit} principals={this.state.principals} />
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column width='8'>
+            <IOIForm
+              stocks={this.state.stocks}
+              sponsors={this.state.sponsors}
+              IOI={this.state.IOI}
+              resetIOIProp={this.resetIOIProp}
+              updateIOI={this.updateIOI}
+              createIOI={this.createIOI}
+              destroyIOI={this.destroyIOI}
+            />
+            <Divider hidden/>
+            <IOIList
+              IOIs={this.state.IOIs}
+              editIOI={this.editIOI}
+              destroyIOI={this.destroyIOI}
+              principal={this.state.principal_id}/>
+          </Grid.Column>
+          <Grid.Column width='8'>
+            <SponsorsList
+              sponsors={this.state.sponsors}
+            />
+            <Divider hidden/>
+            <PrincipalsNegotiations
+              negotiations={this.state.negotiations}
+              principal={this.state.principal_id}
+              getNegotiations={this.getNegotiations}
+              updateRating={this.updateRating}
+            />
+          </Grid.Column>
+        </Grid.Row>
     </Grid>
     )
   }

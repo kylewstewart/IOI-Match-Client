@@ -6,17 +6,11 @@ class AgentsNegotiations extends Component {
   handleClick = () => this.props.getNegotiations(this.props.agent)
 
   negotiations = (status) => {
-    const blank = [{
-      id: 1,
-      exch_code: '-',
-      active: '-'
-      }]
-
+    const blank = [{id: 1, exch_code: '-', active: '-'}]
     if (!this.props.negotiations || !this.props.negotiations.length) return blank
     const negotiations = this.props.negotiations.filter(neg => neg.active === status)
     if (!negotiations.length) return blank
-    const sorted_negotiations = negotiations.sort((a, b) => a.exch_code.localeCompare(b.exch_code))
-    return sorted_negotiations
+    return negotiations.sort((a, b) => a.exch_code.localeCompare(b.exch_code))
   }
 
   handleEdit = (e, {value}) => this.props.negotiationDetail(value)

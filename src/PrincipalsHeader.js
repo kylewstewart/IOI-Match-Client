@@ -22,9 +22,7 @@ class PrincipalsHeader extends Component {
       <Grid>
         <Grid.Row columns={3} >
         <Grid.Column textAlign='left'>
-          <Button basic
-            floated="left"
-            content="Swith to Broker's Page">
+          <Button basic>
           <Link to='/agent'> Swith to Broker's Page </Link>
           </Button>
         </Grid.Column >
@@ -35,7 +33,6 @@ class PrincipalsHeader extends Component {
         <Grid.Column textAlign='right'>
         <Container>
         <Dropdown selection
-          floated='left'
           placeholder='Investor'
           name='principal'
           options={this.principals()}

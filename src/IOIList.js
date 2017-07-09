@@ -65,11 +65,12 @@ class IOIList extends Component {
             />
         <Table compact textAlign='center'>
           <Table.Header>
-            <Table.HeaderCell textAlign='center'> Country </Table.HeaderCell>
-            <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
-            <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
-            <Table.HeaderCell textAlign='center'> Edit/Del </Table.HeaderCell>
-
+            <Table.Row>
+              <Table.HeaderCell textAlign='center'> Country </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Edit/Del </Table.HeaderCell>
+            </Table.Row>
           </Table.Header>
           <Table.Body>
           {this.IOIs().map(IOI => (

@@ -73,12 +73,12 @@ export class Adaptors {
       .then(res => res.json())
   }
 
-  static NegotiationPrincipals(neg_id){
+  static NegPrincipals(neg_id){
     return fetch(url + `/api/v1/negotiations/${neg_id}/negotiation_principals`)
       .then(res => res.json())
   }
 
-  static UpdateNegotiationPrincipal(id, key, value){
+  static UpdateNegPrincipal(id, key, value){
     return fetch(url + `/api/v1/negotiation_principals/${id}`, {
       method: 'PATCH',
       headers: headers,

@@ -8,10 +8,9 @@ class AgentsHeader extends Component {
 
   handleChange = (e, {value}) => this.props.agentSubmit(value)
 
-
   agents = () => (
     this.props.agents.map(agent => {
-      const obj = {key:`${agent.id}`, value:`${agent.name}`, text:`${agent.name}`}
+      const obj = {key:`${agent.id}`, value:`${agent.id}`, text:`${agent.name}`}
       return obj
     }).sort((a, b) => a.text.localeCompare(b.text))
   )
@@ -49,21 +48,3 @@ class AgentsHeader extends Component {
 }
 
 export default AgentsHeader
-
-// this.setState({ principal: value })
-
-// handleClick = () => this.props.principalSubmit(this.state.principal)
-//
-// constructor(){
-//   super()
-//   this.state = {
-//     principal: ""
-//   }
-// }
-// value={this.state.stock}
-
-// <Button compact
-//   floated='right'
-//   content="submit"
-//   onClick={this.handleClick}
-//   />

@@ -4,34 +4,29 @@ import { Button, Table, Checkbox, Segment, Header } from 'semantic-ui-react'
 class AgentNegotiationDetail extends Component {
   constructor(){
     super()
-    this.state = {
-      negotiation: '',
-      negotiationPrincipals: []
-    }
+    this.state = {negotiation: '', negPrincipals: []}
   }
 
   componentWillReceiveProps(nextProps){
     this.setState({ negotiation: nextProps.negotiation })
-    this.setState({ negotiationPrincipals: nextProps.negotiationPrincipals })
+    this.setState({ negPrincipals: nextProps.negPrincipals })
   }
 
-  handleClick = (e, { value }) => {
-    this.setState(prevState => {
-      return {
-        negotiationPrincipals: prevState.negotiationPrincipals.map(np => {
+  handleClick = (e, { value }) => this.setState(prevState => {
+      return { negPrincipals: prevState.negPrincipals.map(np => {
           if (np.id === value) !np.traded ? np.traded = true : np.traded = false
           return np
         })
       }
     })
-  }
+
 
   updateNegotiation = () => {
-    this.state.negotiationPrincipals.forEach(np =>
-      this.props.updateNegPrin(np.id, 'traded', np.traded))
+    this.state.negPrincipals.forEach(np =>
+      this.props.updateNegPrincipal(np.id, 'traded', np.traded))
 
-    const traded = this.state.negotiationPrincipals.map(np => np.traded).includes(true)
-    this.props.updateNeg(this.state.negotiation.id, traded)
+    const traded = this.state.negPrincipals.map(np => np.traded).includes(true)
+    this.props.updateNegotiation(this.state.negotiation.id, traded)
   }
 
   negotiation = () => {
@@ -42,25 +37,20 @@ class AgentNegotiationDetail extends Component {
 
   principals = (side) => {
     const blank = [{id: 1, name: '-', side: '-', traded: null}]
-    if (!this.state.negotiationPrincipals) return blank
-    return this.state.negotiationPrincipals.filter(np => np.side === side)
+    if (!this.state.negPrincipals) return blank
+    return this.state.negPrincipals.filter(np => np.side === side)
   }
 
   disableUpdate = () => {
-    if (!this.state.negotiationPrincipals[0]) return true
-    return this.state.negotiationPrincipals
-      .map(np => np.traded === null ? true : false)
-        .includes(true)
+    if (!this.state.negPrincipals[0]) return true
+    return this.state.negPrincipals.map(np => np.traded === null ? true : false).includes(true)
   }
 
-
   render(){
-    const negotiation = this.negotiation()
+    
     return(
       <Segment.Group>
-        <Segment>
-          <Header> Negotiation </Header>
-        </Segment>
+        <Segment> <Header> Negotiation </Header> </Segment>
         <Segment>
           <Table fixed>
             <Table.Header>
@@ -68,13 +58,13 @@ class AgentNegotiationDetail extends Component {
                 <Table.HeaderCell textAlign='center'> Stock: </Table.HeaderCell>
                 <Table.HeaderCell textAlign='left'>
                   <Header>
-                    {negotiation.exch_code}
+                    {this.negotiation().exch_code}
                   </Header>
                 </Table.HeaderCell>
                 <Table.HeaderCell textAlign='center'> Status: </Table.HeaderCell>
                 <Table.HeaderCell textAlign='left'>
                   <Header as='h3'>
-                    {negotiation.active}
+                    {this.negotiation().active}
                   </Header>
                 </Table.HeaderCell>
               </Table.Row>
@@ -82,7 +72,6 @@ class AgentNegotiationDetail extends Component {
             <Table.Body></Table.Body>
           </Table>
         </Segment>
-
         <Segment clearing>
           <Header as='h5' > Buyers </Header>
         <Table fixed>
