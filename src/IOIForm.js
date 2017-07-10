@@ -5,13 +5,8 @@ import { Container, Button, Segment, Header, Form } from 'semantic-ui-react'
 class IOIForm extends Component {
   constructor(){
     super()
-    this.state = {
-      rankedAgents: [],
-      title: 'New IOI',
-      side: '',
-      stock: '',
-      disableButton: true
-    }
+    this.state = {rankedAgents: [], title: 'New IOI', side: '', stock: '',
+      disableButton: true}
     this.handleChange = this.handleChange.bind(this)
     this.onClearBrokersButton = this.onClearBrokersButton.bind(this)
     this.onSubmitButton = this.onSubmitButton.bind(this)
@@ -20,51 +15,33 @@ class IOIForm extends Component {
 
   componentWillReceiveProps(nextProps){
     if (nextProps.IOI) {
-      this.setState({
-        title: "Edit IOI",
-        rankedAgents: nextProps.IOI.ranked_agents,
-        side: nextProps.IOI.side,
-        stock: nextProps.IOI.stock,
-        disableButton: false
-      })
+      this.setState({ title: "Edit IOI", rankedAgents: nextProps.IOI.ranked_agents,
+        side: nextProps.IOI.side, stock: nextProps.IOI.stock, disableButton: false })
     } else {
-      this.setState({
-        title: "New IOI",
-        rankedAgents: [],
-        side: '',
-        stock: '',
-        disableButton: true
-      })
+      this.setState({ title: "New IOI", rankedAgents: [], side: '', stock: '', disableButton: true })
     }
   }
 
   handleChange = (e, {name, value}) => this.setState({[name]: value})
 
-  onSubmitButton = () => this.state.disableButton ?
-    this.props.createIOI(this.setIOI()) : this.props.updateIOI(this.setIOI())
+  onSubmitButton = () => this.state.disableButton ? this.props.createIOI(this.setIOI()) : this.props.updateIOI(this.setIOI())
 
   onClearBrokersButton = () => this.setState({rankedAgents: []})
 
   onNewButton = () => this.props.resetIOIProp()
 
   setIOI = () => {
-    const IOI = {
-      id: this.state.disableButton ? 0 : this.props.IOI.id,
-      stock: this.state.stock,
-      side: this.state.side,
-      rankedAgents: this.state.rankedAgents
-      }
+    const IOI = { id: this.state.disableButton ? 0 : this.props.IOI.id, stock: this.state.stock,
+      side: this.state.side, rankedAgents: this.state.rankedAgents }
       return IOI
     }
 
-  stocks = () => (
-     this.props.stocks.map(s => {
+  stocks = () => ( this.props.stocks.map(s => {
         const obj = {key:`${s.exch_code}`, value:`${s.exch_code}`, text:`${s.exch_code}`}
         return obj
     }))
 
-  sponsors = () => (
-    this.props.sponsors.map(sp => {
+  sponsors = () => ( this.props.sponsors.map(sp => {
       const obj = {key:`${sp.id}`, value:`${sp.agent_name}`, text:`${sp.agent_name}`}
       return obj
     }))

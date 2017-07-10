@@ -13,6 +13,7 @@ class NegotiationRating extends Component {
   }
 
   handleRate = (e, { rating }) => {
+    console.log(this.props.negID, this.props.prinID, rating)
     this.setState({ rating })
     this.props.updateRating(this.props.negID, this.props.prinID, rating)
   }
@@ -23,8 +24,8 @@ class NegotiationRating extends Component {
         maxRating={5}
         rating={this.state.rating}
         onRate={this.handleRate}
-        disabled={this.props.rating === null}
-        clearable
+        disabled={this.state.rating === 0}
+        clearable={false}
       />
     )
 }

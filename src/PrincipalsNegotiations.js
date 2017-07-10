@@ -17,7 +17,8 @@ class PrincipalsNegotiations extends Component {
 
   rating = (negID) => {
     if (!this.props || !this.props.ratings[0]) return 0
-    return this.props.ratings.filter(rating => rating.neg_id === negID)[0].rating
+    const rating = this.props.ratings.filter(rating => rating.neg_id === negID)
+    return !rating[0] ? 0 : rating[0].rating
   }
 
   render() {
@@ -41,7 +42,6 @@ class PrincipalsNegotiations extends Component {
             <Table.Row>
               <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'> Status </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -49,7 +49,6 @@ class PrincipalsNegotiations extends Component {
             <Table.Row key={negotiation.id}>
               <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
-              <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
               <Table.Cell textAlign='center'> </Table.Cell>
             </Table.Row>
           ))}
@@ -60,12 +59,11 @@ class PrincipalsNegotiations extends Component {
         <Header textAlign='left' as='h5'>
           Completed
         </Header>
-        <Table compact textAlign='center'>
+        <Table >
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'> Status </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Rating </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -74,7 +72,6 @@ class PrincipalsNegotiations extends Component {
             <Table.Row key={negotiation.id}>
               <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
-              <Table.Cell textAlign='center'> {negotiation.active} </Table.Cell>
               <Table.Cell textAlign='center'>
                 <NegotiationRating
                   updateRating={this.props.updateRating}

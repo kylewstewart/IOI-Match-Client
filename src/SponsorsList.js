@@ -40,7 +40,7 @@ class SponsorsList extends Component {
                   {sponsor.pct_traded}
                 </Table.Cell>
                 <Table.Cell textAlign='center'>
-                  {sponsor.satisfaction}
+                  {sponsor.rating}
                 </Table.Cell>
                 </Table.Row>
                 )}

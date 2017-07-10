@@ -37,13 +37,13 @@ class PrincipalsPage extends Component {
     this.getNegotiations(principal_id)
   }
 
-  getIOIs = (principal_id) => {
-    Adaptors.IOIs(principal_id)
+  getIOIs = (id) => {
+    Adaptors.IOIs(id)
     .then(IOIs =>this.setState({IOIs}))
   }
 
-  getSponsors = (principal_id) => {
-    Adaptors.Sponsors(principal_id)
+  getSponsors = (id) => {
+    Adaptors.Sponsors(id)
     .then(sponsors => this.setState({sponsors}))
   }
 
@@ -107,7 +107,7 @@ class PrincipalsPage extends Component {
         if (prevRating.neg_id === negPrincipal.negotiation_id) prevRating.rating = negPrincipal.rating
         return prevRating
       })}
-    }))
+    })).then(this.getSponsors(prin_id))
 
   resetIOIProp = () => this.setState({IOI: false})
 

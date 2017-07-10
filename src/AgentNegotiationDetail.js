@@ -37,7 +37,7 @@ class AgentNegotiationDetail extends Component {
 
   principals = (side) => {
     const blank = [{id: 1, name: '-', side: '-', traded: null}]
-    if (!this.state.negPrincipals) return blank
+    if (!this.state.negPrincipals.length) return blank
     return this.state.negPrincipals.filter(np => np.side === side)
   }
 
@@ -55,16 +55,10 @@ class AgentNegotiationDetail extends Component {
           <Table fixed>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell textAlign='center'> Stock: </Table.HeaderCell>
+                <Table.HeaderCell textAlign='left'> Stock: </Table.HeaderCell>
                 <Table.HeaderCell textAlign='left'>
                   <Header>
                     {this.negotiation().exch_code}
-                  </Header>
-                </Table.HeaderCell>
-                <Table.HeaderCell textAlign='center'> Status: </Table.HeaderCell>
-                <Table.HeaderCell textAlign='left'>
-                  <Header as='h3'>
-                    {this.negotiation().active}
                   </Header>
                 </Table.HeaderCell>
               </Table.Row>

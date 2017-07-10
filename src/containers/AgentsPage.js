@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Divider } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
 import AgentsHeader from '../AgentsHeader'
@@ -44,6 +44,7 @@ class AgentsPage extends Component {
         return { negotiations: prevState.negotiations.map(neg => neg.id === negotiation.id ? negotiation : neg) }
       })
     })
+    // .then(delete Match IOIs)
 
   negotiationDetail = (neg_id) => {
     Adaptors.NegPrincipals(neg_id)
@@ -55,16 +56,11 @@ class AgentsPage extends Component {
   render() {
     return (
       <Grid>
-        <AgentsHeader agentSubmit={this.agentSubmit} agents={this.state.agents} />
-        <Grid.Row columns={2}>
-          <Grid.Column width='8'>
-            <AgentNegotiationDetail
-              updateTraded={this.UpdateNegPrincipalTraded}
-              updateNegotiation={this.updateNegotiation}
-              negotiation={this.state.negotiation}
-              negPrincipals={this.state.negPrincipals}
-              />
-            <Divider hidden />
+        <Grid.Row>
+          <AgentsHeader agentSubmit={this.agentSubmit} agents={this.state.agents} />
+        </Grid.Row>
+        <Grid.Row columns={3}>
+          <Grid.Column width='4'>
             <AgentsNegotiations
               negotiations={this.state.negotiations}
               agent={this.state.id}
@@ -72,7 +68,15 @@ class AgentsPage extends Component {
               negotiationDetail={this.negotiationDetail}
               />
           </Grid.Column>
-          <Grid.Column width='8'>
+          <Grid.Column width='6'>
+            <AgentNegotiationDetail
+              updateTraded={this.UpdateNegPrincipalTraded}
+              updateNegotiation={this.updateNegotiation}
+              negotiation={this.state.negotiation}
+              negPrincipals={this.state.negPrincipals}
+              />
+          </Grid.Column>
+          <Grid.Column width='6'>
             <SponsorshipList
               sponsorships={this.state.sponsorships}
               />
