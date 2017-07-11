@@ -4,7 +4,7 @@ import { Dropdown, Container, Grid, Header, Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 
-class AgentsHeader extends Component {
+class AboutHeader extends Component {
 
   handleChange = (e, {value}) => this.props.agentSubmit(value)
 
@@ -22,9 +22,9 @@ class AgentsHeader extends Component {
         <Grid.Row columns={3} >
         <Grid.Column textAlign='center'>
           <Menu secondary>
-            <Menu.Item name="About" active={false} as={Link} to='/about'/>
+            <Menu.Item name="About" active={true} as={Link} to='/about'/>
             <Menu.Item name="Investor" active={false} as={Link} to='/principal' />
-            <Menu.Item name="Broker" active={true} as={Link} to='/agent' />
+            <Menu.Item name="Broker" active={false} as={Link} to='/agent' />
             <Menu.Item name="Algo" active={false} />
           </Menu>
         </Grid.Column >
@@ -34,13 +34,8 @@ class AgentsHeader extends Component {
 
         <Grid.Column textAlign='center'>
         <Container>
-        <Dropdown selection
-          placeholder='Broker'
-          name='agent'
-          options={this.agents()}
-          onChange={this.handleChange}
-          />
-        </Container>
+          <Header />
+          </Container>
 
         </Grid.Column>
         </Grid.Row>
@@ -49,8 +44,4 @@ class AgentsHeader extends Component {
   }
 }
 
-export default AgentsHeader
-
-// <Button basic >
-//   <Link to='/principal'> Swith to Investor's Page </Link>
-// </Button>
+export default AboutHeader

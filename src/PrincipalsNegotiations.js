@@ -28,7 +28,7 @@ class PrincipalsNegotiations extends Component {
         <Segment.Group>
           <Segment clearing>
         <Header floated='left'> Negotiations </Header>
-        <Button 
+        <Button
           disabled={!this.props.principal}
           floated='right' icon='refresh'
           onClick={this.handleClick} />
@@ -63,6 +63,7 @@ class PrincipalsNegotiations extends Component {
             <Table.Row>
               <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Traded </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Rating </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -71,6 +72,7 @@ class PrincipalsNegotiations extends Component {
             <Table.Row key={negotiation.id}>
               <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
+              <Table.Cell textAlign='center'> {negotiation.traded} </Table.Cell>
               <Table.Cell textAlign='center'>
                 <NegotiationRating
                   updateRating={this.props.updateRating}

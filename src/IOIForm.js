@@ -20,6 +20,8 @@ class IOIForm extends Component {
     } else {
       this.setState({ title: "New IOI", rankedAgents: [], side: '', stock: '', disableButton: true })
     }
+
+    if (nextProps.principal !== this.props.principal) this.props.resetIOIProp() 
   }
 
   handleChange = (e, {name, value}) => this.setState({[name]: value})

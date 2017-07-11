@@ -128,13 +128,15 @@ class PrincipalsPage extends Component {
               updateIOI={this.updateIOI}
               createIOI={this.createIOI}
               destroyIOI={this.destroyIOI}
+              principal={this.state.principal_id}
             />
             <Divider hidden/>
             <IOIList
               IOIs={this.state.IOIs}
               editIOI={this.editIOI}
               destroyIOI={this.destroyIOI}
-              principal={this.state.principal_id}/>
+              principal={this.state.principal_id}
+              />
           </Grid.Column>
           <Grid.Column width='8'>
             <SponsorsList
