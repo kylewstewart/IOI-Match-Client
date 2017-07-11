@@ -21,16 +21,17 @@ class PrincipalsHeader extends Component {
     return(
       <Grid>
         <Grid.Row columns={3} >
-        <Grid.Column textAlign='left'>
+        <Grid.Column width='5' textAlign='center'>
           <Button basic>
           <Link to='/agent'> Swith to Broker's Page </Link>
           </Button>
         </Grid.Column >
-        <Grid.Column>
-        <Header textAlign='center'> IOI Match - Investor's Page Demo </Header>
+        <Grid.Column width='6'>
+        <Header textAlign='center' as='H1'> IOI Match </Header>
+        <Header textAlign='center'> Investor's Page Demo </Header>
         </Grid.Column>
 
-        <Grid.Column textAlign='right'>
+        <Grid.Column width='5' textAlign='center'>
         <Container>
         <Dropdown selection
           placeholder='Investor'

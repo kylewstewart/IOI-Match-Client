@@ -20,17 +20,17 @@ class AgentsHeader extends Component {
     return (
       <Grid>
         <Grid.Row columns={3} >
-        <Grid.Column textAlign='left'>
-          <Button basic
-            floated="left" >
+        <Grid.Column textAlign='center'>
+          <Button basic >
           <Link to='/principal'> Swith to Investor's Page </Link>
           </Button>
         </Grid.Column >
         <Grid.Column>
-        <Header textAlign='center'> IOI Match - Brokers's Page Demo</Header>
+        <Header textAlign='center' as='h1'> IOI Match</Header>
+        <Header textAlign='center'> Brokers's Page Demo</Header>
         </Grid.Column>
 
-        <Grid.Column textAlign='right'>
+        <Grid.Column textAlign='center'>
         <Container>
         <Dropdown selection
           placeholder='Broker'

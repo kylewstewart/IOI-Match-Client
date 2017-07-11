@@ -69,7 +69,7 @@ class IOIList extends Component {
               <Table.HeaderCell textAlign='center'> Country </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'> Edit/Del </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Edit </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -81,17 +81,9 @@ class IOIList extends Component {
             <Table.Cell>
               <Button
                 icon='edit'
-                attached='left'
                 value={IOI.id}
                 disabled={!this.props.principal}
                 onClick={this.handleEdit}
-              />
-              <Button
-                icon='delete'
-                attached='right'
-                value={IOI.id}
-                disabled={!this.props.principal}
-                onClick={this.handleDestroy}
               />
             </Table.Cell>
           </Table.Row>

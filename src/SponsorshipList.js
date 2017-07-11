@@ -17,7 +17,7 @@ class SponsorshipList extends Component {
 
     return(
       <Segment.Group>
-        <Segment>
+        <Segment clearing>
           <Header textAlign='left'>
             Sponsorships
           </Header>

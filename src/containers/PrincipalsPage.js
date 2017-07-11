@@ -114,7 +114,7 @@ class PrincipalsPage extends Component {
   render() {
 
     return (
-      <Grid>
+      <Grid container relaxed>
         <Grid.Row>
           <PrincipalsHeader principalSubmit={this.principalSubmit} principals={this.state.principals} />
         </Grid.Row>

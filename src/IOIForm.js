@@ -24,11 +24,19 @@ class IOIForm extends Component {
 
   handleChange = (e, {name, value}) => this.setState({[name]: value})
 
-  onSubmitButton = () => this.state.disableButton ? this.props.createIOI(this.setIOI()) : this.props.updateIOI(this.setIOI())
+  onSubmitButton = () => {
+    this.state.disableButton ? this.props.createIOI(this.setIOI()) : this.props.updateIOI(this.setIOI())
+    this.props.resetIOIProp()
+  }
 
   onClearBrokersButton = () => this.setState({rankedAgents: []})
 
   onNewButton = () => this.props.resetIOIProp()
+
+  handleDestroy = (e, {value}) => {
+    this.props.destroyIOI(value)
+    this.props.resetIOIProp()
+  }
 
   setIOI = () => {
     const IOI = { id: this.state.disableButton ? 0 : this.props.IOI.id, stock: this.state.stock,
@@ -70,6 +78,7 @@ class IOIForm extends Component {
           name='side'
           options={sideOptions}
           onChange={this.handleChange}
+          disabled={!this.props.sponsors.length}
           />
           <Form.Dropdown search selection
           value={this.state.stock}
@@ -77,30 +86,46 @@ class IOIForm extends Component {
           name='stock'
           options={stockOptions}
           onChange={this.handleChange}
+          disabled={!this.props.sponsors.length}
           />
-        <Form.Dropdown multiple search selection
-          value={this.state.rankedAgents}
-          placeholder='Ranked Brokers'
-          name='rankedAgents'
-          options={sponsorsOptions}
-          onChange={this.handleChange}
-          />
+        <Container>
+        <Form.Group >
+          <Form.Dropdown multiple selection
+            closeOnChange={true}
+            value={this.state.rankedAgents}
+            placeholder='Ranked Brokers'
+            name='rankedAgents'
+            options={sponsorsOptions}
+            onChange={this.handleChange}
+            disabled={!this.props.sponsors.length}
+            />
+          <Form.Button
+            icon='erase'
+            onClick={this.onClearBrokersButton}
+            disabled={!this.state.rankedAgents.length}
+            />
+        </Form.Group>
+      </Container>
           <Button
           name='submit'
           content="Submit"
           value={this.state.disableButton}
           onClick={this.onSubmitButton}
-          />
-          <Button
-          content='Clear Brokers'
-          onClick={this.onClearBrokersButton}
+          disabled={!this.state.side || !this.state.stock || !this.state.rankedAgents.length}
           />
           <Button
           name='newIOI'
           disabled={this.state.disableButton}
-          content="New IOI"
+          content="New"
           onClick={this.onNewButton}
           />
+          <Button
+            icon='trash'
+            value={this.props.IOI.id}
+            disabled={!this.props.IOI}
+            onClick={this.handleDestroy}
+          />
+
         </Form>
         </Segment>
         </Segment.Group>

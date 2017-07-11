@@ -4,12 +4,7 @@ import { Container, Segment, Header, Table } from 'semantic-ui-react'
 class SponsorsList extends Component {
 
   sponsors = () => {
-    const blank = [{
-      id: 1,
-      agent_name: '-',
-      pct_traded: '-',
-      satisfaction: '-'
-    }]
+    const blank = [{ id: 1, agent_name: '-', pct_traded: '-', rating: '-'}]
     if (!this.props.sponsors || !this.props.sponsors.length) return blank
     return this.props.sponsors
   }
@@ -27,7 +22,7 @@ class SponsorsList extends Component {
               <Table.Row>
                 <Table.HeaderCell textAlign='center'> Broker </Table.HeaderCell>
                 <Table.HeaderCell textAlign='center'>Conversion</Table.HeaderCell>
-                <Table.HeaderCell textAlign='center'>Satisfaction</Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'>Rating</Table.HeaderCell>
               </Table.Row>
               </Table.Header>
               <Table.Body>

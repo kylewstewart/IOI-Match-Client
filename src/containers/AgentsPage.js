@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Divider } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
 import AgentsHeader from '../AgentsHeader'
@@ -44,7 +44,6 @@ class AgentsPage extends Component {
         return { negotiations: prevState.negotiations.map(neg => neg.id === negotiation.id ? negotiation : neg) }
       })
     })
-    // .then(delete Match IOIs)
 
   negotiationDetail = (neg_id) => {
     Adaptors.NegPrincipals(neg_id)
@@ -55,20 +54,24 @@ class AgentsPage extends Component {
 
   render() {
     return (
-      <Grid>
+      <Grid container relaxed>
         <Grid.Row>
           <AgentsHeader agentSubmit={this.agentSubmit} agents={this.state.agents} />
         </Grid.Row>
-        <Grid.Row columns={3}>
-          <Grid.Column width='4'>
+        <Grid.Row columns={2}>
+          <Grid.Column width='8'>
             <AgentsNegotiations
               negotiations={this.state.negotiations}
               agent={this.state.id}
               getNegotiations={this.getNegotiations}
               negotiationDetail={this.negotiationDetail}
               />
+            <Divider hidden />
+            <SponsorshipList
+              sponsorships={this.state.sponsorships}
+              />
           </Grid.Column>
-          <Grid.Column width='6'>
+          <Grid.Column width='8'>
             <AgentNegotiationDetail
               updateTraded={this.UpdateNegPrincipalTraded}
               updateNegotiation={this.updateNegotiation}
@@ -76,10 +79,7 @@ class AgentsPage extends Component {
               negPrincipals={this.state.negPrincipals}
               />
           </Grid.Column>
-          <Grid.Column width='6'>
-            <SponsorshipList
-              sponsorships={this.state.sponsorships}
-              />
+          <Grid.Column width='5'>
           </Grid.Column>
         </Grid.Row>
       </Grid>
