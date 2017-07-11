@@ -1,6 +1,6 @@
 
 import React, { Component }  from 'react'
-import { Dropdown, Container, Grid, Header, Button } from 'semantic-ui-react'
+import { Dropdown, Container, Grid, Header, Button, Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 
@@ -21,9 +21,13 @@ class AgentsHeader extends Component {
       <Grid>
         <Grid.Row columns={3} >
         <Grid.Column textAlign='center'>
-          <Button basic >
-          <Link to='/principal'> Swith to Investor's Page </Link>
-          </Button>
+          <Menu secondary>
+            <Menu.Item name="Investor" active={false} as={Link} to='/principal' />
+            <Menu.Item name="Broker" active={true} as={Link} to='/agent' />
+            <Menu.Item name="Algo" active={false} />
+
+
+          </Menu>
         </Grid.Column >
         <Grid.Column>
         <Header textAlign='center' as='h1'> IOI Match</Header>
@@ -48,3 +52,7 @@ class AgentsHeader extends Component {
 }
 
 export default AgentsHeader
+
+// <Button basic >
+//   <Link to='/principal'> Swith to Investor's Page </Link>
+// </Button>

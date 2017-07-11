@@ -21,7 +21,7 @@ class AgentsNegotiations extends Component {
     <Segment.Group>
       <Segment clearing>
         <Header floated='left'> Negotiations </Header>
-        <Button basic
+        <Button
           disabled={!this.props.agent}
           floated='right' icon='refresh'
           onClick={this.handleClick}
@@ -31,16 +31,16 @@ class AgentsNegotiations extends Component {
       <Table fixed>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell textAlign='left'> Stock </Table.HeaderCell>
-            <Table.HeaderCell textAlign='right'> Details </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
+            <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {this.negotiations('Active').map(negotiation => (
             <Table.Row key={negotiation.id}>
-              <Table.Cell textAlign='left'> {negotiation.exch_code} </Table.Cell>
-              <Table.Cell textAlign='right'>
+              <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
+              <Table.Cell textAlign='center'>
                 <Button
                   icon='external'
                   disabled={!this.props.agent}

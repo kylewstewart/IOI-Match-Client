@@ -55,6 +55,7 @@ class IOIList extends Component {
               placeholder={this.state.country}
               name="country"
               onChange={this.handleChange}
+              disabled={!this.props.IOIs.length}
             />
             <Dropdown compact labeled button
               className='icon'
@@ -62,6 +63,7 @@ class IOIList extends Component {
               placeholder={this.state.side}
               name='side'
               onChange={this.handleChange}
+              disabled={!this.props.IOIs.length}
             />
         <Table compact textAlign='center'>
           <Table.Header>

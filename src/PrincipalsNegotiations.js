@@ -28,7 +28,7 @@ class PrincipalsNegotiations extends Component {
         <Segment.Group>
           <Segment clearing>
         <Header floated='left'> Negotiations </Header>
-        <Button basic
+        <Button 
           disabled={!this.props.principal}
           floated='right' icon='refresh'
           onClick={this.handleClick} />
@@ -37,9 +37,9 @@ class PrincipalsNegotiations extends Component {
         <Header textAlign='left' as='h5'>
           Active
         </Header>
-        <Table compact >
+        <Table >
           <Table.Header>
-            <Table.Row>
+            <Table.Row >
               <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
             </Table.Row>
@@ -49,7 +49,6 @@ class PrincipalsNegotiations extends Component {
             <Table.Row key={negotiation.id}>
               <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
-              <Table.Cell textAlign='center'> </Table.Cell>
             </Table.Row>
           ))}
           </Table.Body>

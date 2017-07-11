@@ -26,14 +26,14 @@ class SponsorshipList extends Component {
         <Table >
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell textAlign='left'>Investor</Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'>Investor</Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>Conversion</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {this.sponsorships().map((sponsorship) =>
               <Table.Row key={sponsorship.id}>
-                <Table.Cell textAlign='left'>
+                <Table.Cell textAlign='center'>
                   {sponsorship.principal_name}
                 </Table.Cell>
                 <Table.Cell textAlign='center'>

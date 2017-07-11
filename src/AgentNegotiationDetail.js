@@ -55,8 +55,8 @@ class AgentNegotiationDetail extends Component {
           <Table fixed>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell textAlign='left'> Stock: </Table.HeaderCell>
-                <Table.HeaderCell textAlign='left'>
+                <Table.HeaderCell textAlign='center'> Stock: </Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'>
                   <Header>
                     {this.negotiation().exch_code}
                   </Header>
@@ -71,14 +71,14 @@ class AgentNegotiationDetail extends Component {
         <Table fixed>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell textAlign='left'> Principal </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Principal </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Traded </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {this.principals('Buy').map(principal => (
               <Table.Row key={principal.id}>
-                <Table.Cell textAlign='left'>{principal.name}</Table.Cell>
+                <Table.Cell textAlign='center'>{principal.name}</Table.Cell>
                 <Table.Cell textAlign='center'>
                   <Checkbox value={principal.id} onClick={this.handleClick}
                     disabled={!this.props.negotiation}
@@ -101,7 +101,7 @@ class AgentNegotiationDetail extends Component {
           <Table.Body>
             {this.principals('Sell').map(principal => (
               <Table.Row key={principal.id}>
-                <Table.Cell textAlign='left'>{principal.name}</Table.Cell>
+                <Table.Cell textAlign='center'>{principal.name}</Table.Cell>
                 <Table.Cell textAlign='center'>
                   <Checkbox value={principal.id} onClick={this.handleClick}
                     disabled={!this.props.negotiation}
