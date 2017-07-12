@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, List, Header } from 'semantic-ui-react'
 
 
-class Text extends Component {
+class AboutText extends Component {
 
   render() {
 
@@ -44,4 +44,4 @@ class Text extends Component {
   }
 }
 
-export default Text
+export default AboutText

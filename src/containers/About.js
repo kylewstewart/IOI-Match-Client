@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 
-import Text from '../Text'
+import AboutText from '../AboutText'
 import AboutHeader from '../AboutHeader'
 
 class About extends Component {
@@ -14,7 +14,7 @@ class About extends Component {
           <AboutHeader />
         </Grid.Row>
         <Grid.Row>
-          <Text />
+          <AboutText />
         </Grid.Row>
 
       </Grid>
