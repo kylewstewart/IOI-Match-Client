@@ -43,6 +43,8 @@ class AgentsPage extends Component {
       this.setState((prevState) => {
         return { negotiations: prevState.negotiations.map(neg => neg.id === negotiation.id ? negotiation : neg) }
       })
+      this.setState({ negPrincipals: []})
+      this.setState({ negotiation: ''})
     })
 
   negotiationDetail = (neg_id) => {

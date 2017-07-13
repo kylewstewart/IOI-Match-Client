@@ -12,8 +12,10 @@ class PrincipalsNegotiations extends Component {
     if (!this.props.negotiations || !this.props.negotiations.length) return blank
     const negotiations = this.props.negotiations.filter(neg => neg.active === status)
     if (!negotiations.length) return blank
-    return negotiations.sort((a, b) => a.exch_code.localeCompare(b.exch_code))
+    return negotiations
   }
+
+  // return negotiations.sort((a, b) => a.exch_code.localeCompare(b.exch_code))
 
   rating = (negID) => {
     if (!this.props || !this.props.ratings[0]) return 0

@@ -13,6 +13,7 @@ class App extends Component {
     return (
     <Container>
       <Grid >
+        <Grid.Row></Grid.Row>
       <Grid.Row>
         <Divider />
       </Grid.Row>
