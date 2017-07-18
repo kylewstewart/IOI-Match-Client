@@ -117,5 +117,15 @@ export class Adaptors {
 
   static match(id){
     return fetch(url + `/api/v1/match/${id}`)
+      .then(res => res.json())
   }
+
+  static common(matchStocks){
+    return fetch(url + '/api/v1/common', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ matchStocks })
+    }).then(res => res.json())
+  }
+
 }
