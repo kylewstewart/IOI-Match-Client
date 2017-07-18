@@ -18,16 +18,16 @@ class Algo extends Component{
     this.getMatch = this.getMatch.bind(this)
   }
 
-  getMatch = (id) => Adaptors.match(id).then(match => this.setState({ match }))
+  getMatch = (id) => Adaptors.match(id).then(match => {
+    this.setState({ match })
+    this.getCommon(match)
+  })
 
-  getMatchStocks = () => {
-    Adaptors.matchStocks()
-      .then(matchStocks => {
-        this.setState({ matchStocks })
-      })
-  }
+  getMatchStocks = () => (
+    Adaptors.matchStocks().then(matchStocks => this.setState({ matchStocks }))
+  )
 
-  getCommon = (matchStocks) => Adaptors.common(matchStocks).then(common => console.log( common ))
+  getCommon = (match) => Adaptors.common(match).then(common => this.setState({ common }))
 
   render() {
     return (
@@ -45,6 +45,7 @@ class Algo extends Component{
           <Divider hidden />
           <AlgoMatchDetails
             match={this.state.match}
+            common={this.state.common}
           />
           </Grid.Column>
           <Grid.Column width='8'> </Grid.Column>

@@ -120,11 +120,11 @@ export class Adaptors {
       .then(res => res.json())
   }
 
-  static common(matchStocks){
+  static common(match){
     return fetch(url + '/api/v1/common', {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({ matchStocks })
+      body: JSON.stringify({ match })
     }).then(res => res.json())
   }
 
