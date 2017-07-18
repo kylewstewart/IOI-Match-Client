@@ -25,6 +25,7 @@ class AgentsHeader extends Component {
             <Menu.Item name="About" active={false} as={Link} to='/about'/>
             <Menu.Item name="Investor" active={false} as={Link} to='/principal' />
             <Menu.Item name="Broker" active={true} as={Link} to='/agent' />
+            <Menu.Item name="Algo" active={false} as={Link} to='/algo' />
           </Menu>
         </Grid.Column >
         <Grid.Column>

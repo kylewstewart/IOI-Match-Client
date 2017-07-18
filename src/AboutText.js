@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, List, Header } from 'semantic-ui-react'
+import { Container, List } from 'semantic-ui-react'
 
 
 class AboutText extends Component {

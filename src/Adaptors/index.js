@@ -109,4 +109,13 @@ export class Adaptors {
     return fetch(url + `/api/v1/negotiations/${neg_id}/principals/${prin_id}/negotiation_principals`)
       .then(res => res.json())
   }
+
+  static matchStocks(){
+    return fetch(url + '/api/v1/match_stocks')
+      .then(res => res.json())
+  }
+
+  static match(id){
+    return fetch(url + `/api/v1/match/${id}`)
+  }
 }
