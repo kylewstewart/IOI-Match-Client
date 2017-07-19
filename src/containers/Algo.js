@@ -5,11 +5,17 @@ import { Adaptors } from '../Adaptors/index'
 import AlgoHeader from '../AlgoComponents/AlgoHeader'
 import AlgoMatches from '../AlgoComponents/AlgoMatches'
 import AlgoMatch from '../AlgoComponents/AlgoMatch'
+import AlgoRankedVoting from '../AlgoComponents/AlgoRankedVoting'
 
 class Algo extends Component{
   constructor() {
     super()
-    this.state = {matchStocks: null, match: null, common: null}
+    this.state = {
+      matchStocks: null,
+      match: null,
+      common: null,
+      rankedVoting: null
+    }
     this.getMatchStocks = this.getMatchStocks.bind(this)
     this.getMatch = this.getMatch.bind(this)
   }
@@ -21,10 +27,19 @@ class Algo extends Component{
 
   getMatchStocks = () => Adaptors.matchStocks().then(matchStocks => this.setState({ matchStocks }))
 
-  getCommon = (match) => Adaptors.common(match).then(common => this.setState({ common }))
+  getCommon = (match) => Adaptors.common(match).then(common => {
+    this.setState({ common })
+    this.getRankedVoting(common)
+  })
+
+
+  getRankedVoting = (common) => {
+    const { match } = this.state
+    Adaptors.rankedVoting(common, match).then(rankedVoting => this.setState({ rankedVoting }))
+  }
 
   render() {
-    const { match, common, matchStocks } = this.state
+    const { match, common, matchStocks, rankedVoting } = this.state
 
     return (
       <Grid container relaxed>
@@ -37,7 +52,9 @@ class Algo extends Component{
             <Divider hidden />
             <AlgoMatch match={match} common={common} />
         </Grid.Column>
-      <Grid.Column width='8'> </Grid.Column>
+      <Grid.Column width='8'>
+        <AlgoRankedVoting rankedVoting={rankedVoting} />
+      </Grid.Column>
       </Grid.Row>
       </Grid>
     )

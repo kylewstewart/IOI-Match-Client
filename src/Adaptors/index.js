@@ -128,4 +128,12 @@ export class Adaptors {
     }).then(res => res.json())
   }
 
+  static rankedVoting(common, match){
+    return fetch(url + '/api/v1/ranked_voting', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ common, match })
+    }).then(res => res.json())
+  }
+
 }
