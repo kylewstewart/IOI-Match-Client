@@ -6,6 +6,7 @@ import AlgoHeader from '../AlgoComponents/AlgoHeader'
 import AlgoMatches from '../AlgoComponents/AlgoMatches'
 import AlgoMatch from '../AlgoComponents/AlgoMatch'
 import AlgoRankedVoting from '../AlgoComponents/AlgoRankedVoting'
+import AlgoMatchCommon from '../AlgoComponents/AlgoMatchCommon'
 
 class Algo extends Component{
   constructor() {
@@ -50,9 +51,11 @@ class Algo extends Component{
         <Grid.Column width='8'>
             <AlgoMatches matchStocks={matchStocks} onMount={this.getMatchStocks} getMatch={this.getMatch} />
             <Divider hidden />
-            <AlgoMatch match={match} common={common} />
+            <AlgoMatch match={match}/>
         </Grid.Column>
       <Grid.Column width='8'>
+        <AlgoMatchCommon common={common} />
+        <Divider hidden />
         <AlgoRankedVoting rankedVoting={rankedVoting} />
       </Grid.Column>
       </Grid.Row>

@@ -3,7 +3,6 @@ import { Container, Segment, Divider } from 'semantic-ui-react'
 
 import AlgoMatchHeader from './AlgoMatchHeader'
 import AlgoMatchTable from './AlgoMatchTable'
-import AlgoMatchCommon from './AlgoMatchCommon'
 
 class AlgoMatch extends Component{
 
@@ -20,7 +19,6 @@ class AlgoMatch extends Component{
     const sellIOIs = this.iois("Sell")
     const stock = buyIOIs[0].exch_code
     const maxCol = this.maxLength()
-    const { common } = this.props
 
     return(
       <Container>
@@ -30,13 +28,10 @@ class AlgoMatch extends Component{
           <AlgoMatchTable header={"Buyers"} maxCol={maxCol} iois={buyIOIs} />
             <Divider/>
           <AlgoMatchTable header={"Sellers"} maxCol={maxCol} iois={sellIOIs} />
-            <Divider/>
-            <AlgoMatchCommon common={common} />
         </Segment>
       </Container>
     )
   }
-
 
 }
 

@@ -11,14 +11,16 @@ class AlgoMatchCommon extends Component{
     const common = this.common()
 
     return (
-      <Segment secondary>
-          <Header as='h3' floated='left'> Most Common Broker(s): </Header>
+      <Segment>
+          <Header > Most Common Broker(s): </Header>
           <Container textAlign='center'>
-            <List horizontal divided relaxed>
-              {common.map(agent => (
-                <List.Item key={agent.id} > {agent.name} </List.Item>
-              ))}
-            </List>
+            <Segment>
+              <List horizontal divided relaxed>
+                {common.map(agent => (
+                  <List.Item key={agent.id}> {agent.name} </List.Item>
+                ))}
+              </List>
+            </Segment>
         </Container>
       </Segment>
     )

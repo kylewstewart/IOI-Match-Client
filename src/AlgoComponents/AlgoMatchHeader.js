@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Container, Table, Header } from 'semantic-ui-react'
+import { Container, Table, Header } from 'semantic-ui-react'
 
 
 function AlgoMatchHeader(props){
@@ -9,7 +9,7 @@ function AlgoMatchHeader(props){
   return (
 
 
-    <Segment>
+    <Container>
       <Header> Match Details </Header>
       <Table fixed>
         <Table.Header>
@@ -20,7 +20,8 @@ function AlgoMatchHeader(props){
           </Table.Row>
         </Table.Header>
       </Table>
-    </Segment>
+      </Container>
+
   )
 }
 
