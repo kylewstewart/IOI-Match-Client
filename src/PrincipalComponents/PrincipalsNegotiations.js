@@ -25,15 +25,9 @@ class PrincipalsNegotiations extends Component {
             <Header floated='left'> Negotiations </Header>
             <Button disabled={!this.props.principal} floated='right' icon='refresh' onClick={this.handleClick} />
           </Segment>
-          <Segment>
-            <Header textAlign='left' as='h5'> Active </Header>
             <ActiveNegotiations negotiations={this.negotiations('Active')} />
-          </Segment>
-          <Segment>
-            <Header textAlign='left' as='h5'> Completed </Header>
             <CompletedNegotiations negotiations={this.negotiations('Completed')} updateRating={this.props.updateRating}
               principal={this.props.principal} ratings={this.props.ratings} />
-        </Segment>
         </Segment.Group>
       </Container>
     )
