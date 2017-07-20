@@ -11,8 +11,6 @@ class AlgoMatches extends Component {
 
   componentDidMount = () => this.props.onMount()
 
-  handleSort = () => this.setState((prevState) => ({asc: !!prevState.asc ? false : true }))
-
   stocks = () => {
     const { matchStocks } = this.props
     const { asc } = this.state

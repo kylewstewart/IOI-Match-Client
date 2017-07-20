@@ -2,11 +2,12 @@
 import React, { Component } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
-import IOIList from '../IOIList'
-import SponsorsList from '../SponsorsList'
-import IOIForm from '../IOIForm'
-import PrincipalsNegotiations from '../PrincipalsNegotiations'
-import PrincipalsHeader from '../PrincipalsHeader'
+
+import IOIList from '../PrincipalComponents/IOIList'
+import SponsorsList from '../PrincipalComponents/SponsorsList'
+import IOIForm from '../PrincipalComponents/IOIForm'
+import PrincipalsNegotiations from '../PrincipalComponents/PrincipalsNegotiations'
+import PrincipalsHeader from '../PrincipalComponents/PrincipalsHeader'
 
 
 class PrincipalsPage extends Component {
