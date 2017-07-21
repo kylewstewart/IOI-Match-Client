@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Container, Header, Button, Segment, Dropdown, Table, Flag } from 'semantic-ui-react'
+import { Container, Header, Button, Segment, Dropdown, Table } from 'semantic-ui-react'
 
 class IOIList extends Component {
   constructor(){
@@ -24,7 +24,7 @@ class IOIList extends Component {
 
   IOIs = () => {
     const blank = [
-      { id: 1, stock: '-', flag: 'flag outline', side: '-' }
+      { id: 1, stock: '-', flag: 'flag outline', side: '-', time: '-' }
     ]
 
     if (!this.props.IOIs || !this.props.IOIs.length) return blank
@@ -38,9 +38,6 @@ class IOIList extends Component {
       {key: 'All', value: 'All', text: 'All'},
     ]
 
-    const countryOptions = [
-      { key: 'US', value: 'US', flag: 'us', text: 'US'}
-    ]
 
     return (
       <Container>
@@ -49,14 +46,6 @@ class IOIList extends Component {
             <Header textAlign='left'> IOIs </Header>
           </Segment>
           <Segment>
-            <Dropdown compact labeled button
-              className='icon'
-              options={countryOptions}
-              placeholder={this.state.country}
-              name="country"
-              onChange={this.handleChange}
-              disabled={!this.props.IOIs.length}
-            />
             <Dropdown compact labeled button
               className='icon'
               options={sideOptions}
@@ -68,18 +57,18 @@ class IOIList extends Component {
         <Table compact textAlign='center'>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell textAlign='center'> Country </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Time </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Edit </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
           {this.IOIs().map(IOI => (
           <Table.Row key={IOI.id}>
-            <Table.Cell > <Flag name='us'/>  </Table.Cell>
             <Table.Cell> {IOI.stock} </Table.Cell>
             <Table.Cell> {IOI.side} </Table.Cell>
+            <Table.Cell> {IOI.time} </Table.Cell>
             <Table.Cell>
               <Button
                 icon='edit'
@@ -100,3 +89,18 @@ class IOIList extends Component {
 }
 
 export default IOIList
+
+
+// <Dropdown compact labeled button
+//   className='icon'
+//   options={countryOptions}
+//   placeholder={this.state.country}
+//   name="country"
+//   onChange={this.handleChange}
+//   disabled={!this.props.IOIs.length}
+//   />
+// <Table.HeaderCell textAlign='center'> Country </Table.HeaderCell>
+// <Table.Cell > <Flag name='us'/>  </Table.Cell>
+// const countryOptions = [
+//   { key: 'US', value: 'US', flag: 'us', text: 'US'}
+// ]

@@ -13,7 +13,6 @@ class NegotiationRating extends Component {
   }
 
   handleRate = (e, { rating }) => {
-    console.log(this.props.negID, this.props.prinID, rating)
     this.setState({ rating })
     this.props.updateRating(this.props.negID, this.props.prinID, rating)
   }

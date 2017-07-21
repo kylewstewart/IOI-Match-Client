@@ -15,7 +15,7 @@ class CompletedNegotiations extends Component{
   }
 
   negotiations = () => {
-    const { byTime, timeAsc, byStk, stkAsc } = this.state
+    const { byTime, timeAsc, stkAsc } = this.state
     const { negotiations } = this.props
 
     if (!!byTime) {
@@ -65,28 +65,15 @@ class CompletedNegotiations extends Component{
             </Grid.Column>
             <Grid.Column textAlign='right'>
               <Form>
-                <Form.Group in-line>
+                <Form.Group>
                   <label>Sort by</label>
-                  <Form.Radio
-                    label='Stock'
-                    name='radioGroup'
-                    value='byStk'
-                    checked={byStk}
-                    onChange={this.handleChange}
-                    />
-                  <Form.Radio
-                    label='Time'
-                    name='radioGroup'
-                    value='byTime'
-                    checked={byTime}
-                    onChange={this.handleChange}
-                    />
+                  <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
+                  <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
                 </Form.Group>
               </Form>
             </Grid.Column>
             </Grid.Row>
         </Grid>
-
         <Table >
           <Table.Header>
             <Table.Row>
@@ -95,36 +82,27 @@ class CompletedNegotiations extends Component{
                 <Icon name={!stkAsc ? 'sort descending' : 'sort ascending'} disabled={!byStk} onClick={this.handleStockSort}/>
               </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'> Traded </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>
                 Time
-                <Icon basic compact name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
+                <Icon name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
               </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Rating </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-          {this.negotiations('Completed').map(negotiation => (
-            <Table.Row key={negotiation.id}>
+          {this.negotiations().map(negotiation => (
+            <Table.Row key={negotiation.id + negotiation.time}>
               <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
-              <Table.Cell textAlign='center'> {negotiation.traded} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.time} </Table.Cell>
               <Table.Cell textAlign='center'>
-                <NegotiationRating
-                  updateRating={this.props.updateRating}
-                  prinID={this.props.principal}
-                  negID={negotiation.id}
-                  rating={this.rating(negotiation.id)}
-                  />
+                <NegotiationRating updateRating={this.props.updateRating} prinID={this.props.principal} negID={negotiation.id} rating={this.rating(negotiation.id)} />
               </Table.Cell>
             </Table.Row>
           ))}
           </Table.Body>
         </Table>
       </Segment>
-
-
     )
   }
 }

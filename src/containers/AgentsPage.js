@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
-import AgentsHeader from '../AgentsHeader'
-import SponsorshipList from '../SponsorshipList'
-import AgentsNegotiations from '../AgentsNegotiations'
-import AgentNegotiationDetail from '../AgentNegotiationDetail'
+import AgentsHeader from '../AgentComponents/AgentsHeader'
+import SponsorshipList from '../AgentComponents/SponsorshipList'
+import AgentsNegotiations from '../AgentComponents/AgentsNegotiations'
+import AgentNegotiationDetail from '../AgentComponents/AgentNegotiationDetail'
 
 class AgentsPage extends Component {
   constructor(){
@@ -80,8 +80,6 @@ class AgentsPage extends Component {
               negotiation={this.state.negotiation}
               negPrincipals={this.state.negPrincipals}
               />
-          </Grid.Column>
-          <Grid.Column width='5'>
           </Grid.Column>
         </Grid.Row>
       </Grid>

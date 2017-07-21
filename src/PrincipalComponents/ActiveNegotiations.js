@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Button, Segment, Header, Form, Icon, Grid } from 'semantic-ui-react'
+import { Table, Segment, Header, Form, Icon, Grid } from 'semantic-ui-react'
 
 class ActiveNegotiations extends Component{
   constructor(){
@@ -13,7 +13,7 @@ class ActiveNegotiations extends Component{
   }
 
   negotiations = () => {
-    const { byTime, timeAsc, byStk, stkAsc } = this.state
+    const { byTime, timeAsc, stkAsc } = this.state
     const { negotiations } = this.props
 
     if (!!byTime) {
@@ -57,22 +57,10 @@ class ActiveNegotiations extends Component{
             </Grid.Column>
             <Grid.Column textAlign='right'>
               <Form>
-                <Form.Group in-line>
+                <Form.Group >
                   <label>Sort by</label>
-                  <Form.Radio
-                    label='Stock'
-                    name='radioGroup'
-                    value='byStk'
-                    checked={byStk}
-                    onChange={this.handleChange}
-                    />
-                  <Form.Radio
-                    label='Time'
-                    name='radioGroup'
-                    value='byTime'
-                    checked={byTime}
-                    onChange={this.handleChange}
-                    />
+                  <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
+                  <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
                 </Form.Group>
               </Form>
             </Grid.Column>
@@ -89,7 +77,7 @@ class ActiveNegotiations extends Component{
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>
                 Time
-                <Icon basic compact name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
+                <Icon name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -104,8 +92,6 @@ class ActiveNegotiations extends Component{
           </Table.Body>
         </Table>
       </Segment>
-
-
     )
   }
 }
