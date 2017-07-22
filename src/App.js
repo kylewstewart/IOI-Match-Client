@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Divider, Container, Grid } from 'semantic-ui-react'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import './App.css'
 import PrincipalsPage from './containers/PrincipalsPage'
 import AgentsPage from './containers/AgentsPage'
@@ -18,6 +18,7 @@ class App extends Component {
       <Grid.Row>
         <Divider />
       </Grid.Row>
+      <Redirect from="/" to='/about' />
       <Route path='/principal' component={PrincipalsPage} />
       <Route path='/agent' component={AgentsPage} />
       <Route path='/about' component={About} />
