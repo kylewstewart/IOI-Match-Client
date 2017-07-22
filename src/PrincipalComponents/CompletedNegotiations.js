@@ -50,11 +50,12 @@ class CompletedNegotiations extends Component{
   rating = (negID) => {
     if (!this.props || !this.props.ratings[0]) return 0
     const rating = this.props.ratings.filter(rating => rating.neg_id === negID)
-    return !rating[0] ? 0 : rating[0].rating
+    return !rating[0] ? 0 : rating[0]
   }
 
   render(){
     const { byTime, timeAsc, byStk, stkAsc } = this.state
+    const { principal } = this.props
 
     return(
       <Segment>
@@ -74,7 +75,7 @@ class CompletedNegotiations extends Component{
             </Grid.Column>
             </Grid.Row>
         </Grid>
-        <Table >
+        <Table fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell textAlign='center'>
@@ -82,6 +83,7 @@ class CompletedNegotiations extends Component{
                 <Icon name={!stkAsc ? 'sort descending' : 'sort ascending'} disabled={!byStk} onClick={this.handleStockSort}/>
               </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center'> Traded </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>
                 Time
                 <Icon name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
@@ -91,12 +93,13 @@ class CompletedNegotiations extends Component{
           </Table.Header>
           <Table.Body>
           {this.negotiations().map(negotiation => (
-            <Table.Row key={negotiation.id + negotiation.time}>
+            <Table.Row key={principal + negotiation.id}>
               <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.agent_name} </Table.Cell>
+              <Table.Cell textAlign='center'> {this.rating(negotiation.id).traded ? 'Traded' : 'No Trade'} </Table.Cell>
               <Table.Cell textAlign='center'> {negotiation.time} </Table.Cell>
               <Table.Cell textAlign='center'>
-                <NegotiationRating updateRating={this.props.updateRating} prinID={this.props.principal} negID={negotiation.id} rating={this.rating(negotiation.id)} />
+                <NegotiationRating updateRating={this.props.updateRating} prinID={this.props.principal} negID={negotiation.id} rating={this.rating(negotiation.id).rating} />
               </Table.Cell>
             </Table.Row>
           ))}

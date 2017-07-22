@@ -15,6 +15,7 @@ class PrincipalsPage extends Component {
     super(props)
     this.state = {IOIs: [], sponsors: [], stocks: [], IOI: false, principal_id: '',
       negotiations: [], principals: [], ratings: []}
+
     this.editIOI = this.editIOI.bind(this)
     this.destroyIOI = this.destroyIOI.bind(this)
     this.updateIOI = this.updateIOI.bind(this)
