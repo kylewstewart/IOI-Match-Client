@@ -9,7 +9,15 @@ class PrincipalsNegotiations extends Component {
   handleClick = () => this.props.getNegotiations(this.props.principal)
 
   negotiations = (status) => {
-    const blank = [ {id: 1, exch_code: '-', agent_name: '-', active: '-', rating: null} ]
+    const blank = [{
+      id: 1,
+      exch_code: '-',
+      agent_name: '-',
+      active: '-',
+      rating: null,
+      time: '-'
+    }]
+
     if (!this.props.negotiations || !this.props.negotiations.length) return blank
     const negotiations = this.props.negotiations.filter(neg => neg.active === status)
     if (!negotiations.length) return blank

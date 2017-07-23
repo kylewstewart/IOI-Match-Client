@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
-import { Button, Table, Checkbox, Segment, Header } from 'semantic-ui-react'
+import { Button, Table, Divider, Checkbox, Segment, Header } from 'semantic-ui-react'
+
+import AgentNegotiationTable from './AgentNegotiationTable'
 
 class AgentNegotiationDetail extends Component {
   constructor(){
     super()
-    this.state = {negotiation: '', negPrincipals: []}
+    this.state = {
+      negotiation: '',
+      negPrincipals: []
+    }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentWillReceiveProps(nextProps){
@@ -49,79 +56,32 @@ class AgentNegotiationDetail extends Component {
   render(){
 
     return(
-      <Segment.Group>
-        <Segment> <Header> Negotiation </Header> </Segment>
-        <Segment>
-          <Table fixed>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell textAlign='center'> Stock: </Table.HeaderCell>
-                <Table.HeaderCell textAlign='center'>
-                  <Header>
-                    {this.negotiation().exch_code}
-                  </Header>
-                </Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body></Table.Body>
-          </Table>
-        </Segment>
-        <Segment clearing>
-          <Header as='h5' > Buyers </Header>
-        <Table fixed>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell textAlign='center'> Principal </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'> Traded </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {this.principals('Buy').map(principal => (
-              <Table.Row key={principal.id}>
-                <Table.Cell textAlign='center'>{principal.name}</Table.Cell>
-                <Table.Cell textAlign='center'>
-                  <Checkbox value={principal.id} onClick={this.handleClick}
-                    disabled={!this.props.negotiation}
-                    checked={principal.traded === null ? false : principal.traded}
-                    defaultIndeterminate={principal.traded === null} />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-
-        <Header as='h5' > Sellers </Header>
-        <Table fixed>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell textAlign='left'> Principal </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center'> Traded </Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {this.principals('Sell').map(principal => (
-              <Table.Row key={principal.id}>
-                <Table.Cell textAlign='center'>{principal.name}</Table.Cell>
-                <Table.Cell textAlign='center'>
-                  <Checkbox value={principal.id} onClick={this.handleClick}
-                    disabled={!this.props.negotiation}
-                    checked={principal.traded === null ? false : principal.traded}
-                    defaultIndeterminate={principal.traded === null} />
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
-
-        <Button
-          disabled={this.disableUpdate()}
-          floated='right'
-          onClick={this.updateNegotiation}
-          >
-          Complete Negotiation
-        </Button>
-        </Segment>
-    </Segment.Group>
+      <Segment>
+        <Header> Negotiation </Header>
+        <Header as='h4'> {this.negotiation().exch_code} </Header>
+        <Divider />
+        <AgentNegotiationTable
+          principals={this.principals('Buy')}
+          header={'Buyers'}
+          handleClick={this.handleClick}
+          negotiation={this.props.negotiation}
+          />
+        <AgentNegotiationTable
+          principals={this.principals('Sell')}
+          header={'Sellers'}
+          handleClick={this.handleClick}
+          negotiation={this.props.negotiation}
+          />
+        <Segment basic clearing>
+          <Button
+            disabled={this.disableUpdate()}
+            floated='right'
+            onClick={this.updateNegotiation}
+            >
+            Complete Negotiation
+          </Button>
+        </Segment>        
+      </Segment>
     )
   }
 }

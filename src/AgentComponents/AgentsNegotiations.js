@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Table, Header, Button } from 'semantic-ui-react'
+import { Segment, Grid, Divider, Table, Header, Button } from 'semantic-ui-react'
 
 class AgentsNegotiations extends Component {
 
@@ -18,42 +18,48 @@ class AgentsNegotiations extends Component {
   render() {
 
     return (
-    <Segment.Group>
-      <Segment clearing>
-        <Header floated='left'> Negotiations </Header>
-        <Button
-          disabled={!this.props.agent}
-          floated='right' icon='refresh'
-          onClick={this.handleClick}
-          />
-      </Segment>
       <Segment>
-      <Table fixed>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
-            <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {this.negotiations('Active').map(negotiation => (
-            <Table.Row key={negotiation.id}>
-              <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
-              <Table.Cell textAlign='center'>
-                <Button
-                  icon='external'
-                  disabled={!this.props.agent}
-                  value={negotiation.id}
-                  onClick={this.handleEdit}
-                  />
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+        <Grid>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Header floated='left'> Negotiations </Header>
+            </Grid.Column>
+            <Grid.Column>
+              <Button
+                disabled={!this.props.agent}
+                floated='right' icon='refresh'
+                onClick={this.handleClick}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Divider />
+        <Segment basic>
+          <Table fixed>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell textAlign='center'> Stock </Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {this.negotiations('Active').map(negotiation => (
+                <Table.Row key={negotiation.id}>
+                  <Table.Cell textAlign='center'> {negotiation.exch_code} </Table.Cell>
+                  <Table.Cell textAlign='center'>
+                    <Button
+                      icon='external'
+                      disabled={!this.props.agent}
+                      value={negotiation.id}
+                      onClick={this.handleEdit}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+        </Segment>
       </Segment>
-    </Segment.Group>
     )
   }
 

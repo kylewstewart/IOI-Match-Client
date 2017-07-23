@@ -1,7 +1,6 @@
 import React from 'react'
 import { Segment, Table, Header } from 'semantic-ui-react'
 
-
 function AlgoMatchTable(props){
 
   const { maxCol, header, iois } = props

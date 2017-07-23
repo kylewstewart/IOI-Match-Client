@@ -70,8 +70,20 @@ class CompletedNegotiations extends Component{
             <Grid.Column>
               <Form>
                 <Form.Group>
-                  <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
-                  <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
+                  <Form.Radio
+                    label='Stock'
+                    name='radioGroup'
+                    value='byStk'
+                    checked={byStk}
+                    onChange={this.handleChange}
+                    />
+                  <Form.Radio
+                    label='Time'
+                    name='radioGroup'
+                    value='byTime'
+                    checked={byTime}
+                    onChange={this.handleChange}
+                    />
                 </Form.Group>
               </Form>
             </Grid.Column>
