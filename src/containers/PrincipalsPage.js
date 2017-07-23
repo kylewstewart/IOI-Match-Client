@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react'
-import { Grid, Divider } from 'semantic-ui-react'
+import { Grid, Divider, Segment, Header } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
 import IOIList from '../PrincipalComponents/IOIList'
 import IOIForm from '../PrincipalComponents/IOIForm'
 import PrincipalsNegotiations from '../PrincipalComponents/PrincipalsNegotiations'
 import PrincipalsHeader from '../PrincipalComponents/PrincipalsHeader'
-import SortableTable from '../sortableTable'
+import SortableTable from '../SortableTable'
 
 
 class PrincipalsPage extends Component {
@@ -149,12 +149,17 @@ class PrincipalsPage extends Component {
               />
           </Grid.Column>
           <Grid.Column width='8'>
-            <SortableTable
-              header={'Sponsors'}
-              tableData={this.state.sponsors}
-              dataKeys={['agent_name', 'pct_traded', 'rating']}
-              tableHeaders={['Broker', 'Conversion', 'Rating']}
-              />
+            <Segment>
+              <Header> Sponsors </Header>
+              <Divider />
+              <Segment basic>
+                <SortableTable
+                  data={this.state.sponsors}
+                  keys={['agent_name', 'pct_traded', 'rating']}
+                  headers={['Broker', 'Conversion', 'Rating']}
+                  />
+              </Segment>
+            </Segment>
             <Divider hidden/>
             <PrincipalsNegotiations
               negotiations={this.state.negotiations}

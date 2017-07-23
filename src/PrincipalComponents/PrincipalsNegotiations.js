@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Divider, Segment, Header, Button } from 'semantic-ui-react'
 
 import CompletedNegotiations from './CompletedNegotiations'
-import ActiveNegotiations from './ActiveNegotiations'
+import SortableTable from '../SortableTable'
 
 class PrincipalsNegotiations extends Component {
 
@@ -18,9 +18,9 @@ class PrincipalsNegotiations extends Component {
       time: '-'
     }]
 
-    if (!this.props.negotiations || !this.props.negotiations.length) return blank
+    // if (!this.props.negotiations || !this.props.negotiations.length) return blank
     const negotiations = this.props.negotiations.filter(neg => neg.active === status)
-    if (!negotiations.length) return blank
+    // if (!negotiations.length) return blank
     return negotiations
   }
 
@@ -39,20 +39,25 @@ class PrincipalsNegotiations extends Component {
                 floated='right'
                 icon='refresh'
                 onClick={this.handleClick}
-              />
+                />
             </Grid.Column>
           </Grid.Row>
         </Grid>
         <Divider />
-        <ActiveNegotiations
-          negotiations={this.negotiations('Active')}
-        />
+        <Segment basic>
+          <Header as='h4'> Active </Header>
+          <SortableTable
+            data={this.negotiations('Active')}
+            keys={['exch_code', 'agent_name', 'time']}
+            headers={['Stock', 'Broker', 'Time']}
+            />
+        </Segment>
         <CompletedNegotiations
           negotiations={this.negotiations('Completed')}
           updateRating={this.props.updateRating}
           principal={this.props.principal}
           ratings={this.props.ratings}
-        />
+          />
       </Segment>
     )
   }
