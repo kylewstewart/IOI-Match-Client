@@ -10,7 +10,14 @@ import AgentNegotiationDetail from '../AgentComponents/AgentNegotiationDetail'
 class AgentsPage extends Component {
   constructor(){
     super()
-    this.state = { agents: [], id: '', negotiation: '', negotiations: [], negPrincipals: [] }
+    this.state = {
+      agents: [],
+      id: '',
+      negotiation: '',
+      negotiations: [],
+      negPrincipals: []
+    }
+
     this.UpdateNegPrincipalTraded = this.UpdateNegPrincipalTraded.bind(this)
     this.updateNegotiation = this.updateNegotiation.bind(this)
   }

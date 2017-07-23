@@ -13,8 +13,16 @@ import PrincipalsHeader from '../PrincipalComponents/PrincipalsHeader'
 class PrincipalsPage extends Component {
   constructor(props){
     super(props)
-    this.state = {IOIs: [], sponsors: [], stocks: [], IOI: false, principal_id: '',
-      negotiations: [], principals: [], ratings: []}
+    this.state = {
+      IOIs: [],
+      sponsors: [],
+      stocks: [],
+      IOI: false,
+      principal_id: '',
+      negotiations: [],
+      principals: [],
+      ratings: []
+    }
 
     this.editIOI = this.editIOI.bind(this)
     this.destroyIOI = this.destroyIOI.bind(this)
@@ -138,7 +146,7 @@ class PrincipalsPage extends Component {
               editIOI={this.editIOI}
               destroyIOI={this.destroyIOI}
               principal={this.state.principal_id}
-              />
+            />
           </Grid.Column>
           <Grid.Column width='8'>
             <SponsorsList

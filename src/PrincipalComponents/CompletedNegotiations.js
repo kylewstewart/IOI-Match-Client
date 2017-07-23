@@ -19,7 +19,7 @@ class CompletedNegotiations extends Component{
     const { negotiations } = this.props
 
     if (!!byTime) {
-      return negotiations.sort((a,b) => (
+      return negotiations.sort((a, b) => (
         !!timeAsc ? new Date('1970/01/01 ' + a.time) - new Date('1970/01/01 ' + b.time) : new Date('1970/01/01 ' + b.time) - new Date('1970/01/01 ' + a.time)
       ))
     } else {

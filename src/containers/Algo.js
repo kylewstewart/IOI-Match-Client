@@ -17,6 +17,7 @@ class Algo extends Component{
       common: null,
       rankedVoting: null
     }
+
     this.getMatchStocks = this.getMatchStocks.bind(this)
     this.getMatch = this.getMatch.bind(this)
   }
@@ -44,21 +45,31 @@ class Algo extends Component{
 
     return (
       <Grid container relaxed>
-      <Grid.Row>
-    <AlgoHeader />
-      </Grid.Row>
-      <Grid.Row columns={2}>
-        <Grid.Column width='8'>
-            <AlgoMatches matchStocks={matchStocks} onMount={this.getMatchStocks} getMatch={this.getMatch} />
+        <Grid.Row>
+          <AlgoHeader />
+        </Grid.Row>
+        <Grid.Row columns={2}>
+          <Grid.Column width='8'>
+            <AlgoMatches
+              matchStocks={matchStocks}
+              onMount={this.getMatchStocks}
+              getMatch={this.getMatch}
+            />
             <Divider hidden />
-            <AlgoMatch match={match}/>
-        </Grid.Column>
-      <Grid.Column width='8'>
-        <AlgoMatchCommon common={common} />
-        <Divider hidden />
-        <AlgoRankedVoting rankedVoting={rankedVoting} />
-      </Grid.Column>
-      </Grid.Row>
+            <AlgoMatch
+              match={match}
+            />
+          </Grid.Column>
+          <Grid.Column width='8'>
+            <AlgoMatchCommon
+              common={common}
+            />
+            <Divider hidden />
+            <AlgoRankedVoting
+              rankedVoting={rankedVoting}
+            />
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     )
   }
