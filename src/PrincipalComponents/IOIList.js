@@ -54,6 +54,8 @@ class IOIList extends Component {
     }
   }
 
+  handleClick = (e, { value }) => console.log( value )
+
   handleStockSort = () => {
     if (!!this.state.byStk) this.setState((prevState) => ({stkAsc: !!prevState.stkAsc ? false : true }))
   }
@@ -95,8 +97,20 @@ class IOIList extends Component {
               <Grid.Column>
                 <Form>
                   <Form.Group widths='equal'>
-                    <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
-                    <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
+                    <Form.Radio
+                      label='Stock'
+                      name='radioGroup'
+                      value='byStk'
+                      checked={byStk}
+                      onChange={this.handleChange}
+                      />
+                    <Form.Radio
+                      label='Time'
+                      name='radioGroup'
+                      value='byTime'
+                      checked={byTime}
+                      onChange={this.handleChange}
+                      />
                   </Form.Group>
                 </Form>
               </Grid.Column>
@@ -107,12 +121,22 @@ class IOIList extends Component {
               <Table.Row>
                 <Table.HeaderCell textAlign='center'>
                   Stock
-                  <Icon name={!stkAsc ? 'sort descending' : 'sort ascending'} disabled={!byStk} onClick={this.handleStockSort}/>
+                  <Icon
+                    name={!stkAsc ? 'sort descending' : 'sort ascending'}
+                    disabled={!byStk}
+                    onClick={this.handleStockSort}
+                    />
                 </Table.HeaderCell>
                 <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
                 <Table.HeaderCell textAlign='center'>
                   Time
-                  <Icon name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
+                  <Button basic
+                    floated='right'
+                    icon={!timeAsc ? 'sort numeric descending' : 'sort numeric ascending'}
+                    disabled={!byTime}
+                    value='byTime'
+                    onClick={this.handleClick}
+                    />
                 </Table.HeaderCell>
                 <Table.HeaderCell textAlign='center'> Edit </Table.HeaderCell>
               </Table.Row>
@@ -134,7 +158,7 @@ class IOIList extends Component {
                 </Table.Row>
               ))}
             </Table.Body>
-          </Table>      
+          </Table>
         </Segment>
       </Segment>
     )

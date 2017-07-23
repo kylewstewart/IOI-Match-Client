@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Table, Divider, Checkbox, Segment, Header } from 'semantic-ui-react'
+import { Button, Divider, Segment, Header } from 'semantic-ui-react'
 
 import AgentNegotiationTable from './AgentNegotiationTable'
 
@@ -80,7 +80,7 @@ class AgentNegotiationDetail extends Component {
             >
             Complete Negotiation
           </Button>
-        </Segment>        
+        </Segment>
       </Segment>
     )
   }
