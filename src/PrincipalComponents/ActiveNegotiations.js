@@ -49,18 +49,32 @@ class ActiveNegotiations extends Component{
     const { byTime, timeAsc, byStk, stkAsc } = this.state
 
     return(
-      <Segment>
+      <Segment basic>
         <Grid>
-          <Grid.Row columns={2} verticalAlign='middle'>
-            <Grid.Column textAlign='left'>
+          <Grid.Row columns={3}>
+            <Grid.Column>
               <Header as='h4'> Active </Header>
             </Grid.Column>
             <Grid.Column textAlign='right'>
+              Sort by:
+            </Grid.Column>
+            <Grid.Column>
               <Form>
-                <Form.Group >
-                  <label>Sort by</label>
-                  <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
-                  <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
+                <Form.Group>
+                  <Form.Radio
+                    label='Stock'
+                    name='radioGroup'
+                    value='byStk'
+                    checked={byStk}
+                    onChange={this.handleChange}
+                  />
+                  <Form.Radio
+                    label='Time'
+                    name='radioGroup'
+                    value='byTime'
+                    checked={byTime}
+                    onChange={this.handleChange}
+                  />
                 </Form.Group>
               </Form>
             </Grid.Column>
@@ -72,12 +86,20 @@ class ActiveNegotiations extends Component{
             <Table.Row >
               <Table.HeaderCell textAlign='center'>
                 Stock
-                <Icon name={!stkAsc ? 'sort descending' : 'sort ascending'} disabled={!byStk} onClick={this.handleStockSort}/>
+                <Icon
+                  name={!stkAsc ? 'sort descending' : 'sort ascending'}
+                  disabled={!byStk}
+                  onClick={this.handleStockSort}
+                />
               </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Agent </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'>
                 Time
-                <Icon name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
+                <Icon
+                  name={!timeAsc ? 'sort descending' : 'sort ascending'}
+                  disabled={!byTime}
+                  onClick={this.handleTimeSort}
+                />
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>

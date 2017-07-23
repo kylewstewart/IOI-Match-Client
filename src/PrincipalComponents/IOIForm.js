@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import { Container, Button, Segment, Header, Form } from 'semantic-ui-react'
+import { Divider, Container, Button, Segment, Header, Form } from 'semantic-ui-react'
 
 class IOIForm extends Component {
   constructor(){
@@ -21,7 +21,7 @@ class IOIForm extends Component {
       this.setState({ title: "New IOI", rankedAgents: [], side: '', stock: '', disableButton: true })
     }
 
-    if (nextProps.principal !== this.props.principal) this.props.resetIOIProp() 
+    if (nextProps.principal !== this.props.principal) this.props.resetIOIProp()
   }
 
   handleChange = (e, {name, value}) => this.setState({[name]: value})
@@ -67,72 +67,67 @@ class IOIForm extends Component {
     const sponsorsOptions = this.sortAlpha(this.sponsors())
 
     return (
-      <Container>
-        <Segment.Group>
-          <Segment>
+      <Segment>
         <Header> {this.state.title} </Header>
+        <Divider />
+        <Segment basic>
+          <Form>
+            <Form.Select
+              value={this.state.side}
+              placeholder='Side'
+              name='side'
+              options={sideOptions}
+              onChange={this.handleChange}
+              disabled={!this.props.sponsors.length}
+              />
+            <Form.Dropdown search selection
+              value={this.state.stock}
+              placeholder='Stock'
+              name='stock'
+              options={stockOptions}
+              onChange={this.handleChange}
+              disabled={!this.props.sponsors.length}
+              />
+            <Container>
+              <Form.Group >
+                <Form.Dropdown multiple selection
+                  closeOnChange={true}
+                  value={this.state.rankedAgents}
+                  placeholder='Ranked Brokers'
+                  name='rankedAgents'
+                  options={sponsorsOptions}
+                  onChange={this.handleChange}
+                  disabled={!this.props.sponsors.length}
+                  />
+                <Form.Button
+                  icon='erase'
+                  onClick={this.onClearBrokersButton}
+                  disabled={!this.state.rankedAgents.length}
+                  />
+              </Form.Group>
+            </Container>
+            <Button
+              name='submit'
+              content="Submit"
+              value={this.state.disableButton}
+              onClick={this.onSubmitButton}
+              disabled={!this.state.side || !this.state.stock || !this.state.rankedAgents.length}
+              />
+            <Button
+              name='newIOI'
+              disabled={this.state.disableButton}
+              content="New"
+              onClick={this.onNewButton}
+              />
+            <Button
+              icon='trash'
+              value={this.props.IOI.id}
+              disabled={!this.props.IOI}
+              onClick={this.handleDestroy}
+              />
+          </Form>
         </Segment>
-        <Segment>
-        <Form>
-          <Form.Select
-          value={this.state.side}
-          placeholder='Side'
-          name='side'
-          options={sideOptions}
-          onChange={this.handleChange}
-          disabled={!this.props.sponsors.length}
-          />
-          <Form.Dropdown search selection
-          value={this.state.stock}
-          placeholder='Stock'
-          name='stock'
-          options={stockOptions}
-          onChange={this.handleChange}
-          disabled={!this.props.sponsors.length}
-          />
-        <Container>
-        <Form.Group >
-          <Form.Dropdown multiple selection
-            closeOnChange={true}
-            value={this.state.rankedAgents}
-            placeholder='Ranked Brokers'
-            name='rankedAgents'
-            options={sponsorsOptions}
-            onChange={this.handleChange}
-            disabled={!this.props.sponsors.length}
-            />
-          <Form.Button
-            icon='erase'
-            onClick={this.onClearBrokersButton}
-            disabled={!this.state.rankedAgents.length}
-            />
-        </Form.Group>
-      </Container>
-          <Button
-          name='submit'
-          content="Submit"
-          value={this.state.disableButton}
-          onClick={this.onSubmitButton}
-          disabled={!this.state.side || !this.state.stock || !this.state.rankedAgents.length}
-          />
-          <Button
-          name='newIOI'
-          disabled={this.state.disableButton}
-          content="New"
-          onClick={this.onNewButton}
-          />
-          <Button
-            icon='trash'
-            value={this.props.IOI.id}
-            disabled={!this.props.IOI}
-            onClick={this.handleDestroy}
-          />
-
-        </Form>
-        </Segment>
-        </Segment.Group>
-      </Container>
-
+      </Segment>
     )
   }
 

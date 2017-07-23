@@ -20,7 +20,7 @@ class NegotiationRating extends Component {
   render = () =>
     (
       <Rating
-        size='small'
+        size='tiny'
         maxRating={5}
         rating={this.state.rating}
         onRate={this.handleRate}

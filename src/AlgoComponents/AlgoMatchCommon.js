@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Container, Header, List } from 'semantic-ui-react'
+import { Segment, Divider, Header, List } from 'semantic-ui-react'
 
 
 class AlgoMatchCommon extends Component{
@@ -12,16 +12,17 @@ class AlgoMatchCommon extends Component{
 
     return (
       <Segment>
-          <Header > Most Common Broker(s): </Header>
-          <Container textAlign='center'>
-            <Segment>
+          <Header > Most Common Brokers </Header>
+          <Divider />
+          <Segment basic>
+            <Segment textAlign='center'>
               <List horizontal divided relaxed>
                 {common.map(agent => (
                   <List.Item key={agent.id}> {agent.name} </List.Item>
                 ))}
               </List>
             </Segment>
-        </Container>
+        </Segment>
       </Segment>
     )
   }

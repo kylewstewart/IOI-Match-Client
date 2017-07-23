@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Header, Divider, Container } from 'semantic-ui-react'
+import { Segment, Header, Divider } from 'semantic-ui-react'
 import AlgoRankedVotingRound from './AlgoRankedVotingRound'
 
 class AlgoRankedVoting extends Component{
@@ -23,10 +23,10 @@ class AlgoRankedVoting extends Component{
         <Divider />
         { this.rounds().map(round => (
           <div key={round}>
-            <Container>
-              <Header> Round {round} </Header>
+            <Segment basic>
+              <Header as='h4'> Round {round} </Header>
               <AlgoRankedVotingRound round={this.rankedVoting(round)}/>
-            </Container>
+            </Segment>
             {this.lastRound(round) ? <div></div> : <Divider hidden />}
           </div>
         ))}

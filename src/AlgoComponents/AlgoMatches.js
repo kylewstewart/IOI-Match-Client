@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Header, Container, Segment, Button, Divider, Icon } from 'semantic-ui-react'
+import { Table, Header, Segment, Button, Divider, Icon } from 'semantic-ui-react'
 
 class AlgoMatches extends Component {
   constructor(){
@@ -29,17 +29,19 @@ class AlgoMatches extends Component {
     const stocks = this.stocks()
 
     return (
-      <Container>
-        <Segment>
-          <Header> Matches </Header>
-          <Divider />
+      <Segment>
+        <Header> Matches </Header>
+        <Divider />
+        <Segment basic>
           <Table fixed>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell width='2'></Table.HeaderCell>
-                <Table.HeaderCell textAlign='left'>
+                <Table.HeaderCell textAlign='center'>
                   Stock
-                  <Icon name={!asc ? 'sort descending' : 'sort ascending'} onClick={this.handleSort}/>
+                  <Icon
+                    name={!asc ? 'sort descending' : 'sort ascending'}
+                    onClick={this.handleSort}
+                  />
                 </Table.HeaderCell>
                 <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
               </Table.Row>
@@ -47,17 +49,21 @@ class AlgoMatches extends Component {
             <Table.Body>
               {stocks.map(stock => (
                 <Table.Row key={stock.id}>
-                  <Table.Cell width='2'></Table.Cell>
-                  <Table.Cell textAlign='left'> {stock.exch_code}</Table.Cell>
+                  <Table.Cell textAlign='center'> {stock.exch_code}</Table.Cell>
                   <Table.Cell textAlign='center'>
-                    <Button icon='external' disabled={!matchStocks} value={stock.id} onClick={this.handleClick}/>
+                    <Button
+                      icon='external'
+                      disabled={!matchStocks}
+                      value={stock.id}
+                      onClick={this.handleClick}
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
           </Table>
         </Segment>
-      </Container>
+      </Segment>
     )
   }
 

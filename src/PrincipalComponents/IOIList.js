@@ -76,64 +76,66 @@ class IOIList extends Component {
       <Segment>
         <Header textAlign='left'> IOIs </Header>
         <Divider />
-        <Grid>
-          <Grid.Row columns={2}>
-            <Grid.Column>
-              <Dropdown compact labeled button
-                className='icon'
-                options={sideOptions}
-                placeholder={this.state.side}
-                name='side'
-                onChange={this.handleChange}
-                disabled={!this.props.IOIs.length}
-                />
-            </Grid.Column>
-            <Grid.Column>
-              <Form>
-                <Form.Group>
-                  <label>Sort by</label>
-                  <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
-                  <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
-                </Form.Group>
-              </Form>
-            </Grid.Column>
-
-          </Grid.Row>
-
-        </Grid>
-        <Table compact textAlign='center'>
-        <Table.Header>
-        <Table.Row>
-        <Table.HeaderCell textAlign='center'>
-           Stock
-           <Icon name={!stkAsc ? 'sort descending' : 'sort ascending'} disabled={!byStk} onClick={this.handleStockSort}/>
-         </Table.HeaderCell>
-        <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
-        <Table.HeaderCell textAlign='center'>
-          Time
-          <Icon name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
-        </Table.HeaderCell>
-        <Table.HeaderCell textAlign='center'> Edit </Table.HeaderCell>
-        </Table.Row>
-        </Table.Header>
-        <Table.Body>
-        {this.IOIs().map(IOI => (
-        <Table.Row key={IOI.id}>
-        <Table.Cell> {IOI.stock} </Table.Cell>
-        <Table.Cell> {IOI.side} </Table.Cell>
-        <Table.Cell> {IOI.time} </Table.Cell>
-        <Table.Cell>
-        <Button
-        icon='edit'
-        value={IOI.id}
-        disabled={!this.props.principal}
-        onClick={this.handleEdit}
-        />
-        </Table.Cell>
-        </Table.Row>
-        ))}
-        </Table.Body>
-        </Table>
+        <Segment basic>
+          <Grid>
+            <Grid.Row columns={3}>
+              <Grid.Column >
+                <Dropdown compact labeled button
+                  className='icon'
+                  options={sideOptions}
+                  placeholder={this.state.side}
+                  name='side'
+                  onChange={this.handleChange}
+                  disabled={!this.props.IOIs.length}
+                  />
+              </Grid.Column>
+              <Grid.Column textAlign='right'>
+                Sort by:
+              </Grid.Column>
+              <Grid.Column>
+                <Form>
+                  <Form.Group widths='equal'>
+                    <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
+                    <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
+                  </Form.Group>
+                </Form>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+          <Table compact textAlign='center'>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell textAlign='center'>
+                  Stock
+                  <Icon name={!stkAsc ? 'sort descending' : 'sort ascending'} disabled={!byStk} onClick={this.handleStockSort}/>
+                </Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'> Side </Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'>
+                  Time
+                  <Icon name={!timeAsc ? 'sort descending' : 'sort ascending'} disabled={!byTime} onClick={this.handleTimeSort}/>
+                </Table.HeaderCell>
+                <Table.HeaderCell textAlign='center'> Edit </Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {this.IOIs().map(IOI => (
+                <Table.Row key={IOI.id}>
+                  <Table.Cell> {IOI.stock} </Table.Cell>
+                  <Table.Cell> {IOI.side} </Table.Cell>
+                  <Table.Cell> {IOI.time} </Table.Cell>
+                  <Table.Cell>
+                    <Button
+                      icon='edit'
+                      value={IOI.id}
+                      disabled={!this.props.principal}
+                      onClick={this.handleEdit}
+                      />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>      
+        </Segment>
       </Segment>
     )
   }

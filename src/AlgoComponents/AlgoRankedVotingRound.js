@@ -12,34 +12,47 @@ function AlgoRankedVotingRound(props){
           <Table.Row>
             <Table.Cell width='6'> Canidates </Table.Cell>
               {canidates.map(canidate => (
-                <Table.Cell key={canidate} textAlign='center'> {canidate} </Table.Cell>
+                <Table.Cell
+                  key={canidate}
+                  textAlign='center'
+                >
+                  {canidate}
+                </Table.Cell>
               ))}
           </Table.Row>
           <Table.Row>
             <Table.Cell width='6'> Votes </Table.Cell>
-              {Object.entries(votes).map(([agent, votes]) => (
-                <Table.Cell key={agent} textAlign='center'>
-                  {votes}
+              {canidates.map(agent => (
+                <Table.Cell
+                  key={agent}
+                  textAlign='center'
+                >
+                  {!votes[agent] ? '-' : votes[agent]}
                 </Table.Cell>
               ))}
           </Table.Row>
           <Table.Row>
             <Table.Cell width='6'> Winner </Table.Cell>
-            <Table.Cell textAlign='center' colSpan={canidates.length}>
-                {!winner ? '-' : winner}
+            <Table.Cell
+              textAlign='center'
+              colSpan={canidates.length}
+            >
+              {!winner ? '-' : winner}
             </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell width='6'> Loser </Table.Cell>
-            <Table.Cell textAlign='center' colSpan={canidates.length}>
-                {!loser ? '-' : loser}
+            <Table.Cell
+              textAlign='center'
+              colSpan={canidates.length}
+            >
+              {!loser ? '-' : loser}
             </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
     </Container>
   )
-
 }
 
 export default AlgoRankedVotingRound

@@ -58,16 +58,18 @@ class CompletedNegotiations extends Component{
     const { principal } = this.props
 
     return(
-      <Segment>
+      <Segment basic>
         <Grid>
-          <Grid.Row columns={2} verticalAlign='middle'>
-            <Grid.Column textAlign='left'>
+          <Grid.Row columns={3}>
+            <Grid.Column>
               <Header as='h4'> Completed </Header>
             </Grid.Column>
             <Grid.Column textAlign='right'>
+              Sort by:
+            </Grid.Column>
+            <Grid.Column>
               <Form>
                 <Form.Group>
-                  <label>Sort by</label>
                   <Form.Radio label='Stock' name='radioGroup' value='byStk' checked={byStk} onChange={this.handleChange} />
                   <Form.Radio label='Time' name='radioGroup' value='byTime' checked={byTime} onChange={this.handleChange} />
                 </Form.Group>

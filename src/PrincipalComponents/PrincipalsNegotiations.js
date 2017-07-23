@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Segment, Container, Header, Button } from 'semantic-ui-react'
+import { Grid, Divider, Segment, Header, Button } from 'semantic-ui-react'
 
 import CompletedNegotiations from './CompletedNegotiations'
 import ActiveNegotiations from './ActiveNegotiations'
@@ -19,17 +19,33 @@ class PrincipalsNegotiations extends Component {
   render() {
 
     return (
-      <Container>
-        <Segment.Group>
-          <Segment clearing>
-            <Header floated='left'> Negotiations </Header>
-            <Button disabled={!this.props.principal} floated='right' icon='refresh' onClick={this.handleClick} />
-          </Segment>
-            <ActiveNegotiations negotiations={this.negotiations('Active')} />
-            <CompletedNegotiations negotiations={this.negotiations('Completed')} updateRating={this.props.updateRating}
-              principal={this.props.principal} ratings={this.props.ratings} />
-        </Segment.Group>
-      </Container>
+      <Segment clearing>
+        <Grid>
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Header floated='left'> Negotiations </Header>
+            </Grid.Column>
+            <Grid.Column>
+              <Button
+                disabled={!this.props.principal}
+                floated='right'
+                icon='refresh'
+                onClick={this.handleClick}
+              />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Divider />
+        <ActiveNegotiations
+          negotiations={this.negotiations('Active')}
+        />
+        <CompletedNegotiations
+          negotiations={this.negotiations('Completed')}
+          updateRating={this.props.updateRating}
+          principal={this.props.principal}
+          ratings={this.props.ratings}
+        />
+      </Segment>
     )
   }
 }
