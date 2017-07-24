@@ -42,11 +42,11 @@ class AgentNegotiationDetail extends Component {
   }
 
   updateNegotiation = () => {
-    this.state.negPrincipals.forEach(np =>
-      this.props.updateTraded(np.id, np.traded))
+    const { negPrinBuyers, negPrinSellers, negotiation } = this.state
+    const negPrincipals = negPrinBuyers.concat(negPrinSellers)
 
-    const traded = this.state.negPrincipals.map(np => np.traded).includes(true)
-    this.props.updateNegotiation(this.state.negotiation.id, traded)
+    negPrincipals.forEach(np => this.props.updateTraded(np.id, {traded: np.traded}))
+    this.props.updateNegotiation(negotiation.id, {active: false})
   }
 
   disableUpdate = () => {

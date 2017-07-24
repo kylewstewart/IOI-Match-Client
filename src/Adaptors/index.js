@@ -5,9 +5,7 @@ const url = "http://localhost:3000"
 const headers = {
     'content-type': 'application/json',
     'accept': 'application/json',
-    // 'Authorization': localStorage.getItem('jwt')
   }
-
 
 export class Adaptors {
 
@@ -87,14 +85,11 @@ export class Adaptors {
     }).then(res => res.json())
   }
 
-  static UpdateNegotiation(id, traded){
+  static UpdateNegotiation(id, update){
     return fetch(url + `/api/v1/negotiations/${id}`, {
       method: 'PATCH',
       headers: headers,
-      body: JSON.stringify({
-        active: false,
-        traded: `${traded}`
-      })
+      body: JSON.stringify({update})
     }).then(res => res.json())
   }
 

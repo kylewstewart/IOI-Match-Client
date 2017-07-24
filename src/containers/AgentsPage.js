@@ -18,9 +18,6 @@ class AgentsPage extends Component {
       negPrincipals: [],
       sponsorships: []
     }
-
-    this.UpdateNegPrincipalTraded = this.UpdateNegPrincipalTraded.bind(this)
-    this.updateNegotiation = this.updateNegotiation.bind(this)
   }
 
   componentDidMount = () => this.getAgents()
@@ -39,28 +36,28 @@ class AgentsPage extends Component {
   getNegotiations = (id) => Adaptors.AgentNegotiations(id)
     .then(negotiations => this.setState({ negotiations }))
 
-  UpdateNegPrincipalTraded = (id, traded) => Adaptors.UpdateNegPrincipalTraded(id, traded)
-    .then(negPrin => this.setState((prevState) => {
-        return { negPrincipals: prevState.negPrincipals.map(np => np.id === negPrin ? negPrin : np) }
-      })
-    )
-
-  updateNegotiation = (id, traded) => Adaptors.UpdateNegotiation(id, traded)
-    .then(negotiation => {
-      this.setState({ negotiation })
-      this.setState((prevState) => {
-        return { negotiations: prevState.negotiations.map(neg => neg.id === negotiation.id ? negotiation : neg) }
-      })
-      this.setState({ negPrincipals: []})
-      this.setState({ negotiation: ''})
-    })
-
-  negotiationDetail = (neg_id) => {
+  getNegotiationDetail = (neg_id) => {
     Adaptors.NegPrincipals(neg_id)
       .then(negPrincipals => this.setState({ negPrincipals }))
     this.setState({ negotiation: this.state.negotiations.find(neg => neg.id === neg_id) })
   }
 
+  updateNegotiationPrincipal = (id, update) => Adaptors.UpdateNegotiationPrincipal(id, update)
+    .then(negPrin => this.setState((prevState) => {
+      return {negPrincipals: prevState.negPrincipals.map(prevNegPrin => {
+        return prevNegPrin.id === negPrin.id ? negPrin : prevNegPrin
+      })}
+    }))
+
+  updateNegotiation = (id, update) => {
+    Adaptors.UpdateNegotiation(id, update)
+      .then(neg => this.setState((prevState) => {
+        return {negotiations: prevState.negotiations.map(prevNeg => {
+          return prevNeg.id === neg.id ? neg : prevNeg
+        })}
+      }))
+    this.setState({negotiation: ''})
+}
   render() {
     return (
       <Grid container relaxed>
@@ -73,7 +70,7 @@ class AgentsPage extends Component {
               negotiations={this.state.negotiations}
               agent={this.state.id}
               getNegotiations={this.getNegotiations}
-              negotiationDetail={this.negotiationDetail}
+              negotiationDetail={this.getNegotiationDetail}
               />
             <Divider hidden />
             <Segment>
@@ -90,7 +87,7 @@ class AgentsPage extends Component {
           </Grid.Column>
           <Grid.Column width='8'>
             <AgentNegotiationDetail
-              updateTraded={this.UpdateNegPrincipalTraded}
+              updateTraded={this.updateNegotiationPrincipal}
               updateNegotiation={this.updateNegotiation}
               negotiation={this.state.negotiation}
               negPrincipals={this.state.negPrincipals}
