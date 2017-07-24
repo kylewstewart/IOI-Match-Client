@@ -39,7 +39,7 @@ class SponsorshipList extends Component {
                 </Table.Row>
               )}
             </Table.Body>
-          </Table>        
+          </Table>
         </Segment>
       </Segment>
     )

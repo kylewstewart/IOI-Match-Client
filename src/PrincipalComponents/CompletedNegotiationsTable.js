@@ -31,7 +31,7 @@ class CompletedNegotiationsTable extends Component {
 
   handleSort = clickedColumn => () => {
     const { column, data, direction } = this.state
-    
+
     if (column !== clickedColumn) {
       this.setState({
         column: clickedColumn,

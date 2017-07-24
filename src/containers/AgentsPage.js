@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Grid, Divider } from 'semantic-ui-react'
+import { Grid, Divider, Segment, Header } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
 import AgentsHeader from '../AgentComponents/AgentsHeader'
-import SponsorshipList from '../AgentComponents/SponsorshipList'
 import AgentsNegotiations from '../AgentComponents/AgentsNegotiations'
 import AgentNegotiationDetail from '../AgentComponents/AgentNegotiationDetail'
+import SortableTable from '../SortableTable'
 
 class AgentsPage extends Component {
   constructor(){
@@ -15,7 +15,8 @@ class AgentsPage extends Component {
       id: '',
       negotiation: '',
       negotiations: [],
-      negPrincipals: []
+      negPrincipals: [],
+      sponsorships: []
     }
 
     this.UpdateNegPrincipalTraded = this.UpdateNegPrincipalTraded.bind(this)
@@ -76,9 +77,17 @@ class AgentsPage extends Component {
               negotiationDetail={this.negotiationDetail}
               />
             <Divider hidden />
-            <SponsorshipList
-              sponsorships={this.state.sponsorships}
-              />
+            <Segment>
+              <Header textAlign='left'> Sponsorships </Header>
+              <Divider />
+              <Segment basic>
+                <SortableTable
+                  data={this.state.sponsorships}
+                  keys={['principal_name', 'pct_traded']}
+                  headers={['Investor', 'Conversion']}
+                  />
+              </Segment>
+            </Segment>
           </Grid.Column>
           <Grid.Column width='8'>
             <AgentNegotiationDetail

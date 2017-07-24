@@ -59,18 +59,9 @@ class PrincipalsNegotiations extends Component {
             updateRating={this.props.updateRating}
             />
         </Segment>
-
-
-
       </Segment>
     )
   }
 }
 
 export default PrincipalsNegotiations
-
-// <CompletedNegotiations
-//   negotiations={this.state.completed}
-//   updateRating={this.props.updateRating}
-//   principal={this.props.principal}
-//   />
