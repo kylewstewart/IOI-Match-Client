@@ -14,7 +14,7 @@ class NegotiationRating extends Component {
 
   handleRate = (e, { rating }) => {
     this.setState({ rating })
-    this.props.updateRating(this.props.negID, this.props.prinID, rating)
+    this.props.updateRating(this.props.negPrinID, {rating: rating})
   }
 
   render = () =>

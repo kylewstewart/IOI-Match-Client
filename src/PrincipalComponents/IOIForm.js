@@ -91,7 +91,7 @@ class IOIForm extends Component {
             <Container>
               <Form.Group >
                 <Form.Dropdown multiple selection
-                  closeOnChange={true}
+                  closeOnChange={false}
                   value={this.state.rankedAgents}
                   placeholder='Ranked Brokers'
                   name='rankedAgents'

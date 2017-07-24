@@ -1,28 +1,26 @@
 import React, { Component } from 'react'
 import { Grid, Divider, Segment, Header, Button } from 'semantic-ui-react'
 
-import CompletedNegotiations from './CompletedNegotiations'
+import CompletedNegotiationsTable from './CompletedNegotiationsTable'
 import SortableTable from '../SortableTable'
 
 class PrincipalsNegotiations extends Component {
+  constructor(){
+    super()
+    this.state = {
+      active: [],
+      completed: []
+    }
+  }
+
+  componentWillReceiveProps = (nextProps) => (
+    this.setState({
+      active: nextProps.negotiations.filter(neg => !!neg.active),
+      completed: nextProps.negotiations.filter(neg => !neg.active)
+    })
+  )
 
   handleClick = () => this.props.getNegotiations(this.props.principal)
-
-  negotiations = (status) => {
-    const blank = [{
-      id: 1,
-      exch_code: '-',
-      agent_name: '-',
-      active: '-',
-      rating: null,
-      time: '-'
-    }]
-
-    // if (!this.props.negotiations || !this.props.negotiations.length) return blank
-    const negotiations = this.props.negotiations.filter(neg => neg.active === status)
-    // if (!negotiations.length) return blank
-    return negotiations
-  }
 
   render() {
 
@@ -47,20 +45,32 @@ class PrincipalsNegotiations extends Component {
         <Segment basic>
           <Header as='h4'> Active </Header>
           <SortableTable
-            data={this.negotiations('Active')}
+            data={this.state.active}
             keys={['exch_code', 'agent_name', 'time']}
             headers={['Stock', 'Broker', 'Time']}
             />
         </Segment>
-        <CompletedNegotiations
-          negotiations={this.negotiations('Completed')}
-          updateRating={this.props.updateRating}
-          principal={this.props.principal}
-          ratings={this.props.ratings}
-          />
+        <Segment basic>
+          <Header as='h4'> Completed </Header>
+          <CompletedNegotiationsTable
+            data={this.state.completed}
+            keys={['exch_code', 'agent_name', 'traded', 'time']}
+            headers={['Stock', 'Broker', 'Traded', 'Time']}
+            updateRating={this.props.updateRating}
+            />
+        </Segment>
+
+
+
       </Segment>
     )
   }
 }
 
 export default PrincipalsNegotiations
+
+// <CompletedNegotiations
+//   negotiations={this.state.completed}
+//   updateRating={this.props.updateRating}
+//   principal={this.props.principal}
+//   />
