@@ -16,7 +16,7 @@ class AgentsNegotiations extends Component {
 
   componentWillReceiveProps = (nextProps) => (
     this.setState({
-      data: this.props.negotiations.filter(neg => !!neg.active)
+      data: nextProps.negotiations.filter(neg => !!neg.active)
     })
   )
 

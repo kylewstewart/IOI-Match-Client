@@ -61,7 +61,6 @@ class AgentsPage extends Component {
     this.setState({ negotiation: this.state.negotiations.find(neg => neg.id === neg_id) })
   }
 
-
   render() {
     return (
       <Grid container relaxed>
