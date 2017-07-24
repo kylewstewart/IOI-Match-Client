@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { Rating, Table, Button } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 
 import NegotiationRating from './NegotiationRating'
 
@@ -20,6 +20,7 @@ class CompletedNegotiationsTable extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     const { data, keys, headers, rating } = nextProps
+
     this.setState({
       data: data,
       keys: keys,
@@ -30,7 +31,7 @@ class CompletedNegotiationsTable extends Component {
 
   handleSort = clickedColumn => () => {
     const { column, data, direction } = this.state
-
+    
     if (column !== clickedColumn) {
       this.setState({
         column: clickedColumn,
@@ -46,7 +47,7 @@ class CompletedNegotiationsTable extends Component {
   }
 
   render(){
-    const { column, data, direction, keys, headers, rating } = this.state
+    const { column, data, direction, keys, headers } = this.state
 
     return (
       <Table sortable celled fixed>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Divider, Segment, Header, Button } from 'semantic-ui-react'
 
-import CompletedNegotiations from './CompletedNegotiations'
 import CompletedNegotiationsTable from './CompletedNegotiationsTable'
 import SortableTable from '../SortableTable'
 
@@ -14,14 +13,12 @@ class PrincipalsNegotiations extends Component {
     }
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    if(!!nextProps.negotiations[0]){
-      this.setState({
-        active: nextProps.negotiations.filter(neg => !!neg.active),
-        completed: nextProps.negotiations.filter(neg => !neg.active)
-      })
-    }
-  }
+  componentWillReceiveProps = (nextProps) => (
+    this.setState({
+      active: nextProps.negotiations.filter(neg => !!neg.active),
+      completed: nextProps.negotiations.filter(neg => !neg.active)
+    })
+  )
 
   handleClick = () => this.props.getNegotiations(this.props.principal)
 
