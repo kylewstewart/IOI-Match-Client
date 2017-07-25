@@ -28,13 +28,20 @@ class AgentsPage extends Component {
     this.getNegotiations(id)
   }
 
-  getAgents = () => Adaptors.Agents().then(agents => this.setState({ agents }))
+  getAgents = () => (
+    Adaptors.Agents()
+      .then(agents => this.setState({ agents }))
+    )
 
-  getSponsorships = (id) => Adaptors.Sponsorships(id)
-    .then(sponsorships => this.setState({ sponsorships }))
+  getSponsorships = (id) => (
+    Adaptors.Sponsorships(id)
+      .then(sponsorships => this.setState({ sponsorships }))
+    )
 
-  getNegotiations = (id) => Adaptors.AgentNegotiations(id)
-    .then(negotiations => this.setState({ negotiations }))
+  getNegotiations = (id) => (
+    Adaptors.AgentNegotiations(id)
+      .then(negotiations => this.setState({ negotiations }))
+    )
 
   getNegotiationDetail = (neg_id) => {
     Adaptors.NegPrincipals(neg_id)
@@ -42,12 +49,14 @@ class AgentsPage extends Component {
     this.setState({ negotiation: this.state.negotiations.find(neg => neg.id === neg_id) })
   }
 
-  updateNegotiationPrincipal = (id, update) => Adaptors.UpdateNegotiationPrincipal(id, update)
-    .then(negPrin => this.setState((prevState) => {
-      return {negPrincipals: prevState.negPrincipals.map(prevNegPrin => {
-        return prevNegPrin.id === negPrin.id ? negPrin : prevNegPrin
-      })}
-    }))
+  updateNegotiationPrincipal = (id, update) => (
+    Adaptors.UpdateNegotiationPrincipal(id, update)
+      .then(negPrin => this.setState((prevState) => {
+        return {negPrincipals: prevState.negPrincipals.map(prevNegPrin => {
+          return prevNegPrin.id === negPrin.id ? negPrin : prevNegPrin
+        })}
+      }))
+  )
 
   updateNegotiation = (id, update) => {
     Adaptors.UpdateNegotiation(id, update)
@@ -58,7 +67,9 @@ class AgentsPage extends Component {
       }))
     this.setState({negotiation: ''})
 }
+
   render() {
+    
     return (
       <Grid container relaxed>
         <Grid.Row>

@@ -58,17 +58,19 @@ class PrincipalsPage extends Component {
 
   createIOI = (IOI) => {
     Adaptors.CreateIOI(IOI, this.state.principal_id)
-      .then(IOI => this.setState((prevState) => {
-        return { IOIs: [...prevState.IOIs, IOI] }
-      }))
+      .then(IOI => this.refreshPage(IOI.principal_id))
+      // .then(IOI => this.setState((prevState) => {
+      //   return { IOIs: [...prevState.IOIs, IOI] }
+      // }))
     this.setState({IOI: false})
   }
 
-  updateIOI = (IOI) =>{
+  updateIOI = (IOI) => {
     Adaptors.UpdateIOI(IOI)
-      .then(IOI => this.setState((prevState) => {
-        return {IOIs: prevState.IOIs.map(prevIOI => prevIOI.id === IOI.id ? IOI : prevIOI)}
-      }))
+    .then(IOI => this.refreshPage(IOI.principal_id))
+      // .then(IOI => this.setState((prevState) => {
+      //   return {IOIs: prevState.IOIs.map(prevIOI => prevIOI.id === IOI.id ? IOI : prevIOI)}
+      // }))
     this.setState({IOI: false})
   }
 
@@ -79,9 +81,15 @@ class PrincipalsPage extends Component {
 
   destroyIOI = (IOI_id) => {
     Adaptors.DestroyIOI(IOI_id)
-    .then(IOI => this.setState((prevState) => {
-      return {IOIs: prevState.IOIs.filter(prevIOI => prevIOI.id !== IOI_id)}
-    }))
+    .then(IOI => this.refreshPage(IOI.principal_id))
+    // .then(IOI => this.setState((prevState) => {
+    //   return {IOIs: prevState.IOIs.filter(prevIOI => prevIOI.id !== IOI_id)}
+    // }))
+  }
+
+  refreshPage = (principal_id) => {
+    this.getIOIs(principal_id)
+    this.getNegotiations(principal_id)
   }
 
 

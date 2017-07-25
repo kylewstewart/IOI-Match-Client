@@ -12,7 +12,7 @@ class Algo extends Component{
   constructor() {
     super()
     this.state = {
-      matchStocks: null,
+      matchStocks: [],
       match: null,
       common: null,
       rankedVoting: null
@@ -22,10 +22,12 @@ class Algo extends Component{
     this.getMatch = this.getMatch.bind(this)
   }
 
-  getMatch = (id) => Adaptors.match(id).then(match => {
-    this.setState({ match })
-    this.getCommon(match)
-  })
+  getMatch = (id) => Adaptors.match(id)
+      .then(match => {
+        this.setState({ match })
+        this.getCommon(match)
+      })
+
 
   getMatchStocks = () => Adaptors.matchStocks().then(matchStocks => this.setState({ matchStocks }))
 
@@ -34,7 +36,6 @@ class Algo extends Component{
     this.getRankedVoting(common)
   })
 
-
   getRankedVoting = (common) => {
     const { match } = this.state
     Adaptors.rankedVoting(common, match).then(rankedVoting => this.setState({ rankedVoting }))
@@ -42,6 +43,7 @@ class Algo extends Component{
 
   render() {
     const { match, common, matchStocks, rankedVoting } = this.state
+
 
     return (
       <Grid container relaxed>

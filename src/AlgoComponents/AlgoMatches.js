@@ -1,67 +1,102 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { Table, Header, Segment, Button, Divider, Icon } from 'semantic-ui-react'
 
 class AlgoMatches extends Component {
   constructor(){
     super()
-    this.state ={
-      asc: true
+    this.state = {
+      data: [],
+      column: null,
+      direction: null,
+      keys: ['exch_code'],
+      headers: ['Stock']
     }
   }
 
   componentDidMount = () => this.props.onMount()
 
-  stocks = () => {
-    const { matchStocks } = this.props
-    const { asc } = this.state
-
-    if (!matchStocks) return [{id: 1, exch_code: '-'}]
-    return matchStocks.sort((a, b) => (
-      !!asc ? a.exch_code.localeCompare(b.exch_code) : b.exch_code.localeCompare(a.exch_code)
-    ))
-  }
+  componentWillReceiveProps = (nextProps) => (
+    this.setState({
+      data: !!nextProps.matchStocks ? nextProps.matchStocks : []
+    })
+  )
 
   handleClick = (e, { value }) => this.props.getMatch(value)
 
+  handleSort = clickedColumn => () => {
+    const { column, data, direction } = this.state
+
+    if (column !== clickedColumn) {
+      this.setState({
+        column: clickedColumn,
+        data: _.sortBy(data, [clickedColumn]),
+        direction: 'ascending'
+      })
+    } else {
+      this.setState({
+        data: data.reverse(),
+        direction: direction === 'ascending' ? 'descending' : 'ascending'
+      })
+    }
+  }
+
+
   render(){
-    const { asc } = this.state
+    const { column, direction, data, keys, headers } = this.state
     const { matchStocks } = this.props
-    const stocks = this.stocks()
+
+    console.log('data', data)
 
     return (
       <Segment>
         <Header> Matches </Header>
         <Divider />
+
         <Segment basic>
-          <Table fixed>
+
+          <Table sortable celled fixed>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell textAlign='center'>
-                  Stock
-                  <Icon
-                    name={!asc ? 'sort descending' : 'sort ascending'}
-                    onClick={this.handleSort}
-                  />
-                </Table.HeaderCell>
+                {keys.map((key, index) => (
+                  <Table.HeaderCell
+                    key={key}
+                    textAlign='center'
+                    sorted={column === key ? direction : null}
+                    onClick={this.handleSort(key)}
+                    >
+                      { headers[index] }
+                  </Table.HeaderCell>
+                ))}
                 <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {stocks.map(stock => (
-                <Table.Row key={stock.id}>
-                  <Table.Cell textAlign='center'> {stock.exch_code}</Table.Cell>
-                  <Table.Cell textAlign='center'>
-                    <Button
-                      icon='external'
-                      disabled={!matchStocks}
-                      value={stock.id}
-                      onClick={this.handleClick}
-                    />
-                  </Table.Cell>
+
+              {data.map((row, rowIndex) => (
+                <Table.Row key={rowIndex}>
+                  {keys.map((key, keyIndex) => (
+                    <Table.Cell
+                      key={rowIndex + keyIndex}
+                      textAlign='center'
+                      >
+                        { row[key] }
+                    </Table.Cell>
+                  ))}
+                    <Table.Cell textAlign='center'>
+                      <Button
+                        icon='external'
+                        disabled={!matchStocks}
+                        value={row.id}
+                        onClick={this.handleClick}
+                        />
+                    </Table.Cell>
                 </Table.Row>
               ))}
+
             </Table.Body>
           </Table>
+
         </Segment>
       </Segment>
     )
