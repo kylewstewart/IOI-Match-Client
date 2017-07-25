@@ -14,7 +14,7 @@ class AgentNegotiationTable extends Component{
   componentWillReceiveProps = (nextProps) => (
     this.setState({
       data: _.sortBy(nextProps.negPrincipals, ['name']),
-      direction: 'ascending'
+      direction: null
     })
   )
 
@@ -71,18 +71,3 @@ class AgentNegotiationTable extends Component{
 }
 
 export default AgentNegotiationTable
-
-// {negPrincipals.map(negPrin => (
-//   <Table.Row key={negPrin.id}>
-//     <Table.Cell textAlign='center'>{negPrin.name}</Table.Cell>
-//     <Table.Cell textAlign='center'>
-//       <Checkbox
-//         value={row}
-//         onClick={props.handleClick}
-//         disabled={!negotiation}
-//         checked={row.traded === null ? false : row.traded}
-//         defaultIndeterminate={row.traded === null}
-//         />
-//     </Table.Cell>
-//   </Table.Row>
-// ))}

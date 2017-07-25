@@ -32,8 +32,6 @@ class AlgoMatches extends Component {
     const { direction, data } = this.state
     const { matchStocks } = this.props
 
-    console.log('data', data)
-
     return (
       <Segment>
         <Header> Matches </Header>

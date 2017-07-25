@@ -33,10 +33,11 @@ class AlgoMatchTable extends Component{
     return (
       <Segment basic>
         <Header as='h4'> {header} </Header>
-        <Table sortable fixed>
+        <Table sortable celled fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell
+                width={4}
                 textAlign='center'
                 sorted={direction}
                 onClick={this.handleSort}
@@ -49,7 +50,7 @@ class AlgoMatchTable extends Component{
           <Table.Body>
             {data.map(row => (
               <Table.Row key={row.id}>
-                <Table.Cell width={8} textAlign='center'> {row.name} </Table.Cell>
+                <Table.Cell textAlign='center'> {row.name} </Table.Cell>
                 {[...Array(maxCol).keys()].map(i => (
                   <Table.Cell key={i} textAlign='center'>
                     {!row.ranked_agents[i] ? '-' : row.ranked_agents[i]}

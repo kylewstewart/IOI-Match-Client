@@ -35,7 +35,7 @@ class Algo extends Component{
     )
 
   getCommon = (match) => Adaptors.common(match).then(common => {
-    this.setState({common: !!common ? common : [] })
+    this.setState({common})
     this.getRankedVoting(common)
   })
 
@@ -73,7 +73,7 @@ class Algo extends Component{
             <Divider hidden />
             <AlgoRankedVoting
               rankedVoting={rankedVoting}
-            />
+              />
           </Grid.Column>
         </Grid.Row>
       </Grid>

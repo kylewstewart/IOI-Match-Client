@@ -21,7 +21,7 @@ class SortableTable extends Component {
       data: _.sortBy(data, [keys[0]]),
       keys: keys,
       headers: headers,
-      direction: 'ascending'
+      direction: null
     })
   }
 
@@ -37,7 +37,7 @@ class SortableTable extends Component {
     } else {
       this.setState({
         data: data.reverse(),
-        direction: direction === 'ascending' ? 'descending' : 'ascending'
+        direction: direction === 'descending' ? 'ascending' : 'descending'
       })
     }
   }
