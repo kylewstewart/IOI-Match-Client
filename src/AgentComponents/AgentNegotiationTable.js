@@ -7,80 +7,59 @@ class AgentNegotiationTable extends Component{
     super()
     this.state = {
       data: [],
-      column: null,
-      direction: null,
-      keys: ['name'],
-      headers: ['Investor']
+      direction: null
     }
   }
 
   componentWillReceiveProps = (nextProps) => (
     this.setState({
-      data: nextProps.negPrincipals
+      data: _.sortBy(nextProps.negPrincipals, ['name']),
+      direction: 'ascending'
     })
   )
 
-  handleSort = clickedColumn => () => {
-    const { column, data, direction } = this.state
+  handleSort = () => {
+    const { data, direction } = this.state
 
-    if (column !== clickedColumn) {
-      this.setState({
-        column: clickedColumn,
-        data: _.sortBy(data, [clickedColumn]),
-        direction: 'ascending'
-      })
-    } else {
-      this.setState({
-        data: data.reverse(),
-        direction: direction === 'ascending' ? 'descending' : 'ascending'
-      })
-    }
+    this.setState({
+      data: data.reverse(),
+      direction: direction === 'descending' ? 'ascending' : 'descending'
+    })
   }
 
   render(){
-    const { column, direction, data, keys, headers } = this.state
+    const { direction, data } = this.state
     const { header, negotiation } = this.props
 
     return (
       <Segment basic>
         <Header as='h5' > {header} </Header>
-
         <Table sortable celled fixed>
           <Table.Header>
             <Table.Row>
-              {keys.map((key, index) => (
-                <Table.HeaderCell
-                  key={key}
-                  textAlign='center'
-                  sorted={column === key ? direction : null}
-                  onClick={this.handleSort(key)}
-                  >
-                    { headers[index] }
-                </Table.HeaderCell>
-              ))}
+              <Table.HeaderCell
+                textAlign='center'
+                sorted={direction}
+                onClick={this.handleSort}
+                >
+                  Investor
+              </Table.HeaderCell>
               <Table.HeaderCell textAlign='center'> Traded </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {data.map((row, rowIndex) => (
-              <Table.Row key={rowIndex}>
-                {keys.map((key, keyIndex) => (
-                  <Table.Cell
-                    key={rowIndex + keyIndex}
-                    textAlign='center'
-                    >
-                      { row[key] }
-                  </Table.Cell>
-                ))}
-                  <Table.Cell textAlign='center'>
-                    <Checkbox
-                      value={row}
-                      onClick={this.props.handleClick}
-                      disabled={!negotiation}
-                      checked={row.traded === null ? false : row.traded}
-                      defaultIndeterminate={row.traded === null}
-                      />
-                  </Table.Cell>
+            {data.map(row => (
+              <Table.Row key={row.id}>
+                <Table.Cell textAlign='center'> { row.name } </Table.Cell>
+                <Table.Cell textAlign='center'>
+                  <Checkbox
+                    value={row}
+                    onClick={this.props.handleClick}
+                    disabled={!negotiation}
+                    checked={row.traded === null ? false : row.traded}
+                    defaultIndeterminate={row.traded === null}
+                    />
+                </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

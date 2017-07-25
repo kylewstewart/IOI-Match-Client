@@ -7,16 +7,14 @@ class AgentsNegotiations extends Component {
     super()
     this.state = {
       data: [],
-      column: null,
-      direction: null,
-      keys: ['exch_code'],
-      headers: ['Stock']
+      direction: null
     }
   }
 
   componentWillReceiveProps = (nextProps) => (
     this.setState({
-      data: nextProps.negotiations.filter(neg => !!neg.active)
+      data: _.sortBy(nextProps.negotiations.filter(neg => !!neg.active), ['exch_code']),
+      direction: null
     })
   )
 
@@ -24,25 +22,18 @@ class AgentsNegotiations extends Component {
 
   handleEdit = (e, {value}) => this.props.negotiationDetail(value)
 
-  handleSort = clickedColumn => () => {
-    const { column, data, direction } = this.state
+  handleSort = () => {
+    const { data, direction } = this.state
 
-    if (column !== clickedColumn) {
-      this.setState({
-        column: clickedColumn,
-        data: _.sortBy(data, [clickedColumn]),
-        direction: 'ascending'
-      })
-    } else {
-      this.setState({
-        data: data.reverse(),
-        direction: direction === 'ascending' ? 'descending' : 'ascending'
-      })
-    }
+    this.setState({
+      data: data.reverse(),
+      direction: direction === 'descending' ? 'ascending' : 'descending'
+    })
   }
 
   render() {
-    const { column, direction, data, keys, headers } = this.state
+    const { direction, data } = this.state
+    const { agent } = this.props
 
     return (
       <Segment>
@@ -66,38 +57,28 @@ class AgentsNegotiations extends Component {
           <Table sortable celled fixed>
             <Table.Header>
               <Table.Row>
-                {keys.map((key, index) => (
-                  <Table.HeaderCell
-                    key={key}
-                    textAlign='center'
-                    sorted={column === key ? direction : null}
-                    onClick={this.handleSort(key)}
-                    >
-                      { headers[index] }
-                  </Table.HeaderCell>
-                ))}
+                <Table.HeaderCell
+                  textAlign='center'
+                  sorted={direction}
+                  onClick={this.handleSort}
+                  >
+                    Stock
+                </Table.HeaderCell>
                 <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {data.map((row, rowIndex) => (
-                <Table.Row key={rowIndex}>
-                  {keys.map((key, keyIndex) => (
-                    <Table.Cell
-                      key={rowIndex + keyIndex}
-                      textAlign='center'
-                      >
-                        { row[key] }
-                    </Table.Cell>
-                  ))}
-                    <Table.Cell textAlign='center'>
-                      <Button
-                        icon='external'
-                        disabled={!this.props.agent}
-                        value={row.id}
-                        onClick={this.handleEdit}
+              {data.map(row => (
+                <Table.Row key={row.id}>
+                  <Table.Cell textAlign='center'> { row.exch_code } </Table.Cell>
+                  <Table.Cell textAlign='center'>
+                    <Button
+                      icon='external'
+                      disabled={!agent}
+                      value={row.id}
+                      onClick={this.handleEdit}
                       />
-                    </Table.Cell>
+                  </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

@@ -4,20 +4,27 @@ import { Header, Segment, Divider } from 'semantic-ui-react'
 import AlgoMatchTable from './AlgoMatchTable'
 
 class AlgoMatch extends Component{
+  constructor(){
+    super()
+    this.state = {
+      buyIOIs: [],
+      sellIOIs: [],
+      maxCol: 1,
+      stock: ''
+    }
+  }
 
-  iois = (side) => (
-    !this.props.match ? [{id: 1, name: '-', exch_code: '-', ranked_agents: ['-']}] : this.props.match.filter(ioi => ioi.side === side)
-  )
-
-  maxLength = () => (
-    !this.props.match ? 1 : Math.max(...this.props.match.map(ioi => ioi.ranked_agents.length))
+  componentWillReceiveProps = (nextProps) => (
+    this.setState({
+      buyIOIs: nextProps.match.filter(ioi => ioi.side === 'Buy'),
+      sellIOIs: nextProps.match.filter(ioi => ioi.side === 'Sell'),
+      maxCol: !nextProps.match[0] ? 1 : Math.max(...nextProps.match.map(ioi => ioi.ranked_agents.length)),
+      stock: !nextProps.match[0] ? '' : nextProps.match[0].exch_code
+    })
   )
 
   render(){
-    const buyIOIs = this.iois("Buy")
-    const sellIOIs = this.iois("Sell")
-    const stock = buyIOIs[0].exch_code
-    const maxCol = this.maxLength()
+    const { buyIOIs, sellIOIs, maxCol, stock } = this.state
 
     return(
       <Segment>

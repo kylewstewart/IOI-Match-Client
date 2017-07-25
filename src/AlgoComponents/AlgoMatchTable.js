@@ -1,35 +1,67 @@
-import React from 'react'
+import _ from 'lodash'
+import React, { Component } from 'react'
 import { Segment, Table, Header } from 'semantic-ui-react'
 
-function AlgoMatchTable(props){
+class AlgoMatchTable extends Component{
+    state = {
+      data: [],
+      direction: null
+    }
 
-  const { maxCol, header, iois } = props
 
-  return (
-    <Segment basic>
-      <Header as='h4'> {header} </Header>
-      <Table >
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell textAlign='center'> Investor </Table.HeaderCell>
-            <Table.HeaderCell textAlign='center' colSpan={maxCol}> Ranked Brokers </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {iois.map(ioi => (
-            <Table.Row key={ioi.id}>
-              <Table.Cell width={5} textAlign='center'> {ioi.name} </Table.Cell>
+  componentWillReceiveProps = (nextProps) => (
+    this.setState({
+      data: _.sortBy(nextProps.iois, ['name']),
+      direction: null
+    })
+
+  )
+
+  handleSort = () => {
+    const { data, direction } = this.state
+
+    this.setState({
+      data: data.reverse(),
+      direction: direction === 'descending' ? 'ascending' : 'descending'
+    })
+  }
+
+  render(){
+    const { data, direction } = this.state
+    const { maxCol, header } = this.props
+
+    return (
+      <Segment basic>
+        <Header as='h4'> {header} </Header>
+        <Table sortable fixed>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell
+                textAlign='center'
+                sorted={direction}
+                onClick={this.handleSort}
+                >
+                  Investor
+              </Table.HeaderCell>
+              <Table.HeaderCell textAlign='center' colSpan={maxCol}> Ranked Brokers </Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {data.map(row => (
+              <Table.Row key={row.id}>
+                <Table.Cell width={8} textAlign='center'> {row.name} </Table.Cell>
                 {[...Array(maxCol).keys()].map(i => (
                   <Table.Cell key={i} textAlign='center'>
-                    {!ioi.ranked_agents[i] ? '-' : ioi.ranked_agents[i]}
+                    {!row.ranked_agents[i] ? '-' : row.ranked_agents[i]}
                   </Table.Cell>
                 ))}
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-    </Segment>
-  )
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </Segment>
+    )
+  }
 }
 
 export default AlgoMatchTable

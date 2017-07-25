@@ -13,9 +13,9 @@ class Algo extends Component{
     super()
     this.state = {
       matchStocks: [],
-      match: null,
-      common: null,
-      rankedVoting: null
+      match: [],
+      common: [],
+      rankedVoting: []
     }
 
     this.getMatchStocks = this.getMatchStocks.bind(this)
@@ -24,21 +24,25 @@ class Algo extends Component{
 
   getMatch = (id) => Adaptors.match(id)
       .then(match => {
-        this.setState({ match })
+        this.setState({match: !!match ? match : []})
         this.getCommon(match)
       })
 
 
-  getMatchStocks = () => Adaptors.matchStocks().then(matchStocks => this.setState({ matchStocks }))
+  getMatchStocks = () => (
+    Adaptors.matchStocks()
+      .then(matchStocks => this.setState({matchStocks: !!matchStocks ? matchStocks : []}))
+    )
 
   getCommon = (match) => Adaptors.common(match).then(common => {
-    this.setState({ common })
+    this.setState({common: !!common ? common : [] })
     this.getRankedVoting(common)
   })
 
   getRankedVoting = (common) => {
     const { match } = this.state
-    Adaptors.rankedVoting(common, match).then(rankedVoting => this.setState({ rankedVoting }))
+    Adaptors.rankedVoting(common, match)
+      .then(rankedVoting => this.setState({ rankedVoting: !!rankedVoting ? rankedVoting : []}))
   }
 
   render() {
@@ -60,12 +64,12 @@ class Algo extends Component{
             <Divider hidden />
             <AlgoMatch
               match={match}
-            />
+              />
           </Grid.Column>
           <Grid.Column width='8'>
             <AlgoMatchCommon
               common={common}
-            />
+              />
             <Divider hidden />
             <AlgoRankedVoting
               rankedVoting={rankedVoting}

@@ -16,10 +16,12 @@ class SortableTable extends Component {
 
   componentWillReceiveProps = (nextProps) => {
     const { data, keys, headers } = nextProps
+
     this.setState({
-      data: data,
+      data: _.sortBy(data, [keys[0]]),
       keys: keys,
-      headers: headers
+      headers: headers,
+      direction: 'ascending'
     })
   }
 
