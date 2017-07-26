@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 
-import AboutText from '../AboutComponents/AboutText'
-import AboutHeader from '../AboutComponents/AboutHeader'
+import AboutText from '../AboutText'
+import AboutHeader from '../AboutHeader'
 
 class About extends Component {
 

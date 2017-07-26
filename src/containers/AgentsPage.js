@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Grid, Divider, Segment, Header } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
-import AgentsHeader from '../AgentComponents/AgentsHeader'
-import AgentsNegotiations from '../AgentComponents/AgentsNegotiations'
-import AgentNegotiationDetail from '../AgentComponents/AgentNegotiationDetail'
+import AgentsHeader from '../AgentsHeader'
+import AgentsNegotiations from '../AgentsNegotiations'
+import AgentNegotiationDetail from '../AgentNegotiationDetail'
 import SortableTable from '../SortableTable'
 
 class AgentsPage extends Component {
@@ -69,7 +69,7 @@ class AgentsPage extends Component {
 }
 
   render() {
-    
+
     return (
       <Grid container relaxed>
         <Grid.Row>

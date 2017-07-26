@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import { Grid, Divider, Segment, Header } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
-import IOIList from '../PrincipalComponents/IOIList'
-import IOIForm from '../PrincipalComponents/IOIForm'
-import PrincipalsNegotiations from '../PrincipalComponents/PrincipalsNegotiations'
-import PrincipalsHeader from '../PrincipalComponents/PrincipalsHeader'
+import IOIList from '../IOIList'
+import IOIForm from '../IOIForm'
+import PrincipalsNegotiations from '../PrincipalsNegotiations'
+import PrincipalsHeader from '../PrincipalsHeader'
 import SortableTable from '../SortableTable'
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Divider, Segment, Header, Button } from 'semantic-ui-react'
 
 import CompletedNegotiationsTable from './CompletedNegotiationsTable'
-import SortableTable from '../SortableTable'
+import SortableTable from './SortableTable'
 
 class PrincipalsNegotiations extends Component {
   constructor(){

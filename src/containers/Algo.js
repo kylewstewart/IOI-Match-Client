@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Grid, Divider } from 'semantic-ui-react'
 import { Adaptors } from '../Adaptors/index'
 
-import AlgoHeader from '../AlgoComponents/AlgoHeader'
-import AlgoMatches from '../AlgoComponents/AlgoMatches'
-import AlgoMatch from '../AlgoComponents/AlgoMatch'
-import AlgoRankedVoting from '../AlgoComponents/AlgoRankedVoting'
-import AlgoMatchCommon from '../AlgoComponents/AlgoMatchCommon'
+import AlgoHeader from '../AlgoHeader'
+import AlgoMatches from '../AlgoMatches'
+import AlgoMatch from '../AlgoMatch'
+import AlgoRankedVoting from '../AlgoRankedVoting'
+import AlgoMatchCommon from '../AlgoMatchCommon'
 
 class Algo extends Component{
   constructor() {
