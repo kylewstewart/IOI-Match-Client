@@ -32,7 +32,10 @@ class AlgoMatchTable extends Component{
 
     return (
       <Segment basic>
-        <Header as='h4'> {header} </Header>
+        <Header
+          as='h4'
+          content={header}
+          />
         <Table sortable celled fixed>
           <Table.Header>
             <Table.Row>
@@ -41,20 +44,28 @@ class AlgoMatchTable extends Component{
                 textAlign='center'
                 sorted={direction}
                 onClick={this.handleSort}
-                >
-                  Investor
-              </Table.HeaderCell>
-              <Table.HeaderCell textAlign='center' colSpan={maxCol}> Ranked Brokers </Table.HeaderCell>
+                content='Investor'
+                />
+              <Table.HeaderCell
+                textAlign='center'
+                colSpan={maxCol}
+                content='Ranked Brokers'
+                />
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {data.map(row => (
               <Table.Row key={row.id}>
-                <Table.Cell textAlign='center'> {row.name} </Table.Cell>
+                <Table.Cell
+                  textAlign='center'
+                  content={row.name}
+                  />
                 {[...Array(maxCol).keys()].map(i => (
-                  <Table.Cell key={i} textAlign='center'>
-                    {!row.ranked_agents[i] ? '-' : row.ranked_agents[i]}
-                  </Table.Cell>
+                  <Table.Cell
+                    key={i}
+                    textAlign='center'
+                    content={!row.ranked_agents[i] ? '-' : row.ranked_agents[i]}
+                    />
                 ))}
               </Table.Row>
             ))}

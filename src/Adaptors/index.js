@@ -1,6 +1,6 @@
 
-const url = "http://localhost:3000"
-// const url =  "https://ioi-match-api.herokuapp.com"
+// const url = "http://localhost:3000"
+const url =  "https://ioi-match-api.herokuapp.com"
 
 const headers = {
     'content-type': 'application/json',
@@ -120,16 +120,3 @@ export class Adaptors {
   }
 
 }
-
-
-// static UpdateNegPrincipalRating(neg_id, prin_id, rating){
-//   return fetch(url + `/api/v1/negotiations/${neg_id}/principals/${prin_id}/negotiation_principals`, {
-//     method: 'PATCH',
-//     headers: headers,
-//     body: JSON.stringify({rating: rating})
-//   }).then(res => res.json())
-// }
-// static GetRating(neg_id, prin_id){
-//   return fetch(url + `/api/v1/negotiations/${neg_id}/principals/${prin_id}/negotiation_principals`)
-//   .then(res => res.json())
-// }

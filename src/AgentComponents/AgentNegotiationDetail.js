@@ -78,7 +78,7 @@ class AgentNegotiationDetail extends Component {
           />
         <Segment basic clearing>
           <Button
-            disabled={this.disableUpdate()}
+            disabled={!negotiation ? true : this.disableUpdate()}
             floated='right'
             onClick={this.updateNegotiation}
             >

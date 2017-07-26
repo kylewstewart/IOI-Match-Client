@@ -34,39 +34,46 @@ class AlgoMatches extends Component {
 
     return (
       <Segment>
-        <Header> Matches </Header>
+        <Header content='Matches' />
         <Divider />
-        <Segment basic>
-          <Table sortable celled fixed>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell
-                  textAlign='center'
-                  sorted={direction}
-                  onClick={this.handleSort}
-                  >
-                  Stock
-                </Table.HeaderCell>
-                <Table.HeaderCell textAlign='center'> Details </Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {data.map(row => (
-                <Table.Row key={row.id}>
-                  <Table.Cell textAlign='center'> { row.exch_code } </Table.Cell>
-                  <Table.Cell textAlign='center'>
-                    <Button
-                      icon='external'
-                      disabled={!matchStocks}
-                      value={row.id}
-                      onClick={this.handleClick}
-                      />
-                  </Table.Cell>
+        {!matchStocks[0] ? null : (
+          <Segment basic>
+            <Table sortable celled fixed>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell
+                    textAlign='center'
+                    sorted={direction}
+                    onClick={this.handleSort}
+                    content='Stock'
+                    />
+                  <Table.HeaderCell
+                    textAlign='center'
+                    content='Details'
+                    />
                 </Table.Row>
-              ))}
-            </Table.Body>
-          </Table>
-        </Segment>
+              </Table.Header>
+              <Table.Body>
+                {data.map(row => (
+                  <Table.Row key={row.id}>
+                    <Table.Cell
+                      textAlign='center'
+                      content={row.exch_code}
+                      />
+                    <Table.Cell textAlign='center'>
+                      <Button
+                        icon='external'
+                        disabled={!matchStocks}
+                        value={row.id}
+                        onClick={this.handleClick}
+                        />
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table>
+          </Segment>
+        )}
       </Segment>
     )
   }

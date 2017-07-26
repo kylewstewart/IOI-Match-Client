@@ -53,9 +53,8 @@ class IOIListTable extends Component {
                 textAlign='center'
                 sorted={column === key ? direction : null}
                 onClick={this.handleSort(key)}
-                >
-                  { headers[index] }
-              </Table.HeaderCell>
+                content={headers[index]}
+                />
             ))}
             <Table.HeaderCell textAlign='center'> Edit </Table.HeaderCell>
           </Table.Row>
@@ -67,9 +66,8 @@ class IOIListTable extends Component {
                 <Table.Cell
                   key={rowIndex + keyIndex}
                   textAlign='center'
-                  >
-                    { row[key] }
-                </Table.Cell>
+                  content={row[key]}
+                  />
               ))}
                 <Table.Cell textAlign='center'>
                   <Button

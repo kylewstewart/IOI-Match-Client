@@ -7,47 +7,55 @@ function AlgoRankedVotingRound(props){
 
   return (
     <Container>
-      <Table fixed>
+      <Table fixed definition celled>
         <Table.Body>
           <Table.Row>
-            <Table.Cell width='6'> Canidates </Table.Cell>
+            <Table.Cell
+              width={5}
+              content='Canidates'
+              />
               {canidates.map(canidate => (
                 <Table.Cell
                   key={canidate}
                   textAlign='center'
-                >
-                  {canidate}
-                </Table.Cell>
+                  content={canidate}
+                  />
               ))}
           </Table.Row>
           <Table.Row>
-            <Table.Cell width='6'> Votes </Table.Cell>
+            <Table.Cell
+              width={5}
+              content='Votes'
+              />
               {canidates.map(agent => (
                 <Table.Cell
                   key={agent}
                   textAlign='center'
-                >
-                  {!votes[agent] ? '-' : votes[agent]}
-                </Table.Cell>
+                  content={!votes[agent] ? '-' : votes[agent]}
+                  />
               ))}
           </Table.Row>
           <Table.Row>
-            <Table.Cell width='6'> Winner </Table.Cell>
+            <Table.Cell
+              width={5}
+              content='Winner'
+              />
             <Table.Cell
               textAlign='center'
               colSpan={canidates.length}
-            >
-              {!winner ? '-' : winner}
-            </Table.Cell>
+              content=  {!winner ? '-' : winner}
+              />
           </Table.Row>
           <Table.Row>
-            <Table.Cell width='6'> Loser </Table.Cell>
+            <Table.Cell
+              width={5}
+              content='Loser'
+              />
             <Table.Cell
               textAlign='center'
               colSpan={canidates.length}
-            >
-              {!loser ? '-' : loser}
-            </Table.Cell>
+              content=  {!loser ? '-' : loser}
+              />
           </Table.Row>
         </Table.Body>
       </Table>

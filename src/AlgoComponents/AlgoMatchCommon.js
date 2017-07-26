@@ -4,25 +4,38 @@ import { Segment, Divider, Header, List } from 'semantic-ui-react'
 
 class AlgoMatchCommon extends Component{
 
-  common = () => !this.props.common ? [{id: 1, name: '-'}] : this.props.common
+  // common = () => !this.props.common[0] ? [{id: 1, name: 'No Common Broker'}] : this.props.common
 
 
   render(){
-    const common = this.common()
+    const { common, match } = this.props
+    // const common = this.common()
 
     return (
       <Segment>
-          <Header > Most Common Brokers </Header>
+          <Header
+            content=' Most Common Brokers'
+            />
           <Divider />
-          <Segment basic>
-            <Segment textAlign='center'>
-              <List horizontal divided relaxed>
-                {common.map(agent => (
-                  <List.Item key={agent.id}> {agent.name} </List.Item>
-                ))}
-              </List>
+          {!match[0] ? null : (
+            <Segment basic>
+              <Segment textAlign='center'>
+                <List
+                  horizontal
+                  divided
+                  relaxed
+                  as='h3'
+                  >
+                  {common.map(agent => (
+                    <List.Item
+                      key={agent.id}
+                      content={agent.name}
+                      />
+                  ))}
+                </List>
+              </Segment>
             </Segment>
-        </Segment>
+          )}
       </Segment>
     )
   }

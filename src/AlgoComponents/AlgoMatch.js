@@ -25,23 +25,33 @@ class AlgoMatch extends Component{
 
   render(){
     const { buyIOIs, sellIOIs, maxCol, stock } = this.state
+    const { match } = this.props
 
     return(
       <Segment>
-        <Header> Match Details </Header>
-        <Header as='h4'> {stock} </Header>
+        <Header
+          content='Match Details'
+          />
+        <Header
+          as='h4'
+          content={stock}
+          />
         <Divider/>
-        <AlgoMatchTable
-          header={"Buyers"}
-          maxCol={maxCol}
-          iois={buyIOIs}
-        />
-        <Divider/>
-        <AlgoMatchTable
-          header={"Sellers"}
-          maxCol={maxCol}
-          iois={sellIOIs}
-        />
+        {!match[0] ? null : (
+          <div>
+            <AlgoMatchTable
+              header={"Buyers"}
+              maxCol={maxCol}
+              iois={buyIOIs}
+              />
+            <Divider/>
+            <AlgoMatchTable
+              header={"Sellers"}
+              maxCol={maxCol}
+              iois={sellIOIs}
+              />
+          </div>
+        )}
       </Segment>
     )
   }

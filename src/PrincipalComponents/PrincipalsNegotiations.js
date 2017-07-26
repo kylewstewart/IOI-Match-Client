@@ -23,17 +23,22 @@ class PrincipalsNegotiations extends Component {
   handleClick = () => this.props.getNegotiations(this.props.principal)
 
   render() {
+    const { active, completed} = this.state
+    const { updateRating, principal } = this.props
 
     return (
       <Segment clearing>
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column>
-              <Header floated='left'> Negotiations </Header>
+              <Header
+                floated='left'
+                content='Negotiations'
+                />
             </Grid.Column>
             <Grid.Column>
               <Button
-                disabled={!this.props.principal}
+                disabled={!principal}
                 floated='right'
                 icon='refresh'
                 onClick={this.handleClick}
@@ -42,23 +47,29 @@ class PrincipalsNegotiations extends Component {
           </Grid.Row>
         </Grid>
         <Divider />
-        <Segment basic>
-          <Header as='h4'> Active </Header>
-          <SortableTable
-            data={this.state.active}
-            keys={['exch_code', 'agent_name', 'time']}
-            headers={['Stock', 'Broker', 'Time']}
-            />
-        </Segment>
-        <Segment basic>
-          <Header as='h4'> Completed </Header>
-          <CompletedNegotiationsTable
-            data={this.state.completed}
-            keys={['exch_code', 'agent_name', 'traded', 'time']}
-            headers={['Stock', 'Broker', 'Traded', 'Time']}
-            updateRating={this.props.updateRating}
-            />
-        </Segment>
+          <Segment basic>
+            <Header
+              as='h4'
+              content='Active'
+              />
+            <SortableTable
+              data={active}
+              keys={['exch_code', 'agent_name', 'time']}
+              headers={['Stock', 'Broker', 'Time']}
+              />
+          </Segment>
+          <Segment basic>
+            <Header
+              as='h4'
+              content='Completed'
+              />
+            <CompletedNegotiationsTable
+              data={completed}
+              keys={['exch_code', 'agent_name', 'traded', 'time']}
+              headers={['Stock', 'Broker', 'Traded', 'Time']}
+              updateRating={updateRating}
+              />
+          </Segment>
       </Segment>
     )
   }

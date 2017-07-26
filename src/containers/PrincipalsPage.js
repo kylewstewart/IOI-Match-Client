@@ -11,9 +11,7 @@ import SortableTable from '../SortableTable'
 
 
 class PrincipalsPage extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
+  state = {
       IOIs: [],
       sponsors: [],
       stocks: [],
@@ -22,15 +20,6 @@ class PrincipalsPage extends Component {
       negotiations: [],
       principals: []
     }
-
-    this.editIOI = this.editIOI.bind(this)
-    this.destroyIOI = this.destroyIOI.bind(this)
-    this.updateIOI = this.updateIOI.bind(this)
-    this.createIOI = this.createIOI.bind(this)
-    this.resetIOIProp = this.resetIOIProp.bind(this)
-    this.principalSubmit = this.principalSubmit.bind(this)
-    this.updateRating = this.updateRating.bind(this)
-  }
 
   componentDidMount(){
     this.getStocks()
@@ -47,7 +36,8 @@ class PrincipalsPage extends Component {
 
   getStocks = () => Adaptors.Stocks().then(stocks => this.setState({ stocks }))
 
-  getPrincipals = () => Adaptors.Principals().then(principals => this.setState({ principals }))
+  getPrincipals = () => Adaptors.Principals().then(principals => this.setState({principals}))
+
 
   getIOIs = (id) => Adaptors.IOIs(id).then(IOIs => this.setState({ IOIs }))
 
@@ -92,7 +82,6 @@ class PrincipalsPage extends Component {
     this.getNegotiations(principal_id)
   }
 
-
   updateRating = (negPricID, update) => (
     Adaptors.UpdateNegotiationPrincipal(negPricID, update)
     .then(negPrincipal => this.setState((prevState) => {
@@ -103,17 +92,10 @@ class PrincipalsPage extends Component {
     }))
   )
 
-    // Adaptors.UpdateNegPrincipalRating(neg_id, prin_id, rating)
-    // .then(negPrincipal => this.setState((prevState) => {
-    //   return { ratings: prevState.ratings.map(prevRating => {
-    //     if (prevRating.neg_id === negPrincipal.negotiation_id) prevRating.rating = negPrincipal.rating
-    //     return prevRating
-    //   })}
-    // })).then(this.getSponsors(prin_id))
-
   resetIOIProp = () => this.setState({IOI: false})
 
   render() {
+    const { stocks, sponsors, IOI, IOIs, principal_id, negotiations } = this.state
 
     return (
       <Grid container relaxed>
@@ -123,20 +105,20 @@ class PrincipalsPage extends Component {
         <Grid.Row columns={2}>
           <Grid.Column width='8'>
             <IOIForm
-              stocks={this.state.stocks}
-              sponsors={this.state.sponsors}
-              IOI={this.state.IOI}
+              stocks={stocks}
+              sponsors={sponsors}
+              IOI={IOI}
               resetIOIProp={this.resetIOIProp}
               updateIOI={this.updateIOI}
               createIOI={this.createIOI}
               destroyIOI={this.destroyIOI}
-              principal={this.state.principal_id}
+              principal={principal_id}
               />
             <Divider hidden/>
             <IOIList
-              IOIs={this.state.IOIs}
+              IOIs={IOIs}
               editIOI={this.editIOI}
-              principal={this.state.principal_id}
+              principal={principal_id}
               />
           </Grid.Column>
           <Grid.Column width='8'>
@@ -145,7 +127,7 @@ class PrincipalsPage extends Component {
               <Divider />
               <Segment basic>
                 <SortableTable
-                  data={this.state.sponsors}
+                  data={sponsors}
                   keys={['agent_name', 'pct_traded', 'rating']}
                   headers={['Broker', 'Conversion', 'Rating']}
                   />
@@ -153,8 +135,8 @@ class PrincipalsPage extends Component {
             </Segment>
             <Divider hidden/>
             <PrincipalsNegotiations
-              negotiations={this.state.negotiations}
-              principal={this.state.principal_id}
+              negotiations={negotiations}
+              principal={principal_id}
               getNegotiations={this.getNegotiations}
               updateRating={this.updateRating}
               />
@@ -167,10 +149,3 @@ class PrincipalsPage extends Component {
 }
 
 export default PrincipalsPage
-
-
-// getRating = (neg_id, prin_id) =>
-// Adaptors.GetRating(neg_id, prin_id)
-// .then(rating => this.setState((prevState) => {
-//   return {ratings: [...prevState.ratings, rating]}
-// }))
